@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwiftOrbits | USA E-Commerce Marketplace & Merchant ERP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- TOP ANNOUNCEMENT & PRIME US STRIP -->
+    <!-- TOP ANNOUNCEMENT STRIP -->
+    <div class="top-announcement-bar">
+      <div class="header-inner">
+        <div class="top-links-left">
+          <a href="#" class="top-link" id="top-prime-link">Prime 2-Day Delivery</a>
+          <span class="sep">|</span>
+          <a href="#" class="top-link" id="top-support-link">Customer Service</a>
+          <span class="sep">|</span>
+          <a href="#" class="top-link" id="top-carrier-link">USPS Logistics</a>
+          <span class="sep">|</span>
+          <a href="#" class="top-link" id="top-track-link">Track Order</a>
+        </div>
+        <div class="top-links-right">
+          <button class="top-admin-switch" id="top-switch-mode-btn">
+            Merchant Portal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN SWIFTORBITS HEADER -->
+    <header class="main-swift-header">
+      <div class="header-inner">
+        <div class="swift-logo-area" id="brand-home-logo">
+          <div class="swift-brand-logo">
+            <span class="logo-swift">Swift</span><span class="logo-orbit">Orbits</span><span class="logo-us">USA</span>
+          </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="swift-search-container">
+          <div class="search-input-wrapper">
+            <input type="text" id="daraz-search-input" placeholder="Search products, brands, and categories..." />
+            <button class="search-btn-blue" id="daraz-search-btn">Search</button>
+          </div>
+        </div>
+
+        <!-- USER & CART ACTIONS -->
+        <div class="header-user-actions">
+          <div class="user-action-item" id="header-user-profile">
+            <div class="action-text">
+              <span class="small-text">Hello, Sign In</span>
+              <span class="bold-text">Account & Prime</span>
+            </div>
+          </div>
+
+          <div class="user-action-item cart-action-item" id="header-cart-btn">
+            <div class="cart-icon-wrapper">
+              <span class="cart-count-badge" id="cart-count">0</span>
+            </div>
+            <div class="action-text hidden-mobile">
+              <span class="small-text">Orders</span>
+              <span class="bold-text" id="header-cart-total">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLEAN SUB-NAVIGATION STRIP (TEXT ONLY, NO EMOJIS OR LOGOS) -->
+      <nav class="swift-nav-strip">
+        <div class="header-inner">
+          <div class="nav-links" id="subnav-links-bar">
+            <button class="swift-nav-btn active" data-category="all">All Deals</button>
+            <button class="swift-nav-btn" data-category="beauty">Beauty & Personal Care</button>
+            <button class="swift-nav-btn" data-category="electronics">Electronics</button>
+            <button class="swift-nav-btn" data-category="appliances">Kitchen & Appliances</button>
+            <button class="swift-nav-btn" data-category="health_household">Health & Household</button>
+            <button class="swift-nav-btn" data-category="pet_supplies">Pet Supplies</button>
+            <button class="swift-nav-btn" data-category="toys_games_baby">Toys, Games, Baby</button>
+            <button class="swift-nav-btn" data-filter="deals">Today's Deals</button>
+            <button class="swift-nav-btn" data-filter="bestsellers">Best Sellers</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <div class="app-main-content">
+      <!-- ================= CLEAN STOREFRONT DEALS VIEW ================= -->
+      <div id="view-storefront" class="workspace-view">
+        <!-- ================= AMAZON-STYLE 4-QUADRANT CATEGORY SHOWCASE ================= -->
+        <section class="bream-quad-section" id="bream-hero-showcase">
+          <div class="bream-quad-container">
+            <!-- CARD 1: ELECTRONICS -->
+            <div class="bream-quad-card" data-category="electronics" id="quad-card-electronics">
+              <div class="bream-quad-header" data-category="electronics">
+                <h3 class="bream-quad-title">Plug in with our electronics</h3>
+                <span class="bream-quad-arrow">›</span>
+              </div>
+              <div class="bream-quad-grid">
+                <!-- Brand 1: Apple -->
+                <div class="bream-quad-item" data-category="electronics" data-brand="Apple" title="Apple: Apple Watch Ultra 2 — Was $29.99, Now $26.99 (Save $3.00, 10% OFF)">
+                  <div class="bream-quad-img-wrap tint-purple">
+                    <span class="bream-quad-deal-badge">-10% OFF</span>
+                    <img src="/apple_watch_ultra_2.jpg" alt="Apple" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Apple</span>
+                    <span class="bream-quad-discount-tag">-10%</span>
+                  </div>
+                </div>
+                <!-- Brand 2: Sony -->
+                <div class="bream-quad-item" data-category="electronics" data-brand="Sony" title="Sony: Sony Stereo Headphones — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
+                  <div class="bream-quad-img-wrap tint-blue">
+                    <span class="bream-quad-deal-badge">-20% OFF</span>
+                    <img src="/uploads/Sony_MDR-ZX110_Lightweight_On-Ear_Stereo_Headphones-1790862257700-600312.jpg" alt="Sony" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Sony</span>
+                    <span class="bream-quad-discount-tag">-20%</span>
+                  </div>
+                </div>
+                <!-- Brand 3: Anker -->
+                <div class="bream-quad-item" data-category="electronics" data-brand="Anker" title="Anker: 313 Fast Charger 45W — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
+                  <div class="bream-quad-img-wrap tint-amber">
+                    <span class="bream-quad-deal-badge">-20% OFF</span>
+                    <img src="/uploads/Anker_313_Fast_Charger_45W_USB-C_Wall_Adapter-1790858942535-499748.jpg" alt="Anker" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Anker</span>
+                    <span class="bream-quad-discount-tag">-20%</span>
+                  </div>
+                </div>
+                <!-- Brand 4: Logitech -->
+                <div class="bream-quad-item" data-category="electronics" data-brand="Logitech" title="Logitech: M185 Compact Mouse — Was $19.99, Now $14.99 (Save $5.00, 25% OFF)">
+                  <div class="bream-quad-img-wrap tint-cyan">
+                    <span class="bream-quad-deal-badge">-25% OFF</span>
+                    <img src="/uploads/Logitech_M185_Compact_Wireless_Mouse_2_4GHz_USB-1790861240210-46609.jpg" alt="Logitech" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Logitech</span>
+                    <span class="bream-quad-discount-tag">-25%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: BEAUTY & PERSONAL CARE -->
+            <div class="bream-quad-card" data-category="beauty" id="quad-card-beauty">
+              <div class="bream-quad-header" data-category="beauty">
+                <h3 class="bream-quad-title">Shop all things beauty</h3>
+                <span class="bream-quad-arrow">›</span>
+              </div>
+              <div class="bream-quad-grid">
+                <!-- Brand 1: CeraVe -->
+                <div class="bream-quad-item" data-category="beauty" data-brand="CeraVe" title="CeraVe: Hydrating Facial Cleanser — Was $19.99, Now $15.99 (Save $4.00, 20% OFF)">
+                  <div class="bream-quad-img-wrap tint-rose">
+                    <span class="bream-quad-deal-badge">-20% OFF</span>
+                    <img src="/uploads/CeraVe_Hydrating_Facial_Cleanser_16oz_Hyaluronic_Acid-1790855957787-596021.jpg" alt="CeraVe" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">CeraVe</span>
+                    <span class="bream-quad-discount-tag">-20%</span>
+                  </div>
+                </div>
+                <!-- Brand 2: Neutrogena -->
+                <div class="bream-quad-item" data-category="beauty" data-brand="Neutrogena" title="Neutrogena: Hydro Boost Water Gel — Was $26.99, Now $19.97 (Save $7.02, 26% OFF)">
+                  <div class="bream-quad-img-wrap tint-cyan">
+                    <span class="bream-quad-deal-badge">-26% OFF</span>
+                    <img src="/uploads/Neutrogena_Hydro_Boost_Water_Gel_Face_Moisturizer_1_7oz-1790857218013-865646.jfif" alt="Neutrogena" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Neutrogena</span>
+                    <span class="bream-quad-discount-tag">-26%</span>
+                  </div>
+                </div>
+                <!-- Brand 3: La Roche-Posay -->
+                <div class="bream-quad-item" data-category="beauty" data-brand="La Roche-Posay" title="La Roche-Posay: Toleriane Purifying Cleanser — Was $22.99, Now $17.99 (Save $5.00, 22% OFF)">
+                  <div class="bream-quad-img-wrap tint-blue">
+                    <span class="bream-quad-deal-badge">-22% OFF</span>
+                    <img src="/uploads/La_Roche-Posay_Toleriane_Purifying_Foaming_Cleanser_13_5oz-1790857919365-210234.jpg" alt="La Roche-Posay" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">La Roche-Posay</span>
+                    <span class="bream-quad-discount-tag">-22%</span>
+                  </div>
+                </div>
+                <!-- Brand 4: Royal Oud -->
+                <div class="bream-quad-item" data-category="beauty" data-brand="Royal Oud" title="Royal Oud: Eau De Parfum 100ml — Was $29.99, Now $24.99 (Save $5.00, 17% OFF)">
+                  <div class="bream-quad-img-wrap tint-amber">
+                    <span class="bream-quad-deal-badge">-17% OFF</span>
+                    <img src="/royal_oud.png" alt="Royal Oud" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Royal Oud</span>
+                    <span class="bream-quad-discount-tag">-17%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 3: KITCHEN & APPLIANCES -->
+            <div class="bream-quad-card" data-category="appliances" id="quad-card-appliances">
+              <div class="bream-quad-header" data-category="appliances">
+                <h3 class="bream-quad-title">Score kitchen essentials</h3>
+                <span class="bream-quad-arrow">›</span>
+              </div>
+              <div class="bream-quad-grid">
+                <!-- Brand 1: Ninja -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Ninja" title="Ninja: AF101 4-Quart Air Fryer — Was $29.99, Now $27.99 (Save $2.00, 7% OFF)">
+                  <div class="bream-quad-img-wrap tint-cyan">
+                    <span class="bream-quad-deal-badge">-7% OFF</span>
+                    <img src="/air_fryer.png" alt="Ninja" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Ninja</span>
+                    <span class="bream-quad-discount-tag">-7%</span>
+                  </div>
+                </div>
+                <!-- Brand 2: Dash -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Dash" title="Dash: Mini Waffle Maker Machine — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
+                  <div class="bream-quad-img-wrap tint-amber">
+                    <span class="bream-quad-deal-badge">-20% OFF</span>
+                    <img src="/uploads/Dash_Mini_Waffle_Maker_Machine_for_Individual_Waffles-1790863777701-140224.jpg" alt="Dash" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Dash</span>
+                    <span class="bream-quad-discount-tag">-20%</span>
+                  </div>
+                </div>
+                <!-- Brand 3: Hamilton Beach -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Hamilton Beach" title="Hamilton Beach: 6-Speed Hand Mixer — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
+                  <div class="bream-quad-img-wrap tint-purple">
+                    <span class="bream-quad-deal-badge">-23% OFF</span>
+                    <img src="/uploads/Hamilton_Beach_Personal_Blender_14oz_Portable_Travel_Cup-1790864571466-272494.jpg" alt="Hamilton Beach" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Hamilton Beach</span>
+                    <span class="bream-quad-discount-tag">-23%</span>
+                  </div>
+                </div>
+                <!-- Brand 4: Black+Decker -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Black+Decker" title="Black+Decker: 1.5-Cup Food Chopper — Was $45.00, Now $32.00 (Save $13.00, 29% OFF)">
+                  <div class="bream-quad-img-wrap tint-rose">
+                    <span class="bream-quad-deal-badge">-29% OFF</span>
+                    <img src="/uploads/Black_Decker_1_5-Cup_One-Touch_Electric_Food_Chopper-1790865143124-115727.jpg" alt="Black+Decker" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Black+Decker</span>
+                    <span class="bream-quad-discount-tag">-29%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 4: HEALTH & DAILY ESSENTIALS -->
+            <div class="bream-quad-card" data-category="health_household" id="quad-card-health">
+              <div class="bream-quad-header" data-category="health_household">
+                <h3 class="bream-quad-title">Gear up to get fit &amp; healthy</h3>
+                <span class="bream-quad-arrow">›</span>
+              </div>
+              <div class="bream-quad-grid">
+                <!-- Brand 1: Stanley -->
+                <div class="bream-quad-item" data-category="health_household" data-brand="Stanley" title="Stanley: Quencher Replacement Straws — Was $12.99, Now $7.85 (Save $5.14, 40% OFF)">
+                  <div class="bream-quad-img-wrap tint-amber">
+                    <span class="bream-quad-deal-badge">-40% OFF</span>
+                    <img src="/stanley_tumbler.jpg" alt="Stanley" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Stanley</span>
+                    <span class="bream-quad-discount-tag">-40%</span>
+                  </div>
+                </div>
+                <!-- Brand 2: Levoit -->
+                <div class="bream-quad-item" data-category="health_household" data-brand="Levoit" title="Levoit: Core Mini Air Purifier — Was $59.99, Now $45.99 (Save $14.00, 23% OFF)">
+                  <div class="bream-quad-img-wrap tint-cyan">
+                    <span class="bream-quad-deal-badge">-23% OFF</span>
+                    <img src="/uploads/Levoit_Core_300_Replacement_Filter_True_HEPA_3-in-1-1790947626224-600306.jpg" alt="Levoit" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Levoit</span>
+                    <span class="bream-quad-discount-tag">-23%</span>
+                  </div>
+                </div>
+                <!-- Brand 3: Nutricost -->
+                <div class="bream-quad-item" data-category="health_household" data-brand="Nutricost" title="Nutricost: Creatine Monohydrate 500g — Was $28.99, Now $22.99 (Save $6.00, 21% OFF)">
+                  <div class="bream-quad-img-wrap tint-blue">
+                    <span class="bream-quad-deal-badge">-21% OFF</span>
+                    <img src="/uploads/Nutricost_Creatine_Monohydrate_Micronized_Powder_500g-1790944482871-191489.jpg" alt="Nutricost" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Nutricost</span>
+                    <span class="bream-quad-discount-tag">-21%</span>
+                  </div>
+                </div>
+                <!-- Brand 4: OXO -->
+                <div class="bream-quad-item" data-category="health_household" data-brand="OXO" title="OXO: Smooth Edge Safety Can Opener — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
+                  <div class="bream-quad-img-wrap tint-purple">
+                    <span class="bream-quad-deal-badge">-23% OFF</span>
+                    <img src="/uploads/OXO_Good_Grips_Smooth_Edge_Handheld_Safety_Can_Opener-1790945548242-399066.jpg" alt="OXO" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">OXO</span>
+                    <span class="bream-quad-discount-tag">-23%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CENTERED PAGE HEADER -->
+        <div class="clean-deals-heading-wrap">
+          <h1 class="clean-deals-heading" id="page-deals-title">Today's Deals</h1>
+        </div>
+
+        <!-- 2-COLUMN AMAZON/TARGET STYLE LAYOUT -->
+        <div class="clean-storefront-layout">
+          <!-- LEFT SIDEBAR FILTER PANEL -->
+          <aside class="clean-sidebar">
+            <!-- CATEGORY SELECTOR (FIXED OPEN) -->
+            <div class="sidebar-section">
+              <div class="dept-accordion-header active-all" id="all-category-header" title="Click to view all categories">
+                <label class="clean-radio-label all-category-label" id="all-category-label">
+                  <input type="checkbox" class="dept-cat-circle" id="all-category-radio" value="all" checked />
+                  <span class="all-cat-title">All Category</span>
+                </label>
+                <span class="dept-toggle-icon static-icon" id="dept-toggle-icon" title="Toggle Categories">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </span>
+              </div>
+              <div class="dept-subcategories-list" id="dept-subcategories">
+                <label class="clean-radio-label subcat-label" data-cat="beauty">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="beauty" checked />
+                  <span class="subcat-text">Beauty & Personal Care</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="electronics">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="electronics" checked />
+                  <span class="subcat-text">Electronics</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="appliances">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="appliances" checked />
+                  <span class="subcat-text">Kitchen & Appliances</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="health_household">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="health_household" checked />
+                  <span class="subcat-text">Health & Household</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="pet_supplies">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="pet_supplies" checked />
+                  <span class="subcat-text">Pet Supplies</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="toys_games_baby">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="toys_games_baby" checked />
+                  <span class="subcat-text">Toys, Games, Baby</span>
+                </label>
+              </div>
+              <a href="#" class="sidebar-breadcrumb-link" id="sidebar-dept-breadcrumb" style="display: none;">All Category</a>
+            </div>
+
+            <!-- BRANDS FILTER -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Brands</div>
+              <div class="clean-brand-checkboxes" id="filter-brands-container">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- PRICE FILTER -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Price ($ USD)</div>
+              <div class="clean-price-inputs">
+                <input type="number" id="filter-price-min" placeholder="Min $" min="0" />
+                <span class="price-dash">-</span>
+                <input type="number" id="filter-price-max" placeholder="Max $" min="0" />
+                <button class="btn-clean-apply" id="filter-apply-price-btn">Go</button>
+              </div>
+            </div>
+
+            <!-- DEALS & DISCOUNTS -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Deals & Discounts</div>
+              <div class="clean-radio-group" id="discount-filter-group">
+                <label class="clean-radio-label">
+                  <input type="radio" name="discount-filter" value="0" checked /> All Discounts
+                </label>
+                <label class="clean-radio-label">
+                  <input type="radio" name="discount-filter" value="10" /> 10% off or more
+                </label>
+                <label class="clean-radio-label">
+                  <input type="radio" name="discount-filter" value="20" /> 20% off or more
+                </label>
+                <label class="clean-radio-label">
+                  <input type="radio" name="discount-filter" value="30" /> 30% off or more
+                </label>
+              </div>
+            </div>
+
+            <!-- AVAILABILITY -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-title">Availability</div>
+              <label class="clean-checkbox-label">
+                <input type="checkbox" id="filter-in-stock-only" /> In Stock Only
+              </label>
+            </div>
+
+            <button class="btn-clean-reset" id="cat-reset-filters-btn">Reset All Filters</button>
+          </aside>
+
+          <!-- RIGHT MAIN PRODUCTS CONTENT -->
+          <main class="clean-main-content">
+            <!-- RESULTS SUMMARY TOOLBAR -->
+            <div class="clean-toolbar">
+              <div class="clean-results-count" id="catalog-count-info">Showing deals...</div>
+              <div class="clean-sort-wrap">
+                <label for="cat-sort-select">Sort By:</label>
+                <select id="cat-sort-select" class="clean-sort-dropdown">
+                  <option value="featured">Featured Deals</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="rating">Highest Customer Rating</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- CLEAN PRODUCT GRID -->
+            <div class="clean-product-grid" id="products-grid">
+              <!-- Dynamically populated with yellow + button cards -->
+            </div>
+
+            <!-- EMPTY STATE -->
+            <div class="cat-empty-state hidden" id="cat-empty-state" style="display: none;">
+              <h3>No products found</h3>
+              <p>Try resetting filters or adjusting search keyword.</p>
+              <button class="btn btn-blue btn-sm" id="cat-empty-reset-btn">Reset All Filters</button>
+            </div>
+          </main>
+        </div>
+      </div>
+
+      <!-- ================= AMAZON-STYLE FULL PRODUCT DETAIL PAGE VIEW ================= -->
+      <div id="view-product-detail" class="workspace-view hidden">
+        <!-- Top Navigation Bar: Back to Results & Breadcrumb Trail -->
+        <div class="pdp-top-nav">
+          <button type="button" class="pdp-back-btn" id="pdp-back-to-results-btn">
+            <span class="pdp-back-arrow">‹</span> Back to results
+          </button>
+          <div class="pdp-breadcrumb-trail">
+            <a href="#category=all" class="pdp-crumb-link" id="pdp-crumb-home">SwiftOrbits Store</a>
+            <span class="pdp-crumb-sep">›</span>
+            <a href="#category=all" class="pdp-crumb-link" id="pdp-crumb-cat">Department</a>
+            <span class="pdp-crumb-sep">›</span>
+            <span class="pdp-crumb-brand" id="pdp-crumb-brand">Brand</span>
+            <span class="pdp-crumb-sep">›</span>
+            <span class="pdp-crumb-current" id="pdp-crumb-title">Product Details</span>
+          </div>
+        </div>
+
+        <!-- Main Product Detail Layout (Amazon 3-Column PDP Grid) -->
+        <div class="pdp-main-grid">
+          <!-- COLUMN 1: PRODUCT IMAGE & BRAND GALLERY -->
+          <div class="pdp-col-gallery">
+            <div class="pdp-main-img-box">
+              <img src="/elec_phone.png" alt="Product Image" id="modal-product-img" class="pdp-main-img" />
+              <span class="modal-discount-pill" id="modal-product-discount">-20% OFF</span>
+            </div>
+
+            <!-- BRAND IMAGE GALLERY / MORE IMAGES FROM THIS BRAND -->
+            <div class="modal-brand-gallery hidden" id="modal-brand-gallery">
+              <div class="modal-brand-gallery-title">
+                <span id="modal-gallery-brand-name">Brand Gallery</span>
+                <span class="modal-gallery-hint">Click any photo to explore item</span>
+              </div>
+              <div class="modal-brand-gallery-thumbs" id="modal-brand-gallery-thumbs">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <!-- US GUARANTEE & TRUST STRIP -->
+            <div class="pdp-trust-strip">
+              <div class="pdp-trust-item">
+                <span class="pdp-trust-icon">📦</span>
+                <div>
+                  <strong>Ships in 24h</strong>
+                  <span>US Prime Fulfillment</span>
+                </div>
+              </div>
+              <div class="pdp-trust-item">
+                <span class="pdp-trust-icon">🛡️</span>
+                <div>
+                  <strong>100% US Warranty</strong>
+                  <span>Official Authorized Model</span>
+                </div>
+              </div>
+              <div class="pdp-trust-item">
+                <span class="pdp-trust-icon">🔄</span>
+                <div>
+                  <strong>30-Day Free Returns</strong>
+                  <span>Hassle-Free Money Back</span>
+                </div>
+              </div>
+              <div class="pdp-trust-item">
+                <span class="pdp-trust-icon">🔒</span>
+                <div>
+                  <strong>Secure Checkout</strong>
+                  <span>256-Bit SSL Encryption</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COLUMN 2: TITLE, SPECS & OVERVIEW -->
+          <div class="pdp-col-details">
+            <div class="pdp-badge-row">
+              <span class="modal-prime-pill">⚡ SwiftOrbits Prime 2-Day Shipping</span>
+              <span class="modal-cat-tag" id="modal-product-cat">Department</span>
+            </div>
+
+            <div class="pdp-brand-link-row">
+              <a href="javascript:void(0)" class="pdp-brand-store-link" id="pdp-brand-store-link">Visit the <span id="pdp-brand-name-tag">Brand</span> Store</a>
+            </div>
+
+            <h1 class="pdp-product-title" id="checkout-product-title">Loading Product Details...</h1>
+            <div class="pdp-sku-row" id="checkout-product-sku">SKU: --</div>
+
+            <!-- RATING & REVIEWS BAR -->
+            <div class="pdp-rating-card">
+              <div class="m-stars" id="modal-rating-stars">★★★★★</div>
+              <div class="m-rating-val" id="modal-rating-val">4.9 / 5.0</div>
+              <div class="m-rating-reviews" id="modal-reviews-count">(0 Customer Reviews)</div>
+              <span class="pdp-bought-past-month">⚡ 100+ bought in past month</span>
+            </div>
+
+            <div class="pdp-divider"></div>
+
+            <!-- PRICING & SAVINGS BANNER -->
+            <div class="pdp-price-section">
+              <div class="pdp-deal-tag">Limited time deal</div>
+              <div class="pdp-price-row">
+                <span class="pdp-price-amount" id="modal-sale-price">$0.00</span>
+                <span class="pdp-reg-price" id="modal-reg-price">$0.00</span>
+                <span class="pdp-savings-badge" id="modal-savings-pill">Save $0.00</span>
+              </div>
+              <div class="pdp-prime-delivery-notice">
+                <span class="pdp-prime-check">✓</span> <strong>FREE Prime 2-Day Delivery</strong>. Order within <strong>4 hrs 15 mins</strong> for instant dispatch.
+              </div>
+            </div>
+
+            <div class="pdp-divider"></div>
+
+            <!-- TECHNICAL SPECIFICATIONS GRID -->
+            <div class="pdp-specs-section">
+              <h4 class="specs-title">Technical Specifications</h4>
+              <div class="specs-grid" id="modal-specs-container">
+                <!-- Dynamic JS Render -->
+              </div>
+            </div>
+
+            <div class="pdp-divider"></div>
+
+            <!-- PRODUCT OVERVIEW HIGHLIGHTS -->
+            <div class="pdp-overview-section">
+              <h4 class="specs-title">About this item</h4>
+              <ul class="overview-list" id="modal-overview-list">
+                <li>Official US authorized model with 1-Year Manufacturer Warranty.</li>
+                <li>Free SwiftOrbits Prime 2-Day Express Shipping nationwide across all 50 states.</li>
+                <li>256-Bit SSL Encrypted checkout with 30-Day Money Back Buyer Guarantee.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- COLUMN 3: STICKY BUY BOX & INSTANT US CHECKOUT -->
+          <div class="pdp-col-buybox">
+            <div class="pdp-buybox-card">
+              <div class="pdp-buybox-header">
+                <div class="pdp-buybox-price" id="pdp-buybox-price-display">$0.00</div>
+                <div class="pdp-buybox-prime">⚡ <strong>Prime</strong></div>
+              </div>
+
+              <div class="pdp-buybox-delivery">
+                FREE Delivery by <strong>Tomorrow</strong>. Order within 4 hrs.
+              </div>
+
+              <div class="pdp-stock-status">
+                <span class="stock-dot"></span> In Stock. Ships immediately.
+              </div>
+
+              <div class="pdp-seller-info">
+                <div class="seller-info-row"><span>Ships from:</span><strong>SwiftOrbits US Hub</strong></div>
+                <div class="seller-info-row"><span>Sold by:</span><strong>SwiftOrbits Verified US</strong></div>
+                <div class="seller-info-row"><span>Returns:</span><strong>30-day refund/replacement</strong></div>
+              </div>
+
+              <div class="checkout-form-header">
+                <h3>Express USA Checkout</h3>
+                <p>Instant order dispatch without leaving page</p>
+              </div>
+
+              <form id="order-form">
+                <input type="hidden" id="order-sku" />
+
+                <div class="form-group">
+                  <label>Full Customer Name</label>
+                  <input type="text" class="form-control" id="cust-name" placeholder="e.g. Johnathan Smith" />
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label>Contact Phone</label>
+                    <input type="tel" class="form-control" id="cust-phone" placeholder="e.g. +1 (555) 019-2834" />
+                  </div>
+                  <div class="form-group flex-1">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" id="cust-email" placeholder="e.g. name@example.com" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>US Shipping Address (Street Line)</label>
+                  <textarea class="form-control" id="cust-address" rows="2" placeholder="e.g. 742 Evergreen Terrace, Suite 100"></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label>City</label>
+                    <input type="text" class="form-control" id="cust-city" placeholder="e.g. Los Angeles" />
+                  </div>
+                  <div class="form-group flex-1">
+                    <label>US State</label>
+                    <select class="form-control" id="cust-state">
+                      <option value="" disabled selected>e.g. California (CA)</option>
+                      <option value="AL">Alabama (AL)</option>
+                      <option value="AK">Alaska (AK)</option>
+                      <option value="AZ">Arizona (AZ)</option>
+                      <option value="AR">Arkansas (AR)</option>
+                      <option value="CA">California (CA)</option>
+                      <option value="CO">Colorado (CO)</option>
+                      <option value="CT">Connecticut (CT)</option>
+                      <option value="DE">Delaware (DE)</option>
+                      <option value="DC">District of Columbia (DC)</option>
+                      <option value="FL">Florida (FL)</option>
+                      <option value="GA">Georgia (GA)</option>
+                      <option value="HI">Hawaii (HI)</option>
+                      <option value="ID">Idaho (ID)</option>
+                      <option value="IL">Illinois (IL)</option>
+                      <option value="IN">Indiana (IN)</option>
+                      <option value="IA">Iowa (IA)</option>
+                      <option value="KS">Kansas (KS)</option>
+                      <option value="KY">Kentucky (KY)</option>
+                      <option value="LA">Louisiana (LA)</option>
+                      <option value="ME">Maine (ME)</option>
+                      <option value="MD">Maryland (MD)</option>
+                      <option value="MA">Massachusetts (MA)</option>
+                      <option value="MI">Michigan (MI)</option>
+                      <option value="MN">Minnesota (MN)</option>
+                      <option value="MS">Mississippi (MS)</option>
+                      <option value="MO">Missouri (MO)</option>
+                      <option value="MT">Montana (MT)</option>
+                      <option value="NE">Nebraska (NE)</option>
+                      <option value="NV">Nevada (NV)</option>
+                      <option value="NH">New Hampshire (NH)</option>
+                      <option value="NJ">New Jersey (NJ)</option>
+                      <option value="NM">New Mexico (NM)</option>
+                      <option value="NY">New York (NY)</option>
+                      <option value="NC">North Carolina (NC)</option>
+                      <option value="ND">North Dakota (ND)</option>
+                      <option value="OH">Ohio (OH)</option>
+                      <option value="OK">Oklahoma (OK)</option>
+                      <option value="OR">Oregon (OR)</option>
+                      <option value="PA">Pennsylvania (PA)</option>
+                      <option value="RI">Rhode Island (RI)</option>
+                      <option value="SC">South Carolina (SC)</option>
+                      <option value="SD">South Dakota (SD)</option>
+                      <option value="TN">Tennessee (TN)</option>
+                      <option value="TX">Texas (TX)</option>
+                      <option value="UT">Utah (UT)</option>
+                      <option value="VT">Vermont (VT)</option>
+                      <option value="VA">Virginia (VA)</option>
+                      <option value="WA">Washington (WA)</option>
+                      <option value="WV">West Virginia (WV)</option>
+                      <option value="WI">Wisconsin (WI)</option>
+                      <option value="WY">Wyoming (WY)</option>
+                    </select>
+                  </div>
+                  <div class="form-group width-120">
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" id="order-qty" min="1" value="1" />
+                  </div>
+                </div>
+
+                <div class="calculation-summary-box">
+                  <div class="calc-row"><span>Item Subtotal:</span><span id="calc-unit-price">$0.00</span></div>
+                  <div class="calc-row"><span>Prime 2-Day Shipping:</span><span style="color:var(--swift-emerald); font-weight:800;">FREE ($0.00)</span></div>
+                  <div class="calc-row total"><span>Grand Total (USD $):</span><span id="calc-grand-total">$0.00</span></div>
+                </div>
+
+                <div class="pdp-buybox-actions">
+                  <button type="submit" class="btn amazon-buy-btn" id="submit-order-btn">⚡ Buy Now — Instant USA Express Checkout</button>
+                  <button type="button" class="btn btn-secondary pdp-return-btn" id="cancel-checkout-btn">‹ Back to Results</button>
+                  <button type="button" class="hidden" id="close-checkout-modal"></button>
+                </div>
+              </form>
+
+              <div class="pdp-security-notice">
+                <span>🔒 256-Bit SSL Encrypted &amp; Authorized Buyer Protection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECOMMENDED & RELATED PRODUCTS STRIP (Customers Also Viewed) -->
+        <div class="pdp-related-section" id="pdp-related-section">
+          <div class="pdp-related-header">
+            <h3>Customers who viewed this item also viewed</h3>
+            <span class="pdp-related-sub">Top recommendations from this department</span>
+          </div>
+          <div class="pdp-related-grid" id="pdp-related-grid">
+            <!-- Dynamic JS Render -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= STORE MANAGER ERP VIEW (SWIFTORBITS US MERCHANT PORTAL) ================= -->
+      <div id="view-admin" class="workspace-view hidden">
+        <div class="swift-seller-header">
+          <div>
+            <div class="seller-badge-pill">SWIFTORBITS US MERCHANT HUB • ERP OPERATIONS</div>
+            <h1 class="seller-title">SwiftOrbits USA Verified Merchant Operations Portal</h1>
+            <p class="seller-sub">Manage inventory stock, process US dispatches, view USD sales ledger, and print USPS thermal shipping labels.</p>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="btn btn-secondary" id="admin-logout-btn" style="border: 1px solid #cbd5e1; background: #fff; color: #475569;">
+              🔒 Sign Out
+            </button>
+            <button class="btn btn-blue" id="admin-exit-btn">
+              🛒 Back to SwiftOrbits USA Storefront
+            </button>
+          </div>
+        </div>
+
+        <!-- STAT CARDS ROW -->
+        <div class="swift-stat-grid">
+          <div class="swift-stat-card">
+            <div class="d-stat-label">Electronics Stock</div>
+            <div class="d-stat-val" id="stat-elec" style="color: var(--swift-blue);">0 Units</div>
+            <div class="d-stat-sub">Electronics Items</div>
+          </div>
+          <div class="swift-stat-card">
+            <div class="d-stat-label">Fashion Stock</div>
+            <div class="d-stat-val" id="stat-fashion" style="color: #ec4899;">0 Units</div>
+            <div class="d-stat-sub">Apparel & Footwear</div>
+          </div>
+          <div class="swift-stat-card">
+            <div class="d-stat-label">Beauty & Lifestyle</div>
+            <div class="d-stat-val" id="stat-beauty" style="color: #10b981;">0 Units</div>
+            <div class="d-stat-sub">Skincare & Care</div>
+          </div>
+          <div class="swift-stat-card">
+            <div class="d-stat-label">US Fulfillment Queue</div>
+            <div class="d-stat-val" id="stat-orders" style="color: var(--swift-purple);">0 Orders</div>
+            <div class="d-stat-sub" id="stat-revenue">Gross Revenue: $0.00</div>
+          </div>
+        </div>
+
+        <!-- SWIFTORBITS US MERCHANT CENTER TABS -->
+        <div class="swift-seller-tabs">
+          <button class="seller-tab-btn active" data-admin-view="inventory">
+            📦 Catalog Inventory & Stock (Electronics & Catalog)
+          </button>
+          <button class="seller-tab-btn" data-admin-view="orders">
+            🚚 US Shipping Fulfillment & USPS Label Queue
+          </button>
+          <button class="seller-tab-btn" data-admin-view="analytics">
+            📈 USD Revenue & Financial Ledger
+          </button>
+        </div>
+
+        <!-- SUBVIEW 1: INVENTORY -->
+        <div id="admin-subview-inventory" class="admin-subview">
+          <div class="swift-white-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">SwiftOrbits US Product Catalog</h2>
+                <p class="card-sub">Atomic transactional inventory control with USD pricing and technical specifications.</p>
+              </div>
+              <button class="btn btn-blue" id="open-add-product-btn">+ Add US Product</button>
+            </div>
+
+            <div class="table-container">
+              <table class="swift-data-table">
+                <thead>
+                  <tr>
+                    <th>SKU</th>
+                    <th>Product Title</th>
+                    <th>Category</th>
+                    <th>Price (USD $)</th>
+                    <th>Stock Qty</th>
+                    <th>Rating & Specs</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-tbody">
+                  <!-- Dynamic JS render -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBVIEW 2: ORDERS -->
+        <div id="admin-subview-orders" class="admin-subview hidden">
+          <div class="swift-white-card">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">US Order Dispatch & State Operations</h2>
+                <p class="card-sub">Fulfillment transitions: Pending ➔ Processing ➔ Dispatched (USPS/FedEx) ➔ Delivered ➔ Cancelled.</p>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="swift-data-table">
+                <thead>
+                  <tr>
+                    <th>Order Reference</th>
+                    <th>US Customer Profile</th>
+                    <th>Destination State & Address</th>
+                    <th>Product Item</th>
+                    <th>Total (USD)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-tbody">
+                  <!-- Dynamic JS render -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBVIEW 3: ANALYTICS LEDGER -->
+        <div id="admin-subview-analytics" class="admin-subview hidden">
+          <div class="swift-white-card">
+            <h2 class="card-title">SwiftOrbits US Revenue & Financial Ledger</h2>
+            <p class="card-sub">Real-time gross revenue in USD ($), active dispatch tracking, and Average Order Value (AOV).</p>
+
+            <div class="ledger-grid">
+              <div class="ledger-card">
+                <div class="ledger-label">Gross Revenue Collected</div>
+                <div class="ledger-amount" id="ledger-gross">$0.00</div>
+                <div class="ledger-note">Excludes cancelled orders</div>
+              </div>
+              <div class="ledger-card">
+                <div class="ledger-label">Processing Orders</div>
+                <div class="ledger-amount" id="ledger-processing-count">0</div>
+                <div class="ledger-note">Awaiting shipment dispatch</div>
+              </div>
+              <div class="ledger-card">
+                <div class="ledger-label">Delivered Orders</div>
+                <div class="ledger-amount" id="ledger-delivered-count">0</div>
+                <div class="ledger-note">Completed sales</div>
+              </div>
+              <div class="ledger-card">
+                <div class="ledger-label">Average Order Value (AOV)</div>
+                <div class="ledger-amount" id="ledger-aov">$0.00</div>
+                <div class="ledger-note">Revenue / Volume</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- MODAL: ADD PRODUCT -->
+    <div class="modal-overlay hidden" id="add-product-modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <div>
+            <h3 class="modal-title">Publish New Product to SwiftOrbits USA</h3>
+            <p class="modal-sub">Real-time US inventory registration</p>
+          </div>
+          <button class="modal-close-btn" id="close-add-product-modal">✕</button>
+        </div>
+
+        <form id="add-product-form">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Product Title</label>
+              <input type="text" class="form-control" id="new-prod-title" required placeholder="e.g. Apple AirPods Pro 2nd Gen" />
+            </div>
+            <div class="form-group flex-1">
+              <label>SKU Code</label>
+              <input type="text" class="form-control" id="new-prod-sku" required placeholder="SO-US-ELEC-99" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Department Category</label>
+              <select class="form-control" id="new-prod-category" required>
+                <option value="beauty">Beauty & Personal Care</option>
+                <option value="electronics">Electronics</option>
+                <option value="appliances">Kitchen & Appliances</option>
+                <option value="health_household">Health & Househeld</option>
+                <option value="pet_supplies">Pet Supplies</option>
+                <option value="toys_games_baby">Toys,games,Baby</option>
+              </select>
+            </div>
+            <div class="form-group flex-1">
+              <label>Initial Stock Qty</label>
+              <input type="number" class="form-control" id="new-prod-qty" min="1" value="50" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Regular Price ($ USD)</label>
+              <input type="number" class="form-control" id="new-prod-reg-price" step="0.01" required placeholder="249.99" />
+            </div>
+            <div class="form-group flex-1">
+              <label>Sale Price ($ USD - Discounted)</label>
+              <input type="number" class="form-control" id="new-prod-sale-price" step="0.01" placeholder="199.99" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Product Image (Upload Local Image or URL)</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="file" id="new-prod-file" class="form-control" accept="image/png, image/jpeg, image/webp, image/jpg" style="flex: 1;" />
+              <input type="text" id="new-prod-img-url" class="form-control" placeholder="Or image path e.g. /elec_phone.png" style="flex: 1;" value="/elec_phone.png" />
+            </div>
+            <div id="new-prod-preview-wrap" style="margin-top: 8px; display: none;">
+              <img id="new-prod-preview" src="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1;" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Technical Specifications (JSON Specs)</label>
+            <input type="text" class="form-control" id="new-prod-attrs" placeholder='{"Brand": "Apple", "Warranty": "1 Year US AppleCare", "Color": "White"}' />
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="cancel-add-product-btn">Cancel</button>
+            <button type="submit" class="btn btn-blue" id="submit-publish-prod-btn">Publish US Product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: CUSTOMER AUTHENTICATION (SIGNUP, LOGIN, OTP VERIFICATION, FORGOT/RESET PASSWORD) -->
+    <div class="modal-overlay hidden" id="auth-modal">
+      <div class="modal-box auth-modal-box">
+        <div class="modal-header">
+          <div>
+            <span class="modal-prime-pill" id="auth-modal-badge">⚡ SWIFTORBITS ACCOUNT</span>
+            <h3 class="modal-title" id="auth-modal-title" style="margin-top: 6px;">Sign In</h3>
+            <p class="modal-sub" id="auth-modal-sub">Access your orders, fast nationwide dispatch & exclusive Prime deals</p>
+          </div>
+          <button class="modal-close-btn" id="close-auth-modal" type="button">✕</button>
+        </div>
+
+        <!-- Alert Notification Banner -->
+        <div id="auth-alert-box" class="auth-alert hidden"></div>
+
+        <!-- 1. SIGN IN VIEW -->
+        <div id="auth-view-signin" class="auth-view">
+          <form id="auth-signin-form" style="padding: 16px 20px;">
+            <div class="form-group">
+              <label for="auth-signin-email">Email Address</label>
+              <input type="email" class="form-control" id="auth-signin-email" placeholder="name@example.com" required autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+                <label for="auth-signin-password" style="margin-bottom:0;">Password</label>
+                <button type="button" class="auth-text-link" id="auth-goto-forgot-btn">Forgot Password?</button>
+              </div>
+              <div class="auth-password-wrapper">
+                <input type="password" class="form-control" id="auth-signin-password" placeholder="••••••••" required autocomplete="current-password" />
+                <button type="button" class="auth-pwd-toggle" data-target="auth-signin-password" title="Show/Hide Password">👁</button>
+              </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 16px;">
+              <button type="submit" class="btn btn-blue" id="auth-signin-btn" style="width:100%; justify-content:center; padding:11px; font-weight:700;">Sign In</button>
+            </div>
+
+            <div class="auth-switch-footer">
+              <span>New to SwiftOrbits?</span>
+              <button type="button" class="auth-text-link bold" id="auth-goto-signup-btn">Create your SwiftOrbits account</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 2. SIGN UP VIEW -->
+        <div id="auth-view-signup" class="auth-view hidden">
+          <form id="auth-signup-form" style="padding: 16px 20px;">
+            <div class="form-group">
+              <label for="auth-signup-name">Full Name</label>
+              <input type="text" class="form-control" id="auth-signup-name" placeholder="Johnathan Smith" required autocomplete="name" />
+            </div>
+
+            <div class="form-group">
+              <label for="auth-signup-email">Email Address</label>
+              <input type="email" class="form-control" id="auth-signup-email" placeholder="name@example.com" required autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <label for="auth-signup-password">Password</label>
+              <div class="auth-password-wrapper">
+                <input type="password" class="form-control" id="auth-signup-password" placeholder="At least 6 characters" required autocomplete="new-password" minlength="6" />
+                <button type="button" class="auth-pwd-toggle" data-target="auth-signup-password" title="Show/Hide Password">👁</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="auth-signup-confirm">Confirm Password</label>
+              <div class="auth-password-wrapper">
+                <input type="password" class="form-control" id="auth-signup-confirm" placeholder="Re-enter password" required autocomplete="new-password" minlength="6" />
+                <button type="button" class="auth-pwd-toggle" data-target="auth-signup-confirm" title="Show/Hide Password">👁</button>
+              </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 16px;">
+              <button type="submit" class="btn btn-blue" id="auth-signup-btn" style="width:100%; justify-content:center; padding:11px; font-weight:700;">Create Account & Sign In</button>
+            </div>
+
+            <div class="auth-switch-footer">
+              <span>Already have an account?</span>
+              <button type="button" class="auth-text-link bold" id="auth-goto-signin-btn">Sign in here</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 3. EMAIL OTP VERIFICATION VIEW -->
+        <div id="auth-view-otp" class="auth-view hidden">
+          <div style="padding: 16px 20px; text-align: center;">
+            <div class="auth-otp-badge-icon">✉️</div>
+            <h4 style="font-size: 1.1rem; font-weight: 800; color: #0f172a; margin: 6px 0 4px;">Verify Your Email</h4>
+            <p style="font-size: 0.84rem; color: #475569; margin-bottom: 12px; line-height: 1.45;">
+              Enter the 6-digit verification code sent to<br />
+              <strong id="auth-otp-display-email" style="color: #0f172a; word-break: break-all;">user@example.com</strong>
+            </p>
+
+            <form id="auth-otp-form">
+              <div class="auth-otp-input-wrap">
+                <input type="text" class="auth-otp-code-input" id="auth-otp-input" maxlength="6" placeholder="123456" pattern="\d{6}" inputmode="numeric" autocomplete="one-time-code" required autofocus />
+              </div>
+
+              <div class="auth-timer-row">
+                <div class="auth-expiry-pill">
+                  ⏱ Code expires in: <span id="auth-otp-timer" style="font-weight: 700; color: #0f172a;">01:00</span>
+                </div>
+                <div>
+                  <button type="button" id="auth-resend-otp-btn" class="auth-resend-btn" disabled>
+                    Resend Code (<span id="auth-resend-sec">30</span>s)
+                  </button>
+                </div>
+              </div>
+
+              <div class="modal-actions" style="margin-top: 14px;">
+                <button type="submit" class="btn btn-blue" id="auth-verify-btn" style="width:100%; justify-content:center; padding:11px; font-weight:700;">Verify OTP & Continue</button>
+              </div>
+
+              <div class="auth-switch-footer" style="margin-top: 12px;">
+                <button type="button" class="auth-text-link" id="auth-otp-back-btn">← Back to Sign In</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- 4. FORGOT PASSWORD VIEW -->
+        <div id="auth-view-forgot" class="auth-view hidden">
+          <form id="auth-forgot-form" style="padding: 20px 24px;">
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 16px; line-height: 1.5;">
+              Enter your registered email address below. We'll send you a 6-digit verification code to securely reset your password.
+            </p>
+
+            <div class="form-group">
+              <label for="auth-forgot-email">Email Address</label>
+              <input type="email" class="form-control" id="auth-forgot-email" placeholder="name@example.com" required autocomplete="email" />
+            </div>
+
+            <div class="modal-actions" style="margin-top: 20px;">
+              <button type="submit" class="btn btn-blue" id="auth-forgot-btn" style="width:100%; justify-content:center; padding:12px; font-weight:700;">Send Password Reset Code</button>
+            </div>
+
+            <div class="auth-switch-footer">
+              <button type="button" class="auth-text-link" id="auth-forgot-back-btn">← Back to Sign In</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- 5. RESET PASSWORD VIEW -->
+        <div id="auth-view-reset" class="auth-view hidden">
+          <form id="auth-reset-form" style="padding: 20px 24px;">
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 16px; line-height: 1.5;">
+              Enter the 6-digit reset code sent to <strong id="auth-reset-display-email" style="color: #0f172a;"></strong> along with your new password.
+            </p>
+
+            <div class="form-group">
+              <label for="auth-reset-otp-input">6-Digit Reset Code</label>
+              <input type="text" class="form-control auth-otp-code-input" id="auth-reset-otp-input" maxlength="6" placeholder="123456" pattern="\d{6}" inputmode="numeric" required />
+            </div>
+
+            <div class="form-group">
+              <label for="auth-reset-new-password">New Password</label>
+              <div class="auth-password-wrapper">
+                <input type="password" class="form-control" id="auth-reset-new-password" placeholder="At least 6 characters" required minlength="6" />
+                <button type="button" class="auth-pwd-toggle" data-target="auth-reset-new-password" title="Show/Hide Password">👁</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="auth-reset-confirm-password">Confirm New Password</label>
+              <div class="auth-password-wrapper">
+                <input type="password" class="form-control" id="auth-reset-confirm-password" placeholder="Re-enter new password" required minlength="6" />
+                <button type="button" class="auth-pwd-toggle" data-target="auth-reset-confirm-password" title="Show/Hide Password">👁</button>
+              </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top: 20px;">
+              <button type="submit" class="btn btn-blue" id="auth-reset-submit-btn" style="width:100%; justify-content:center; padding:12px; font-weight:700;">Reset Password & Sign In</button>
+            </div>
+
+            <div class="auth-switch-footer">
+              <button type="button" class="auth-text-link" id="auth-reset-cancel-btn">Cancel</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODAL: ADMIN AUTHENTICATION GATEWAY -->
+    <div class="modal-overlay hidden" id="admin-login-modal">
+      <div class="modal-box" style="max-width: 440px;">
+        <div class="modal-header">
+          <div>
+            <span class="modal-prime-pill">🔐 SWIFTORBITS ERP SECURITY</span>
+            <h3 class="modal-title" style="margin-top: 6px;">Merchant Portal Sign-In</h3>
+            <p class="modal-sub">Authorized personnel access only</p>
+          </div>
+          <button class="modal-close-btn" id="close-admin-login-modal">✕</button>
+        </div>
+
+        <form id="admin-login-form" style="padding: 24px;">
+          <div class="form-group">
+            <label>Admin Email Address</label>
+            <input type="email" class="form-control" id="admin-login-email" value="admin@swiftorbits.us" required />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" id="admin-login-password" value="admin123456" required />
+          </div>
+
+          <div style="background: #f1f5f9; padding: 10px 12px; border-radius: 6px; font-size: 0.78rem; color: #475569; margin-bottom: 16px;">
+            💡 <strong>Default Merchant Credentials:</strong><br />
+            Email: <code>admin@swiftorbits.us</code> | Password: <code>admin123456</code>
+          </div>
+
+          <div class="modal-actions" style="margin-top: 10px;">
+            <button type="button" class="btn btn-secondary" id="cancel-admin-login-btn">Cancel</button>
+            <button type="submit" class="btn btn-blue" id="submit-admin-login-btn">Sign In to Merchant Hub</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: OFFICIAL ORDER RECEIPT & INVOICE (THERMAL & A4) -->
+    <div class="modal-overlay hidden" id="receipt-modal">
+      <div class="modal-box receipt-modal-box">
+        <div class="modal-header no-print">
+          <div>
+            <h3 class="modal-title" style="display:flex; align-items:center; gap:8px;">
+              <span>🧾 Order Receipt & Dispatch Note</span>
+              <span class="badge-pill" style="background:#2563eb; color:#ffffff; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:12px;">Verified US Dispatch</span>
+            </h3>
+            <p class="modal-sub">Official Customer Copy • Thermal (4x6 / 80mm) & Standard A4 Page Formats</p>
+          </div>
+          <button class="modal-close-btn" id="close-receipt-modal" title="Close">✕</button>
+        </div>
+
+        <!-- Format Switcher Tabs -->
+        <div class="receipt-format-tabs no-print">
+          <button type="button" class="receipt-tab-btn active" id="tab-receipt-thermal" data-format="thermal">
+            <span>🏷️ Thermal Label (4"x6" / 80mm)</span>
+          </button>
+          <button type="button" class="receipt-tab-btn" id="tab-receipt-a4" data-format="a4">
+            <span>📄 Full A4 Page Invoice</span>
+          </button>
+        </div>
+
+        <!-- Scrollable Receipt Body -->
+        <div class="receipt-modal-body">
+          <!-- Thermal View -->
+          <div id="receipt-thermal-view" class="receipt-view-panel">
+            <div class="thermal-receipt-paper" id="thermal-receipt-content">
+              <!-- Dynamic JS Thermal Receipt Render -->
+            </div>
+          </div>
+
+          <!-- A4 View -->
+          <div id="receipt-a4-view" class="receipt-view-panel hidden">
+            <div class="a4-receipt-paper" id="a4-receipt-content">
+              <!-- Dynamic JS A4 Invoice Render -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Actions Footer -->
+        <div class="receipt-modal-actions no-print">
+          <button type="button" class="btn btn-secondary" id="close-receipt-btn">Close</button>
+          <div class="receipt-print-actions">
+            <button type="button" class="btn btn-blue" id="print-a4-btn">
+              <span>📄 Print A4 Invoice</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: CUSTOMER PROFILE & PRIME MEMBERSHIP -->
+    <div class="modal-overlay hidden" id="user-profile-modal">
+      <div class="modal-box" style="max-width: 540px;">
+        <div class="modal-header">
+          <div>
+            <span class="modal-prime-pill">⚡ SwiftOrbits Prime Member</span>
+            <h3 class="modal-title" style="margin-top: 6px;">Customer Account & Preferences</h3>
+            <p class="modal-sub">Manage your US shipping identity and Prime status</p>
+          </div>
+          <button class="modal-close-btn" id="close-user-profile-modal">✕</button>
+        </div>
+
+        <form id="user-profile-form" style="padding: 24px;">
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Full Customer Name</label>
+              <input type="text" class="form-control" id="profile-name" value="Johnathan Smith" required />
+            </div>
+            <div class="form-group flex-1">
+              <label>Contact Phone</label>
+              <input type="tel" class="form-control" id="profile-phone" value="+971 55 576 2122" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" class="form-control" id="profile-email" value="john.smith@swiftorbits.us" required />
+          </div>
+
+          <div class="form-group">
+            <label>Default Shipping Address (Street Line)</label>
+            <input type="text" class="form-control" id="profile-address" value="742 Evergreen Terrace, Suite 100" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>City</label>
+              <input type="text" class="form-control" id="profile-city" value="Los Angeles" required />
+            </div>
+            <div class="form-group flex-1">
+              <label>Preferred US State</label>
+              <select class="form-control" id="profile-state">
+                <option value="AL">Alabama (AL)</option>
+                <option value="AK">Alaska (AK)</option>
+                <option value="AZ">Arizona (AZ)</option>
+                <option value="AR">Arkansas (AR)</option>
+                <option value="CA" selected>California (CA)</option>
+                <option value="CO">Colorado (CO)</option>
+                <option value="CT">Connecticut (CT)</option>
+                <option value="DE">Delaware (DE)</option>
+                <option value="DC">District of Columbia (DC)</option>
+                <option value="FL">Florida (FL)</option>
+                <option value="GA">Georgia (GA)</option>
+                <option value="HI">Hawaii (HI)</option>
+                <option value="ID">Idaho (ID)</option>
+                <option value="IL">Illinois (IL)</option>
+                <option value="IN">Indiana (IN)</option>
+                <option value="IA">Iowa (IA)</option>
+                <option value="KS">Kansas (KS)</option>
+                <option value="KY">Kentucky (KY)</option>
+                <option value="LA">Louisiana (LA)</option>
+                <option value="ME">Maine (ME)</option>
+                <option value="MD">Maryland (MD)</option>
+                <option value="MA">Massachusetts (MA)</option>
+                <option value="MI">Michigan (MI)</option>
+                <option value="MN">Minnesota (MN)</option>
+                <option value="MS">Mississippi (MS)</option>
+                <option value="MO">Missouri (MO)</option>
+                <option value="MT">Montana (MT)</option>
+                <option value="NE">Nebraska (NE)</option>
+                <option value="NV">Nevada (NV)</option>
+                <option value="NH">New Hampshire (NH)</option>
+                <option value="NJ">New Jersey (NJ)</option>
+                <option value="NM">New Mexico (NM)</option>
+                <option value="NY">New York (NY)</option>
+                <option value="NC">North Carolina (NC)</option>
+                <option value="ND">North Dakota (ND)</option>
+                <option value="OH">Ohio (OH)</option>
+                <option value="OK">Oklahoma (OK)</option>
+                <option value="OR">Oregon (OR)</option>
+                <option value="PA">Pennsylvania (PA)</option>
+                <option value="RI">Rhode Island (RI)</option>
+                <option value="SC">South Carolina (SC)</option>
+                <option value="SD">South Dakota (SD)</option>
+                <option value="TN">Tennessee (TN)</option>
+                <option value="TX">Texas (TX)</option>
+                <option value="UT">Utah (UT)</option>
+                <option value="VT">Vermont (VT)</option>
+                <option value="VA">Virginia (VA)</option>
+                <option value="WA">Washington (WA)</option>
+                <option value="WV">West Virginia (WV)</option>
+                <option value="WI">Wisconsin (WI)</option>
+                <option value="WY">Wyoming (WY)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="prime-membership-card" style="background: linear-gradient(135deg, #0f172a, #1e293b); padding: 16px; border-radius: 8px; border: 1px solid rgba(56, 189, 248, 0.3); margin-top: 10px; color: #fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="color:var(--swift-cyan); font-size:0.95rem;">⚡ SwiftOrbits Prime VIP Status</strong>
+                <div style="font-size:0.75rem; color:#94a3b8; margin-top:2px;">Active nationwide across all 50 US States</div>
+              </div>
+              <span class="badge" style="background:var(--swift-emerald); color:#fff; font-size:0.75rem; padding:4px 8px; border-radius:4px; font-weight:700;">ACTIVE</span>
+            </div>
+            <div style="margin-top: 10px; font-size: 0.78rem; color: #cbd5e1; display:flex; gap: 12px; flex-wrap: wrap;">
+              <span>✓ Free 2-Day Shipping</span>
+              <span>✓ 30-Day Money Back</span>
+              <span>✓ Priority US Dispatch</span>
+            </div>
+          </div>
+
+          <div class="modal-actions" style="margin-top: 20px; display:flex; justify-content:space-between; align-items:center;">
+            <button type="button" class="btn btn-secondary" id="logout-user-profile-btn" style="background:#fee2e2; color:#b91c1c; border-color:#fca5a5; font-weight:600;">Sign Out</button>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn btn-secondary" id="cancel-user-profile-btn">Close</button>
+              <button type="submit" class="btn btn-blue">Save Profile & Preferences</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: CUSTOMER ORDERS QUEUE / CART -->
+    <div class="modal-overlay hidden" id="orders-queue-modal">
+      <div class="modal-box" style="max-width: 760px;">
+        <div class="modal-header">
+          <div>
+            <h3 class="modal-title">🛒 Cart & Active Orders Queue</h3>
+            <p class="modal-sub">Manage your items: change quantity, edit destination, cancel, or track dispatch</p>
+          </div>
+          <button class="modal-close-btn" id="close-orders-queue-modal">✕</button>
+        </div>
+
+        <div style="padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border: 1px solid #e2e8f0;">
+            <div>
+              <span style="font-size: 0.8rem; color: #64748b;">Total Orders Placed:</span>
+              <strong id="queue-total-count" style="font-size: 1rem; color: var(--swift-navy); margin-left: 6px;">0</strong>
+            </div>
+            <div>
+              <span style="font-size: 0.8rem; color: #64748b;">Total Spent:</span>
+              <strong id="queue-total-spent" style="font-size: 1rem; color: #10b981; margin-left: 6px;">$0.00</strong>
+            </div>
+          </div>
+
+          <div id="customer-orders-list" style="max-height: 440px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+        <div class="modal-actions" style="padding: 16px 20px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+          <button type="button" class="btn btn-secondary" id="close-orders-queue-btn">Close Queue</button>
+          <button type="button" class="btn btn-blue" id="queue-shop-more-btn">Explore More Deals</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: EDIT CUSTOMER ORDER -->
+    <div class="modal-overlay hidden" id="edit-order-modal">
+      <div class="modal-box" style="max-width: 520px;">
+        <div class="modal-header">
+          <div>
+            <h3 class="modal-title">✏️ Edit Order & Details</h3>
+            <p class="modal-sub" id="edit-order-subtitle">Update item quantity and shipping address</p>
+          </div>
+          <button type="button" class="modal-close-btn" id="close-edit-order-modal">✕</button>
+        </div>
+
+        <form id="edit-order-form" style="padding: 22px;">
+          <input type="hidden" id="edit-order-id" />
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;">
+            <div style="font-weight: 800; font-size: 0.92rem; color: #0f172a;" id="edit-order-product-title">Product Title</div>
+            <div style="font-size: 0.78rem; color: #64748b; margin-top: 3px;" id="edit-order-meta-info">SKU • Unit Price: $0.00</div>
+          </div>
+
+          <!-- Quantity Stepper -->
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label" style="font-weight: 700; margin-bottom: 6px; display: block;">Adjust Quantity (Item Kam / Ziada):</label>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button type="button" class="btn btn-secondary" id="edit-qty-decrease-btn" style="width: 36px; height: 36px; font-size: 1.2rem; font-weight: bold; padding: 0;">−</button>
+              <input type="number" id="edit-order-qty" min="1" max="99" class="form-input" style="width: 65px; text-align: center; font-weight: bold; font-size: 1rem; padding: 6px;" />
+              <button type="button" class="btn btn-secondary" id="edit-qty-increase-btn" style="width: 36px; height: 36px; font-size: 1.2rem; font-weight: bold; padding: 0;">+</button>
+              <div style="margin-left: auto; text-align: right;">
+                <span style="font-size: 0.75rem; color: #64748b;">Updated Total:</span><br>
+                <strong id="edit-order-recalculated-total" style="font-size: 1.15rem; color: #10b981;">$0.00</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Customer Name -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" for="edit-customer-name">Recipient Name:</label>
+            <input type="text" id="edit-customer-name" class="form-input" required placeholder="Full Name" />
+          </div>
+
+          <!-- Customer Phone -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" for="edit-customer-phone">Phone Number:</label>
+            <input type="tel" id="edit-customer-phone" class="form-input" required placeholder="Phone Number" />
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label" for="edit-shipping-address">Delivery Address (Street):</label>
+            <input type="text" id="edit-shipping-address" class="form-input" required placeholder="Street Address / Suite" />
+          </div>
+
+          <!-- City & State -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 18px;">
+            <div class="form-group">
+              <label class="form-label" for="edit-city">City:</label>
+              <input type="text" id="edit-city" class="form-input" required placeholder="City" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-state">State:</label>
+              <input type="text" id="edit-state" class="form-input" required placeholder="State (e.g. FL)" maxlength="4" />
+            </div>
+          </div>
+
+          <div class="modal-actions" style="margin-top: 10px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn btn-secondary" id="cancel-edit-order-btn">Cancel</button>
+            <button type="submit" class="btn btn-blue" id="save-edit-order-btn">💾 Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL: USPS PACKAGE TRACKER -->
+    <div class="modal-overlay hidden" id="tracking-modal">
+      <div class="modal-box" style="max-width: 640px;">
+        <div class="modal-header">
+          <div>
+            <span class="modal-prime-pill">⚡ USPS PRIORITY EXPRESS DOMESTIC</span>
+            <h3 class="modal-title" style="margin-top: 6px;">Real-Time Package Tracking</h3>
+            <p class="modal-sub">Live milestone verification from US logistics fulfillment</p>
+          </div>
+          <button class="modal-close-btn" id="close-tracking-modal">✕</button>
+        </div>
+
+        <div style="padding: 24px;">
+          <!-- TRACKING SEARCH INPUT -->
+          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input type="text" id="track-input" class="form-control" placeholder="Enter Order # (e.g. SO-US-...) or Tracking #" style="font-family: var(--font-mono); font-weight: 600;" />
+            <button class="btn btn-blue" id="track-search-btn" style="white-space: nowrap; padding: 0 20px;">🔍 Track</button>
+          </div>
+
+          <!-- TRACKING RESULTS CONTAINER -->
+          <div id="tracking-details-box">
+            <!-- Dynamic JS render -->
+          </div>
+        </div>
+
+        <div class="modal-actions" style="padding: 16px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+          <button type="button" class="btn btn-secondary" id="close-tracking-btn">Close</button>
+          <button type="button" class="btn btn-blue" id="track-view-label-btn" style="display: none;">🖨️ View USPS Shipping Label</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: DYNAMIC INFORMATION / SUPPORT / POLICY -->
+    <div class="modal-overlay hidden" id="info-modal">
+      <div class="modal-box" style="max-width: 600px;">
+        <div class="modal-header">
+          <div>
+            <span class="modal-prime-pill" id="info-modal-pill">⚡ SwiftOrbits Official</span>
+            <h3 class="modal-title" id="info-modal-title" style="margin-top: 6px;">Information</h3>
+            <p class="modal-sub" id="info-modal-sub">SwiftOrbits USA Verified Operations</p>
+          </div>
+          <button class="modal-close-btn" id="close-info-modal">✕</button>
+        </div>
+
+        <div id="info-modal-content" style="padding: 24px; font-size: 0.9rem; line-height: 1.6; color: var(--text-main); max-height: 480px; overflow-y: auto;">
+          <!-- Dynamic Content -->
+        </div>
+
+        <div class="modal-actions" style="padding: 16px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+          <button type="button" class="btn btn-blue" id="close-info-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- SWIFTORBITS FOOTER -->
+    <footer class="swift-footer">
+      <div class="footer-inner">
+        <div class="footer-col">
+          <div class="footer-heading">Customer Care</div>
+          <a href="#" class="footer-info-link" data-info="contact">Contact Us</a>
+          <a href="tel:+971555762122" class="footer-direct-link">Phone Number: +971 55 576 2122</a>
+          <a href="mailto:info@swiftorbits.com" class="footer-direct-link">Email: info@swiftorbits.com</a>
+          <a href="#" class="footer-info-link" data-info="track">Track Your Order</a>
+          <a href="#" class="footer-info-link" data-info="returns">Returns & Refunds</a>
+          <a href="#" class="footer-info-link" data-info="faq">Help Center & FAQ</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-heading">Company</div>
+          <a href="#" class="footer-info-link" data-info="about">About SwiftOrbits</a>
+          <a href="#" class="footer-info-link" data-info="terms">Terms of Service</a>
+          <a href="#" class="footer-info-link" data-info="privacy">Privacy Policy</a>
+          <a href="#" class="footer-info-link" data-info="carrier">Shipping Policy</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-heading">Corporate Office</div>
+          <a href="https://maps.google.com/?q=2445+South+Hiawassee+Road,+Orlando,+FL+32835,+USA" target="_blank" rel="noopener noreferrer" class="footer-direct-link">2445 South Hiawassee Road, Orlando, FL 32835, USA</a>
+          <a href="#" class="footer-info-link" data-info="prime-shipping">Fast Nationwide Delivery</a>
+          <a href="#" class="footer-info-link" data-info="warranty">Official Brand Warranty</a>
+          <a href="#" class="footer-info-link" data-info="guarantee">256-Bit Encrypted Secure Checkout</a>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <div>© 2026 SwiftOrbits Marketplace • All Rights Reserved</div>
+        <div>Official Store & Verified Fulfillment</div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
