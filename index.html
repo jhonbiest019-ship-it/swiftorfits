@@ -75,13 +75,12 @@
         <div class="header-inner">
           <div class="nav-links" id="subnav-links-bar">
             <button class="swift-nav-btn active" data-category="all">All Deals</button>
+            <button class="swift-nav-btn" data-category="appliances">Kitchen & Appliances</button>
             <button class="swift-nav-btn" data-category="beauty">Beauty & Personal Care</button>
             <button class="swift-nav-btn" data-category="electronics">Electronics</button>
-            <button class="swift-nav-btn" data-category="appliances">Kitchen & Appliances</button>
             <button class="swift-nav-btn" data-category="health_household">Health & Household</button>
             <button class="swift-nav-btn" data-category="pet_supplies">Pet Supplies</button>
             <button class="swift-nav-btn" data-category="toys_games_baby">Toys, Games, Baby</button>
-            <button class="swift-nav-btn" data-filter="deals">Today's Deals</button>
             <button class="swift-nav-btn" data-filter="bestsellers">Best Sellers</button>
           </div>
         </div>
@@ -95,7 +94,61 @@
         <!-- ================= AMAZON-STYLE 4-QUADRANT CATEGORY SHOWCASE ================= -->
         <section class="bream-quad-section" id="bream-hero-showcase">
           <div class="bream-quad-container">
-            <!-- CARD 1: ELECTRONICS -->
+            <!-- CARD 1: KITCHEN & APPLIANCES -->
+            <div class="bream-quad-card" data-category="appliances" id="quad-card-appliances">
+              <div class="bream-quad-header" data-category="appliances">
+                <h3 class="bream-quad-title">Score kitchen essentials</h3>
+                <span class="bream-quad-arrow">›</span>
+              </div>
+              <div class="bream-quad-grid">
+                <!-- Brand 1: Ninja -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Ninja" title="Ninja: AF101 4-Quart Air Fryer — Was $29.99, Now $27.99 (Save $2.00, 7% OFF)">
+                  <div class="bream-quad-img-wrap tint-cyan">
+                    <span class="bream-quad-deal-badge">-7% OFF</span>
+                    <img src="/air_fryer.png" alt="Ninja" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Ninja</span>
+                    <span class="bream-quad-discount-tag">-7%</span>
+                  </div>
+                </div>
+                <!-- Brand 2: Dash -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Dash" title="Dash: Mini Waffle Maker Machine — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
+                  <div class="bream-quad-img-wrap tint-amber">
+                    <span class="bream-quad-deal-badge">-20% OFF</span>
+                    <img src="/uploads/Dash_Mini_Waffle_Maker_Machine_for_Individual_Waffles-1790863777701-140224.jpg" alt="Dash" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Dash</span>
+                    <span class="bream-quad-discount-tag">-20%</span>
+                  </div>
+                </div>
+                <!-- Brand 3: Hamilton Beach -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Hamilton Beach" title="Hamilton Beach: 6-Speed Hand Mixer — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
+                  <div class="bream-quad-img-wrap tint-purple">
+                    <span class="bream-quad-deal-badge">-23% OFF</span>
+                    <img src="/uploads/Hamilton_Beach_Personal_Blender_14oz_Portable_Travel_Cup-1790864571466-272494.jpg" alt="Hamilton Beach" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Hamilton Beach</span>
+                    <span class="bream-quad-discount-tag">-23%</span>
+                  </div>
+                </div>
+                <!-- Brand 4: Black+Decker -->
+                <div class="bream-quad-item" data-category="appliances" data-brand="Black+Decker" title="Black+Decker: 1.5-Cup Food Chopper — Was $45.00, Now $32.00 (Save $13.00, 29% OFF)">
+                  <div class="bream-quad-img-wrap tint-rose">
+                    <span class="bream-quad-deal-badge">-29% OFF</span>
+                    <img src="/uploads/Black_Decker_1_5-Cup_One-Touch_Electric_Food_Chopper-1790865143124-115727.jpg" alt="Black+Decker" class="bream-quad-img" />
+                  </div>
+                  <div class="bream-quad-info">
+                    <span class="bream-quad-label">Black+Decker</span>
+                    <span class="bream-quad-discount-tag">-29%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CARD 2: ELECTRONICS -->
             <div class="bream-quad-card" data-category="electronics" id="quad-card-electronics">
               <div class="bream-quad-header" data-category="electronics">
                 <h3 class="bream-quad-title">Plug in with our electronics</h3>
@@ -149,7 +202,7 @@
               </div>
             </div>
 
-            <!-- CARD 2: BEAUTY & PERSONAL CARE -->
+            <!-- CARD 3: BEAUTY & PERSONAL CARE -->
             <div class="bream-quad-card" data-category="beauty" id="quad-card-beauty">
               <div class="bream-quad-header" data-category="beauty">
                 <h3 class="bream-quad-title">Shop all things beauty</h3>
@@ -198,60 +251,6 @@
                   <div class="bream-quad-info">
                     <span class="bream-quad-label">Royal Oud</span>
                     <span class="bream-quad-discount-tag">-17%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- CARD 3: KITCHEN & APPLIANCES -->
-            <div class="bream-quad-card" data-category="appliances" id="quad-card-appliances">
-              <div class="bream-quad-header" data-category="appliances">
-                <h3 class="bream-quad-title">Score kitchen essentials</h3>
-                <span class="bream-quad-arrow">›</span>
-              </div>
-              <div class="bream-quad-grid">
-                <!-- Brand 1: Ninja -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Ninja" title="Ninja: AF101 4-Quart Air Fryer — Was $29.99, Now $27.99 (Save $2.00, 7% OFF)">
-                  <div class="bream-quad-img-wrap tint-cyan">
-                    <span class="bream-quad-deal-badge">-7% OFF</span>
-                    <img src="/air_fryer.png" alt="Ninja" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Ninja</span>
-                    <span class="bream-quad-discount-tag">-7%</span>
-                  </div>
-                </div>
-                <!-- Brand 2: Dash -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Dash" title="Dash: Mini Waffle Maker Machine — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
-                  <div class="bream-quad-img-wrap tint-amber">
-                    <span class="bream-quad-deal-badge">-20% OFF</span>
-                    <img src="/uploads/Dash_Mini_Waffle_Maker_Machine_for_Individual_Waffles-1790863777701-140224.jpg" alt="Dash" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Dash</span>
-                    <span class="bream-quad-discount-tag">-20%</span>
-                  </div>
-                </div>
-                <!-- Brand 3: Hamilton Beach -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Hamilton Beach" title="Hamilton Beach: 6-Speed Hand Mixer — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
-                  <div class="bream-quad-img-wrap tint-purple">
-                    <span class="bream-quad-deal-badge">-23% OFF</span>
-                    <img src="/uploads/Hamilton_Beach_Personal_Blender_14oz_Portable_Travel_Cup-1790864571466-272494.jpg" alt="Hamilton Beach" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Hamilton Beach</span>
-                    <span class="bream-quad-discount-tag">-23%</span>
-                  </div>
-                </div>
-                <!-- Brand 4: Black+Decker -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Black+Decker" title="Black+Decker: 1.5-Cup Food Chopper — Was $45.00, Now $32.00 (Save $13.00, 29% OFF)">
-                  <div class="bream-quad-img-wrap tint-rose">
-                    <span class="bream-quad-deal-badge">-29% OFF</span>
-                    <img src="/uploads/Black_Decker_1_5-Cup_One-Touch_Electric_Food_Chopper-1790865143124-115727.jpg" alt="Black+Decker" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Black+Decker</span>
-                    <span class="bream-quad-discount-tag">-29%</span>
                   </div>
                 </div>
               </div>
@@ -313,20 +312,15 @@
           </div>
         </section>
 
-        <!-- CENTERED PAGE HEADER -->
-        <div class="clean-deals-heading-wrap">
-          <h1 class="clean-deals-heading" id="page-deals-title">Today's Deals</h1>
-        </div>
-
         <!-- 2-COLUMN AMAZON/TARGET STYLE LAYOUT -->
         <div class="clean-storefront-layout">
           <!-- LEFT SIDEBAR FILTER PANEL -->
           <aside class="clean-sidebar">
             <!-- CATEGORY SELECTOR (FIXED OPEN) -->
             <div class="sidebar-section">
-              <div class="dept-accordion-header active-all" id="all-category-header" title="Click to view all categories">
+              <div class="dept-accordion-header" id="all-category-header" title="Click to view all categories">
                 <label class="clean-radio-label all-category-label" id="all-category-label">
-                  <input type="checkbox" class="dept-cat-circle" id="all-category-radio" value="all" checked />
+                  <input type="checkbox" class="dept-cat-circle" id="all-category-radio" value="all" />
                   <span class="all-cat-title">All Category</span>
                 </label>
                 <span class="dept-toggle-icon static-icon" id="dept-toggle-icon" title="Toggle Categories">
@@ -336,32 +330,32 @@
                 </span>
               </div>
               <div class="dept-subcategories-list" id="dept-subcategories">
-                <label class="clean-radio-label subcat-label" data-cat="beauty">
-                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="beauty" checked />
-                  <span class="subcat-text">Beauty & Personal Care</span>
-                </label>
-                <label class="clean-radio-label subcat-label" data-cat="electronics">
-                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="electronics" checked />
-                  <span class="subcat-text">Electronics</span>
-                </label>
-                <label class="clean-radio-label subcat-label" data-cat="appliances">
+                <label class="clean-radio-label subcat-label selected-single" data-cat="appliances">
                   <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="appliances" checked />
                   <span class="subcat-text">Kitchen & Appliances</span>
                 </label>
+                <label class="clean-radio-label subcat-label" data-cat="beauty">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="beauty" />
+                  <span class="subcat-text">Beauty & Personal Care</span>
+                </label>
+                <label class="clean-radio-label subcat-label" data-cat="electronics">
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="electronics" />
+                  <span class="subcat-text">Electronics</span>
+                </label>
                 <label class="clean-radio-label subcat-label" data-cat="health_household">
-                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="health_household" checked />
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="health_household" />
                   <span class="subcat-text">Health & Household</span>
                 </label>
                 <label class="clean-radio-label subcat-label" data-cat="pet_supplies">
-                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="pet_supplies" checked />
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="pet_supplies" />
                   <span class="subcat-text">Pet Supplies</span>
                 </label>
                 <label class="clean-radio-label subcat-label" data-cat="toys_games_baby">
-                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="toys_games_baby" checked />
+                  <input type="checkbox" class="dept-cat-circle dept-subcat-input" value="toys_games_baby" />
                   <span class="subcat-text">Toys, Games, Baby</span>
                 </label>
               </div>
-              <a href="#" class="sidebar-breadcrumb-link" id="sidebar-dept-breadcrumb" style="display: none;">All Category</a>
+              <a href="#" class="sidebar-breadcrumb-link" id="sidebar-dept-breadcrumb" style="display: inline-block;">← Back to All Category</a>
             </div>
 
             <!-- BRANDS FILTER -->
@@ -766,6 +760,11 @@
             <div class="d-stat-val" id="stat-orders" style="color: var(--swift-purple);">0 Orders</div>
             <div class="d-stat-sub" id="stat-revenue">Gross Revenue: $0.00</div>
           </div>
+          <div class="swift-stat-card" style="border-left: 4px solid #f59e0b; cursor: pointer;" id="stat-card-rotator" title="Click to configure Hero Showcase rotation speed">
+            <div class="d-stat-label">Hero Rotator Speed</div>
+            <div class="d-stat-val" id="stat-rotator-speed" style="color: #f59e0b;">10s</div>
+            <div class="d-stat-sub" id="stat-rotator-status">🟢 10s Cycle (Click to Edit)</div>
+          </div>
         </div>
 
         <!-- SWIFTORBITS US MERCHANT CENTER TABS -->
@@ -778,6 +777,9 @@
           </button>
           <button class="seller-tab-btn" data-admin-view="analytics">
             📈 USD Revenue & Financial Ledger
+          </button>
+          <button class="seller-tab-btn" data-admin-view="settings">
+            ⚙️ Hero Showcase & Display Settings
           </button>
         </div>
 
@@ -874,6 +876,202 @@
             </div>
           </div>
         </div>
+
+        <!-- SUBVIEW 4: HERO SHOWCASE & ROTATOR SETTINGS -->
+        <div id="admin-subview-settings" class="admin-subview hidden">
+          <div class="swift-white-card" style="margin-bottom: 24px;">
+            <div class="card-header" style="border-bottom: 1px solid #e2e8f0; padding-bottom: 16px;">
+              <div>
+                <h2 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                  <span>⚙️ Storefront Hero Showcase & Category Rotator Settings</span>
+                  <span class="badge" style="background: #e0f2fe; color: #0369a1; font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: 800;">Real-Time Control</span>
+                </h2>
+                <p class="card-sub">ہیرو سیکشن کے 4 کیٹیگری کارڈز میں رئیل پروڈکٹس اور تصاویر کے تبدیل ہونے کا وقت (سیکنڈز) کم یا زیادہ کریں اور لائیو کنٹرول کریں۔</p>
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" class="btn btn-secondary" id="admin-rotator-reset-btn" style="border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700;">
+                  🔄 Reset to 10s
+                </button>
+                <button type="button" class="btn btn-blue" id="admin-rotator-save-btn" style="background: #08094A; font-weight: 800; border-color: #08094A;">
+                  💾 Save & Apply Now
+                </button>
+              </div>
+            </div>
+
+            <!-- MAIN CONTROLLER PANEL -->
+            <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 24px; margin-top: 20px;">
+              <!-- Left Column: Interactive Controls -->
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                  <div>
+                    <span style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.05em;">Cycle Interval Duration</span>
+                    <h3 style="font-size: 1.2rem; font-weight: 900; color: #0f172a; margin-top: 4px;">تصاویر تبدیل ہونے کا وقت (سیکنڈز)</h3>
+                  </div>
+                  <div style="text-align: right;">
+                    <div id="admin-rotator-display-badge" style="font-size: 1.8rem; font-weight: 900; color: #08094A; font-family: monospace; background: #ffffff; padding: 6px 18px; border-radius: 8px; border: 2px solid #08094A; display: inline-block; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                      <span id="admin-rotator-seconds-val">10</span>s
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FINE-TUNE BUTTONS (KAM / ZIADA) -->
+                <div style="margin-bottom: 20px;">
+                  <label style="font-size: 0.85rem; font-weight: 800; color: #334155; display: block; margin-bottom: 8px;">
+                    سیکنڈز کم یا زیادہ کریں (Fine-Tune Stepper Buttons):
+                  </label>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn" id="admin-rotator-minus-5" style="background: #fee2e2; color: #991b1b; font-weight: 800; border: 1px solid #fecaca; flex: 1; padding: 10px 4px; font-size: 0.82rem;">
+                      ➖ 5s کم کریں
+                    </button>
+                    <button type="button" class="btn" id="admin-rotator-minus-1" style="background: #fef3c7; color: #92400e; font-weight: 800; border: 1px solid #fde68a; flex: 1; padding: 10px 4px; font-size: 0.82rem;">
+                      ➖ 1s کم کریں
+                    </button>
+                    <button type="button" class="btn" id="admin-rotator-plus-1" style="background: #dcfce7; color: #166534; font-weight: 800; border: 1px solid #bbf7d0; flex: 1; padding: 10px 4px; font-size: 0.82rem;">
+                      ➕ 1s زیادہ کریں
+                    </button>
+                    <button type="button" class="btn" id="admin-rotator-plus-5" style="background: #dbeafe; color: #1e40af; font-weight: 800; border: 1px solid #bfdbfe; flex: 1; padding: 10px 4px; font-size: 0.82rem;">
+                      ➕ 5s زیادہ کریں
+                    </button>
+                  </div>
+                </div>
+
+                <!-- RANGE SLIDER -->
+                <div style="margin-bottom: 20px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <label for="admin-rotator-slider" style="font-size: 0.85rem; font-weight: 800; color: #334155;">
+                      اسپیڈ سلائیڈر (Smooth Drag Slider):
+                    </label>
+                    <span style="font-size: 0.8rem; color: #64748b; font-weight: 700;">رینج: 1s سے 60s</span>
+                  </div>
+                  <input type="range" id="admin-rotator-slider" min="1" max="60" step="1" value="10" style="width: 100%; height: 8px; border-radius: 4px; accent-color: #08094A; cursor: pointer;" />
+                  <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; font-weight: 700; margin-top: 4px;">
+                    <span>1s (تیز)</span>
+                    <span>3s</span>
+                    <span>5s</span>
+                    <span style="color:#08094A; font-weight:900;">10s (ڈیفالٹ)</span>
+                    <span>15s</span>
+                    <span>20s</span>
+                    <span>30s</span>
+                    <span>60s (آہستہ)</span>
+                  </div>
+                </div>
+
+                <!-- DIRECT NUMBER INPUT -->
+                <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 20px; background: #ffffff; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <label for="admin-rotator-num-input" style="font-size: 0.85rem; font-weight: 800; color: #1e293b; flex: 1;">
+                    مطلوبہ سیکنڈز خود لکھیں (Custom Seconds Input):
+                  </label>
+                  <div style="display: flex; align-items: center; gap: 8px; width: 140px;">
+                    <input type="number" id="admin-rotator-num-input" min="1" max="300" step="1" value="10" class="form-control" style="text-align: center; font-weight: 900; font-size: 1.1rem; padding: 8px; border: 2px solid #cbd5e1; border-radius: 6px;" />
+                    <span style="font-weight: 800; color: #475569; font-size: 0.85rem;">سیکنڈ</span>
+                  </div>
+                </div>
+
+                <!-- PRESET CHIPS -->
+                <div style="margin-bottom: 20px;">
+                  <label style="font-size: 0.85rem; font-weight: 800; color: #334155; display: block; margin-bottom: 8px;">
+                    تیز رفتار پری سیٹس (Instant Preset Durations):
+                  </label>
+                  <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="admin-rotator-presets">
+                    <button type="button" class="rotator-preset-btn" data-seconds="2">⚡ 2s Test</button>
+                    <button type="button" class="rotator-preset-btn" data-seconds="3">🚀 3s Quick</button>
+                    <button type="button" class="rotator-preset-btn" data-seconds="5">✨ 5s Dynamic</button>
+                    <button type="button" class="rotator-preset-btn active" data-seconds="10">⭐ 10s Standard (Default)</button>
+                    <button type="button" class="rotator-preset-btn" data-seconds="15">🕒 15s Smooth</button>
+                    <button type="button" class="rotator-preset-btn" data-seconds="20">☕ 20s Relaxed</button>
+                    <button type="button" class="rotator-preset-btn" data-seconds="30">🛡️ 30s Showcase</button>
+                  </div>
+                </div>
+
+                <!-- PAUSE / RESUME TOGGLE -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                  <div>
+                    <div style="font-size: 0.9rem; font-weight: 800; color: #0f172a;">خودکار روٹیشن آن / آف (Auto-Rotation Toggle)</div>
+                    <div style="font-size: 0.78rem; color: #64748b;">اگر آپ چاہیں تو کارڈز کی خودکار تبدیلی کو پاز کر سکتے ہیں۔</div>
+                  </div>
+                  <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 26px; margin: 0;">
+                    <input type="checkbox" id="admin-rotator-toggle-active" checked style="opacity: 0; width: 0; height: 0;">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Right Column: Live Status & Storefront Categories -->
+              <div>
+                <!-- LIVE STATUS CARD -->
+                <div style="background: linear-gradient(135deg, #02031f 0%, #050638 50%, #0b0e4e 100%); color: #ffffff; border-radius: 12px; padding: 22px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(8,9,74,0.15);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #93c5fd;">Live Synchronization</span>
+                    <span id="admin-rotator-live-indicator" style="background: #10b981; color: #ffffff; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 800; display: flex; align-items: center; gap: 5px;">
+                      <span style="width: 6px; height: 6px; border-radius: 50%; background: #ffffff; display: inline-block;"></span>
+                      ACTIVE
+                    </span>
+                  </div>
+
+                  <div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 6px;">SwiftOrbits Storefront Sync</div>
+                  <p style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.4; margin-bottom: 16px;">
+                    یہاں تبدیلی کرتے ہی سٹور فرنٹ پر نئی اسپیڈ فوراً لاگو ہو جاتی ہے، اور تمام براؤزر ٹیبز میں خودکار طور پر ہم آہنگ رہتی ہے۔
+                  </p>
+
+                  <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                      <div style="font-size: 0.7rem; color: #94a3b8; text-transform: uppercase;">Active Cycle Time</div>
+                      <div style="font-size: 1.35rem; font-weight: 900; color: #38bdf8;" id="admin-rotator-active-summary">10 Seconds</div>
+                    </div>
+                    <button type="button" class="btn" id="admin-rotator-preview-store-btn" style="background: #ffffff; color: #02031f; font-weight: 800; font-size: 0.82rem; padding: 8px 14px; border-radius: 6px;">
+                      🛒 سٹور پر لائیو دیکھیں
+                    </button>
+                  </div>
+                </div>
+
+                <!-- ACTIVE QUADRANT CATEGORIES INFO -->
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px;">
+                  <h4 style="font-size: 0.92rem; font-weight: 900; color: #0f172a; margin-bottom: 12px;">
+                    📌 زیر گردش کیٹیگریز (Showcase Categories in Rotation):
+                  </h4>
+
+                  <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                      <div>
+                        <strong style="font-size: 0.88rem; color: #0f172a;">1. Kitchen & Appliances</strong>
+                        <div style="font-size: 0.74rem; color: #64748b;">ایئر فرائیرز، بلینڈرز، ٹوسٹرز، کافی میکرز</div>
+                      </div>
+                      <span class="badge" style="background: #fef3c7; color: #92400e; font-size: 0.7rem; font-weight: 800;">Slot #1 First</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #2563eb;">
+                      <div>
+                        <strong style="font-size: 0.88rem; color: #0f172a;">2. Electronics & Tech Devices</strong>
+                        <div style="font-size: 0.74rem; color: #64748b;">لیپ ٹاپس، ہیڈفونز، اسمارٹ واچز، مانیٹرز</div>
+                      </div>
+                      <span class="badge" style="background: #dbeafe; color: #1e40af; font-size: 0.7rem; font-weight: 800;">Slot #2</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #ec4899;">
+                      <div>
+                        <strong style="font-size: 0.88rem; color: #0f172a;">3. Beauty & Personal Care</strong>
+                        <div style="font-size: 0.74rem; color: #64748b;">سکن کیئر، سیرمز، ہیئر ڈرائیرز، پرفیومز</div>
+                      </div>
+                      <span class="badge" style="background: #fce7f3; color: #9d174d; font-size: 0.7rem; font-weight: 800;">Slot #3</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #10b981;">
+                      <div>
+                        <strong style="font-size: 0.88rem; color: #0f172a;">4. Health & Household Essentials</strong>
+                        <div style="font-size: 0.74rem; color: #64748b;">وائٹامنز، سپلیمنٹس، ایئر پیوریفائرز</div>
+                      </div>
+                      <span class="badge" style="background: #d1fae5; color: #065f46; font-size: 0.7rem; font-weight: 800;">Slot #4</span>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 14px; padding: 10px; background: #eff6ff; border-radius: 6px; font-size: 0.78rem; color: #1e40af; line-height: 1.4;">
+                    💡 <strong>ہوور پاز فیچر:</strong> صارف جب کسی بھی کارڈ پر ماؤس رکھے گا تو کارڈ کی تصاویر رک جائیں گی تاکہ کسٹمر آسانی سے پراڈکٹ کو دیکھ اور خرید سکے۔
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -906,9 +1104,9 @@
             <div class="form-group flex-1">
               <label>Department Category</label>
               <select class="form-control" id="new-prod-category" required>
+                <option value="appliances">Kitchen & Appliances</option>
                 <option value="beauty">Beauty & Personal Care</option>
                 <option value="electronics">Electronics</option>
-                <option value="appliances">Kitchen & Appliances</option>
                 <option value="health_household">Health & Househeld</option>
                 <option value="pet_supplies">Pet Supplies</option>
                 <option value="toys_games_baby">Toys,games,Baby</option>

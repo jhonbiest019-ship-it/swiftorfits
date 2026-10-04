@@ -747,6 +747,11 @@ export function renderAdminDashboardHtml(options = {}) {
         <div class="stat-value" id="stat-orders" style="color: #a78bfa;">${totalOrdersCount} Orders</div>
         <div class="stat-sub" id="stat-revenue">Gross: $${grossRev.toFixed(2)}</div>
       </div>
+      <div class="stat-card" style="border-left: 4px solid #f59e0b; cursor:pointer;" onclick="switchTab('settings', document.querySelectorAll('.tab-btn')[3])" title="Configure Hero Showcase Speed">
+        <div class="stat-label">Hero Rotator Interval</div>
+        <div class="stat-value" id="stat-rotator-val" style="color: #f59e0b;">10s</div>
+        <div class="stat-sub" id="stat-rotator-sub">🟢 Real Product Cycle</div>
+      </div>
     </div>
 
     <!-- TAB NAVIGATION -->
@@ -754,6 +759,7 @@ export function renderAdminDashboardHtml(options = {}) {
       <button class="tab-btn active" onclick="switchTab('inventory', this)">📦 Catalog Inventory & Product Editor</button>
       <button class="tab-btn" onclick="switchTab('orders', this)">🚚 US Shipping Fulfillment Queue</button>
       <button class="tab-btn" onclick="switchTab('analytics', this)">📈 USD Revenue & Financial Ledger</button>
+      <button class="tab-btn" onclick="switchTab('settings', this)">⚙️ Storefront Hero Showcase Settings</button>
     </div>
 
     <!-- TAB 1: INVENTORY -->
@@ -861,6 +867,151 @@ export function renderAdminDashboardHtml(options = {}) {
             <div class="stat-label">Average Order Value (AOV)</div>
             <div class="stat-value" id="ledger-aov" style="color: var(--swift-cyan);">$${aov.toFixed(2)}</div>
             <div class="stat-sub">Revenue / Order Volume</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: STOREFRONT HERO SHOWCASE SETTINGS -->
+    <div id="tab-settings" class="tab-content">
+      <div class="card-panel">
+        <div class="panel-header" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+          <div>
+            <h2 class="panel-title" style="display:flex; align-items:center; gap:10px;">
+              <span>⚙️ Storefront Hero Category Rotator & Display Controls</span>
+              <span class="badge-pill badge-appliances" style="font-size:0.75rem;">Realtime Control</span>
+            </h2>
+            <p class="panel-sub">ہیرو سیکشن کے 4 کیٹیگری کارڈز میں رئیل پروڈکٹس اور تصاویر کے تبدیل ہونے کا وقت (سیکنڈز) کم یا زیادہ کریں۔</p>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-outline" onclick="resetRotatorSettings()">🔄 Reset to 10s</button>
+            <button class="btn btn-primary" onclick="saveRotatorSettings()">💾 Save & Apply Now</button>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:24px; margin-top:20px;">
+          <!-- Controls -->
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 22px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <div>
+                <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.05em;">Cycle Interval Duration</span>
+                <h3 style="font-size:1.15rem; font-weight:900; color:#fff; margin-top:4px;">تصاویر تبدیل ہونے کا وقت (سیکنڈز)</h3>
+              </div>
+              <div>
+                <div style="font-size:1.8rem; font-weight:900; color:var(--swift-cyan); font-family:var(--font-mono); background:#0b132b; padding:6px 18px; border-radius:8px; border:1px solid rgba(56,189,248,0.4);">
+                  <span id="srv-rotator-seconds-val">10</span>s
+                </div>
+              </div>
+            </div>
+
+            <!-- Stepper Buttons (Kam / Ziada) -->
+            <div style="margin-bottom:20px;">
+              <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:8px;">
+                سیکنڈز کم یا زیادہ کریں (Fine-Tune Steppers):
+              </label>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-5)" style="flex:1; border-color:#f43f5e; color:#f43f5e;">➖ 5s کم</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-1)" style="flex:1; border-color:#f59e0b; color:#f59e0b;">➖ 1s کم</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(1)" style="flex:1; border-color:#10b981; color:#10b981;">➕ 1s زیادہ</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(5)" style="flex:1; border-color:#38bdf8; color:#38bdf8;">➕ 5s زیادہ</button>
+              </div>
+            </div>
+
+            <!-- Slider -->
+            <div style="margin-bottom:20px;">
+              <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1;">اسپیڈ سلائیڈر (Drag Slider):</label>
+                <span style="font-size:0.8rem; color:#94a3b8;">1s سے 60s</span>
+              </div>
+              <input type="range" id="srv-rotator-slider" min="1" max="60" step="1" value="10" oninput="onSrvSliderInput(this.value)" onchange="onSrvSliderChange(this.value)" style="width:100%; height:8px; accent-color:#38bdf8; cursor:pointer;" />
+              <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#64748b; font-weight:700; margin-top:4px;">
+                <span>1s (تیز)</span>
+                <span>5s</span>
+                <span style="color:#38bdf8;">10s (ڈیفالٹ)</span>
+                <span>15s</span>
+                <span>20s</span>
+                <span>30s</span>
+                <span>60s (آہستہ)</span>
+              </div>
+            </div>
+
+            <!-- Number Input -->
+            <div style="display:flex; gap:14px; align-items:center; margin-bottom:20px; background:#0f172a; padding:12px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
+              <label style="font-size:0.85rem; font-weight:700; color:#e2e8f0; flex:1;">مطلوبہ سیکنڈز خود درج کریں (Custom Seconds):</label>
+              <div style="display:flex; align-items:center; gap:8px; width:130px;">
+                <input type="number" id="srv-rotator-num-input" min="1" max="300" step="1" value="10" class="form-control" onchange="onSrvNumChange(this.value)" style="text-align:center; font-weight:900; font-size:1.1rem; padding:6px;" />
+                <span style="color:#94a3b8; font-weight:700;">سیکنڈ</span>
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div style="margin-bottom:20px;">
+              <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:8px;">تیز رفتار پری سیٹس (Instant Presets):</label>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;" id="srv-rotator-presets">
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(2)">⚡ 2s</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(3)">🚀 3s</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(5)">✨ 5s</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(10)">⭐ 10s (Default)</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(15)">🕒 15s</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(20)">☕ 20s</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(30)">🛡️ 30s</button>
+              </div>
+            </div>
+
+            <!-- Toggle -->
+            <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="font-size:0.9rem; font-weight:800; color:#fff;">خودکار روٹیشن آن / آف (Auto-Rotation Active)</div>
+                <div style="font-size:0.75rem; color:#94a3b8;">اگر آپ خودکار تبدیلی کو روکنا چاہیں تو پاز کر سکتے ہیں۔</div>
+              </div>
+              <input type="checkbox" id="srv-rotator-toggle" checked onchange="toggleRotatorActive(this.checked)" style="width:20px; height:20px; cursor:pointer;" />
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div>
+            <div style="background:linear-gradient(135deg, #02031f 0%, #050638 50%, #0b0e4e 100%); border-radius:12px; padding:22px; border:1px solid rgba(56,189,248,0.2); margin-bottom:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--swift-cyan);">Storefront Live Sync</span>
+                <span id="srv-rotator-live-badge" class="badge-pill badge-beauty">🟢 ACTIVE</span>
+              </div>
+              <div style="font-size:1.1rem; font-weight:800; color:#fff; margin-bottom:6px;">Real-Time PostgreSQL & Socket Sync</div>
+              <p style="font-size:0.8rem; color:#cbd5e1; line-height:1.4; margin-bottom:14px;">
+                یہ سیٹنگ تبدیل کرنے پر تمام کسٹمرز اور ٹیبز کے لیے بیک وقت 4 ہیرو کارڈز کا ٹائمر اپڈیٹ ہو جائے گا۔
+              </p>
+              <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+                <div>
+                  <div style="font-size:0.7rem; color:#94a3b8;">CURRENT SPEED</div>
+                  <div style="font-size:1.35rem; font-weight:900; color:var(--swift-cyan);" id="srv-rotator-current-display">10 Seconds</div>
+                </div>
+                <a href="http://localhost:5173/" target="_blank" class="btn btn-storefront" style="padding:6px 12px; font-size:0.8rem;">
+                  🛒 View Storefront
+                </a>
+              </div>
+            </div>
+
+            <!-- Categories -->
+            <div style="background:rgba(15, 23, 42, 0.6); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px;">
+              <h4 style="font-size:0.92rem; font-weight:900; color:#fff; margin-bottom:12px;">📌 زیر گردش کیٹیگریز (Active Rotator Categories):</h4>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="padding:8px 12px; background:#0f172a; border-radius:6px; border-left:3px solid #f59e0b; display:flex; justify-content:space-between;">
+                  <strong style="font-size:0.85rem; color:#fff;">1. Kitchen & Appliances (First Priority)</strong>
+                  <span class="badge-pill badge-appliances">Slot #1</span>
+                </div>
+                <div style="padding:8px 12px; background:#0f172a; border-radius:6px; border-left:3px solid #2563eb; display:flex; justify-content:space-between;">
+                  <strong style="font-size:0.85rem; color:#fff;">2. Electronics & Tech Devices</strong>
+                  <span class="badge-pill badge-electronics">Slot #2</span>
+                </div>
+                <div style="padding:8px 12px; background:#0f172a; border-radius:6px; border-left:3px solid #ec4899; display:flex; justify-content:space-between;">
+                  <strong style="font-size:0.85rem; color:#fff;">3. Beauty & Personal Care</strong>
+                  <span class="badge-pill badge-fashion">Slot #3</span>
+                </div>
+                <div style="padding:8px 12px; background:#0f172a; border-radius:6px; border-left:3px solid #10b981; display:flex; justify-content:space-between;">
+                  <strong style="font-size:0.85rem; color:#fff;">4. Health & Household Essentials</strong>
+                  <span class="badge-pill badge-beauty">Slot #4</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1279,6 +1430,11 @@ export function renderAdminDashboardHtml(options = {}) {
       loadAnalytics();
     });
 
+    socket.on('settings:updated', (s) => {
+      console.log('Realtime settings update received:', s);
+      applySettingsData(s);
+    });
+
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) {
@@ -1468,7 +1624,7 @@ export function renderAdminDashboardHtml(options = {}) {
     }
 
     async function loadAll() {
-      await Promise.all([loadProducts(), loadOrders(), loadAnalytics()]);
+      await Promise.all([loadProducts(), loadOrders(), loadAnalytics(), loadSettings()]);
     }
 
     async function loadProducts() {
@@ -1999,6 +2155,126 @@ export function renderAdminDashboardHtml(options = {}) {
       } catch (e) {
         console.error('Failed loading analytics', e);
       }
+    }
+
+    let currentSettings = {
+      hero_quad_rotation_seconds: 10,
+      hero_quad_rotation_enabled: true
+    };
+
+    async function loadSettings() {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.ok && data.settings) {
+          applySettingsData(data.settings);
+        }
+      } catch (err) {
+        console.error('Failed loading settings:', err);
+      }
+    }
+
+    function applySettingsData(s) {
+      if (!s) return;
+      if (s.hero_quad_rotation_seconds !== undefined) {
+        currentSettings.hero_quad_rotation_seconds = parseInt(s.hero_quad_rotation_seconds, 10) || 10;
+      }
+      if (s.hero_quad_rotation_enabled !== undefined) {
+        currentSettings.hero_quad_rotation_enabled = s.hero_quad_rotation_enabled !== false;
+      }
+
+      const sec = currentSettings.hero_quad_rotation_seconds;
+      const enabled = currentSettings.hero_quad_rotation_enabled;
+
+      const secEl = document.getElementById('srv-rotator-seconds-val');
+      if (secEl) secEl.textContent = sec;
+
+      const sliderEl = document.getElementById('srv-rotator-slider');
+      if (sliderEl) sliderEl.value = Math.min(60, Math.max(1, sec));
+
+      const numInputEl = document.getElementById('srv-rotator-num-input');
+      if (numInputEl) numInputEl.value = sec;
+
+      const currentDisplayEl = document.getElementById('srv-rotator-current-display');
+      if (currentDisplayEl) currentDisplayEl.textContent = enabled ? sec + ' Seconds' : 'Paused (Disabled)';
+
+      const toggleEl = document.getElementById('srv-rotator-toggle');
+      if (toggleEl) toggleEl.checked = enabled;
+
+      const liveBadge = document.getElementById('srv-rotator-live-badge');
+      if (liveBadge) {
+        liveBadge.textContent = enabled ? '🟢 ACTIVE' : '⏸️ PAUSED';
+        liveBadge.className = enabled ? 'badge-pill badge-beauty' : 'badge-pill badge-fashion';
+      }
+
+      const statRotatorVal = document.getElementById('stat-rotator-val');
+      if (statRotatorVal) statRotatorVal.textContent = sec + 's';
+
+      const statRotatorSub = document.getElementById('stat-rotator-sub');
+      if (statRotatorSub) statRotatorSub.textContent = enabled ? '🟢 ' + sec + 's Cycle' : '⏸️ Paused';
+    }
+
+    function adjustRotatorSpeed(delta) {
+      const newSec = Math.max(1, Math.min(300, (currentSettings.hero_quad_rotation_seconds || 10) + delta));
+      setRotatorSpeedDirect(newSec);
+    }
+
+    function onSrvSliderInput(val) {
+      const sec = parseInt(val, 10) || 10;
+      const secEl = document.getElementById('srv-rotator-seconds-val');
+      if (secEl) secEl.textContent = sec;
+      const numInputEl = document.getElementById('srv-rotator-num-input');
+      if (numInputEl) numInputEl.value = sec;
+    }
+
+    function onSrvSliderChange(val) {
+      setRotatorSpeedDirect(parseInt(val, 10) || 10);
+    }
+
+    function onSrvNumChange(val) {
+      setRotatorSpeedDirect(parseInt(val, 10) || 10);
+    }
+
+    function toggleRotatorActive(active) {
+      currentSettings.hero_quad_rotation_enabled = !!active;
+      applySettingsData(currentSettings);
+      saveRotatorSettings(false);
+    }
+
+    async function setRotatorSpeedDirect(sec) {
+      sec = Math.max(1, Math.min(300, parseInt(sec, 10) || 10));
+      currentSettings.hero_quad_rotation_seconds = sec;
+      applySettingsData(currentSettings);
+      await saveRotatorSettings(false);
+    }
+
+    async function saveRotatorSettings(notify = true) {
+      try {
+        const res = await fetch('/api/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            hero_quad_rotation_seconds: currentSettings.hero_quad_rotation_seconds,
+            hero_quad_rotation_enabled: currentSettings.hero_quad_rotation_enabled
+          })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          if (notify) alert('Hero Showcase settings saved successfully (' + currentSettings.hero_quad_rotation_seconds + 's)!');
+        } else {
+          alert('Failed to save settings: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        console.error('Error saving settings:', err);
+      }
+    }
+
+    async function resetRotatorSettings() {
+      currentSettings.hero_quad_rotation_seconds = 10;
+      currentSettings.hero_quad_rotation_enabled = true;
+      applySettingsData(currentSettings);
+      await saveRotatorSettings(false);
+      alert('Rotator speed reset to default 10 seconds.');
     }
 
     // Double-bind table click events to ensure clicks always work

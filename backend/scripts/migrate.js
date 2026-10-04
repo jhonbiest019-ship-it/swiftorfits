@@ -122,6 +122,16 @@ export async function runMigrations() {
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
+    -- 10. SYSTEM & DISPLAY SETTINGS TABLE
+    CREATE TABLE IF NOT EXISTS site_settings (
+      key VARCHAR(100) PRIMARY KEY,
+      value TEXT NOT NULL,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
+    INSERT INTO site_settings (key, value) VALUES ('hero_quad_rotation_seconds', '10') ON CONFLICT (key) DO NOTHING;
+    INSERT INTO site_settings (key, value) VALUES ('hero_quad_rotation_enabled', 'true') ON CONFLICT (key) DO NOTHING;
+
     -- INDEXES FOR MAXIMUM QUERY PERFORMANCE
     CREATE INDEX IF NOT EXISTS idx_products_sku ON products(sku);
     CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);

@@ -14,6 +14,7 @@ import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import settingsRoutes from './routes/settingsRoutes.js';
 import { renderAdminDashboardHtml } from './views/adminDashboard.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -86,6 +87,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // 404 Not Found for API
 app.use('/api/*', (req, res) => {

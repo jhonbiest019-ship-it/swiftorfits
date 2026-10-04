@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 const API_BASE = '/api';
 const SOCKET_URL = window.location.origin;
 
-const ALLOWED_CATEGORIES = ['beauty', 'electronics', 'appliances', 'health_household', 'pet_supplies', 'toys_games_baby'];
+const ALLOWED_CATEGORIES = ['appliances', 'beauty', 'electronics', 'health_household', 'pet_supplies', 'toys_games_baby'];
 
 const CATEGORY_METADATA = {
   beauty: {
@@ -3178,7 +3178,7 @@ class SwiftOrbitsEngineApp {
 
     this.currentView = 'storefront';
     this.adminSubview = 'inventory';
-    this.selectedCategory = 'all';
+    this.selectedCategory = 'appliances';
     this.searchQuery = '';
 
     this.categoryPageFilters = {
@@ -3193,6 +3193,24 @@ class SwiftOrbitsEngineApp {
     this.activeModalProduct = null;
     this.activeTrackedOrder = null;
 
+    // Real Product Rotator State for 4-Quadrant Cards
+    const savedSeconds = parseInt(localStorage.getItem('swift_quad_rotation_seconds') || '10', 10);
+    this.quadRotationIntervalSeconds = (!isNaN(savedSeconds) && savedSeconds >= 1) ? savedSeconds : 10;
+    this.quadRotationEnabled = localStorage.getItem('swift_quad_rotation_enabled') !== 'false';
+    this.quadRotationTimer = null;
+    this.quadCardIndices = {
+      appliances: 0,
+      electronics: 0,
+      beauty: 0,
+      health_household: 0
+    };
+    this.quadIsHovered = {
+      appliances: false,
+      electronics: false,
+      beauty: false,
+      health_household: false
+    };
+
     this.initDOM();
     this.updateUserProfileUI();
     this.startFlashTimer();
@@ -3200,6 +3218,7 @@ class SwiftOrbitsEngineApp {
     this.initCategoryPageEvents();
     this.initHashRouting();
     this.renderAll();
+    this.initSettings();
 
     // Connect to PostgreSQL API and Realtime Socket.IO
     this.initSocket();
@@ -3334,6 +3353,21 @@ class SwiftOrbitsEngineApp {
         if (this.currentView === 'admin') {
           this.renderAdmin();
         }
+      });
+
+      this.socket.on('settings:updated', (settings) => {
+        console.log('[Socket.IO] Received settings:updated event:', settings);
+        if (settings.hero_quad_rotation_seconds !== undefined) {
+          const sec = Math.max(1, Math.min(300, parseInt(settings.hero_quad_rotation_seconds, 10) || 10));
+          this.quadRotationIntervalSeconds = sec;
+          localStorage.setItem('swift_quad_rotation_seconds', sec.toString());
+        }
+        if (settings.hero_quad_rotation_enabled !== undefined) {
+          this.quadRotationEnabled = settings.hero_quad_rotation_enabled !== false;
+          localStorage.setItem('swift_quad_rotation_enabled', this.quadRotationEnabled ? 'true' : 'false');
+        }
+        this.renderAdminSettingsUI();
+        this.initHeroQuadRotation();
       });
 
       this.socket.on('reconnect', () => {
@@ -3546,6 +3580,18 @@ class SwiftOrbitsEngineApp {
     this.ledgerProcessingCount = document.getElementById('ledger-processing-count');
     this.ledgerDeliveredCount = document.getElementById('ledger-delivered-count');
     this.ledgerAov = document.getElementById('ledger-aov');
+
+    // Admin Rotator & Showcase Elements
+    this.statRotatorSpeed = document.getElementById('stat-rotator-speed');
+    this.statRotatorStatus = document.getElementById('stat-rotator-status');
+    this.statCardRotator = document.getElementById('stat-card-rotator');
+    this.adminRotatorDisplayBadge = document.getElementById('admin-rotator-display-badge');
+    this.adminRotatorSecondsVal = document.getElementById('admin-rotator-seconds-val');
+    this.adminRotatorSlider = document.getElementById('admin-rotator-slider');
+    this.adminRotatorNumInput = document.getElementById('admin-rotator-num-input');
+    this.adminRotatorActiveSummary = document.getElementById('admin-rotator-active-summary');
+    this.adminRotatorToggleActive = document.getElementById('admin-rotator-toggle-active');
+    this.adminRotatorLiveIndicator = document.getElementById('admin-rotator-live-indicator');
   }
 
   startFlashTimer() {
@@ -3791,17 +3837,21 @@ class SwiftOrbitsEngineApp {
       });
     });
 
-    // Amazon Quad Specific Brand Items (Clicking brand directly opens that product's full page modal - NO SCROLL)
-    document.querySelectorAll('.bream-quad-item[data-brand]').forEach(item => {
-      item.addEventListener('click', (e) => {
+    // Amazon Quad Specific Real Items (Clicking any real item directly opens that product's full page modal)
+    const quadContainer = document.querySelector('.bream-quad-container');
+    if (quadContainer) {
+      quadContainer.addEventListener('click', (e) => {
+        const item = e.target.closest('.bream-quad-item');
+        if (!item) return;
         e.stopPropagation();
         e.preventDefault();
-        const cat = item.dataset.category;
-        const brand = item.dataset.brand;
+
         const sku = item.dataset.sku;
+        const brand = item.dataset.brand;
+        const cat = item.dataset.category;
 
         let targetProduct = sku ? this.products.find(p => p.sku === sku) : null;
-        if (!targetProduct) {
+        if (!targetProduct && brand) {
           targetProduct = this.products.find(p => {
             const matchesBrand = p.attributes?.Brand && p.attributes.Brand.toLowerCase() === brand.toLowerCase();
             const matchesTitle = p.title && p.title.toLowerCase().includes(brand.toLowerCase());
@@ -3814,11 +3864,11 @@ class SwiftOrbitsEngineApp {
 
         if (targetProduct) {
           this.openCheckoutModal(targetProduct);
-        } else {
+        } else if (cat && brand) {
           this.handleQuadBrandClick(cat, brand);
         }
       });
-    });
+    }
 
     // Search
     const triggerSearch = () => {
@@ -4085,6 +4135,8 @@ class SwiftOrbitsEngineApp {
         }
       });
     });
+
+    this.bindRotatorSettingsEvents();
   }
 
   initCategoryPageEvents() {
@@ -4138,7 +4190,7 @@ class SwiftOrbitsEngineApp {
         }
 
         // Trigger smooth cascade select for All Category
-        this.switchCategory('all', true);
+        this.switchCategory('all_categories', true);
       });
     }
 
@@ -4159,9 +4211,9 @@ class SwiftOrbitsEngineApp {
         const catKey = label.dataset.cat;
         if (!catKey) return;
 
-        // If this category is already the only one selected, clicking it again toggles back to 'all' smoothly
+        // If this category is already the only one selected, clicking it again toggles back to 'all_categories' smoothly
         if (this.selectedCategory === catKey) {
-          this.switchCategory('all', true);
+          this.switchCategory('all_categories', true);
         } else {
           // Select only this category
           this.switchCategory(catKey);
@@ -4182,7 +4234,7 @@ class SwiftOrbitsEngineApp {
     if (deptBreadcrumb) {
       deptBreadcrumb.addEventListener('click', (e) => {
         e.preventDefault();
-        this.switchCategory('all');
+        this.switchCategory('all_categories');
       });
     }
 
@@ -4334,7 +4386,9 @@ class SwiftOrbitsEngineApp {
   }
 
   switchCategory(categoryKey, animateCascade = false, scrollDirect = false) {
-    this.selectedCategory = categoryKey;
+    const isAllDealsNav = (categoryKey === 'all');
+    const effectiveCategory = isAllDealsNav ? 'appliances' : categoryKey;
+    this.selectedCategory = (categoryKey === 'all_categories') ? 'all' : effectiveCategory;
     this.categoryPageFilters.selectedBrands = [];
 
     // Clear any active cascade timers
@@ -4345,8 +4399,13 @@ class SwiftOrbitsEngineApp {
 
     // Update active state in subnav
     document.querySelectorAll('.swift-nav-btn').forEach(b => {
-      if (b.dataset.category === categoryKey) b.classList.add('active');
-      else b.classList.remove('active');
+      if (isAllDealsNav) {
+        if (b.dataset.category === 'all') b.classList.add('active');
+        else b.classList.remove('active');
+      } else {
+        if (b.dataset.category === categoryKey) b.classList.add('active');
+        else b.classList.remove('active');
+      }
     });
 
     // Ensure Amazon Quad Category Cards stay uniform (no clicked tab outline)
@@ -4360,7 +4419,7 @@ class SwiftOrbitsEngineApp {
     const subcatInputs = document.querySelectorAll('.dept-subcat-input');
     const subcatLabels = document.querySelectorAll('.subcat-label');
 
-    if (categoryKey === 'all') {
+    if (categoryKey === 'all_categories') {
       if (allCatRadio) allCatRadio.checked = true;
       if (allCatHeader) allCatHeader.classList.add('active-all');
 
@@ -4388,7 +4447,7 @@ class SwiftOrbitsEngineApp {
       if (allCatHeader) allCatHeader.classList.remove('active-all');
 
       subcatInputs.forEach(input => {
-        const isTarget = (input.value === categoryKey);
+        const isTarget = (input.value === effectiveCategory);
         input.checked = isTarget;
         const label = input.closest('.subcat-label');
         if (label) {
@@ -4405,8 +4464,8 @@ class SwiftOrbitsEngineApp {
     const pageTitle = document.getElementById('page-deals-title');
     const breadcrumb = document.getElementById('sidebar-dept-breadcrumb');
 
-    if (categoryKey === 'all') {
-      if (pageTitle) pageTitle.textContent = "Today's Deals";
+    if (categoryKey === 'all_categories') {
+      if (pageTitle) pageTitle.textContent = "All Categories";
       if (breadcrumb) {
         breadcrumb.textContent = "All Category";
         breadcrumb.style.display = 'none';
@@ -4416,15 +4475,14 @@ class SwiftOrbitsEngineApp {
       if (allDiscRadio) allDiscRadio.checked = true;
       window.location.hash = 'category=all';
     } else {
-      const meta = CATEGORY_METADATA[categoryKey];
-      const titleText = meta ? (meta.dealTitle || `${meta.title} Deals`) : `${categoryKey.toUpperCase()} Deals`;
-      const deptText = meta ? meta.title : categoryKey;
+      const meta = CATEGORY_METADATA[effectiveCategory];
+      const titleText = meta ? (meta.dealTitle || `${meta.title} Deals`) : `${effectiveCategory.toUpperCase()} Deals`;
       if (pageTitle) pageTitle.textContent = titleText;
       if (breadcrumb) {
         breadcrumb.textContent = `← Back to All Category`;
         breadcrumb.style.display = 'inline-block';
       }
-      window.location.hash = `category=${categoryKey}`;
+      window.location.hash = isAllDealsNav ? 'category=all' : `category=${effectiveCategory}`;
     }
 
     // Ensure storefront view is active
@@ -4448,7 +4506,7 @@ class SwiftOrbitsEngineApp {
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
       }
-    } else if (categoryKey === 'all') {
+    } else if (categoryKey === 'all' || categoryKey === 'all_categories') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
@@ -4491,6 +4549,8 @@ class SwiftOrbitsEngineApp {
     document.getElementById('admin-subview-inventory').classList.add('hidden');
     document.getElementById('admin-subview-orders').classList.add('hidden');
     document.getElementById('admin-subview-analytics').classList.add('hidden');
+    const settingsView = document.getElementById('admin-subview-settings');
+    if (settingsView) settingsView.classList.add('hidden');
 
     if (this.adminSubview === 'inventory') {
       document.getElementById('admin-subview-inventory').classList.remove('hidden');
@@ -4499,6 +4559,9 @@ class SwiftOrbitsEngineApp {
     } else if (this.adminSubview === 'analytics') {
       document.getElementById('admin-subview-analytics').classList.remove('hidden');
       this.renderLedger();
+    } else if (this.adminSubview === 'settings') {
+      if (settingsView) settingsView.classList.remove('hidden');
+      this.renderAdminSettingsUI();
     }
   }
 
@@ -4522,90 +4585,418 @@ class SwiftOrbitsEngineApp {
     }
   }
 
+  updateQuadItemDOM(item, prod) {
+    if (!item || !prod) return;
+
+    item.dataset.sku = prod.sku;
+    const brand = prod.attributes?.Brand || (prod.title ? prod.title.split(' ')[0] : 'Swift');
+    item.dataset.brand = brand;
+    item.dataset.category = prod.category;
+
+    const regPrice = Number(prod.regular_price) || 0;
+    const salePrice = Number(prod.sale_price) || regPrice;
+    let discountPct = 0;
+    if (regPrice > salePrice && regPrice > 0) {
+      discountPct = Math.round(((regPrice - salePrice) / regPrice) * 100);
+    } else if (prod.sold_percent > 0) {
+      discountPct = Math.round(prod.sold_percent);
+    } else {
+      discountPct = 15;
+    }
+
+    const img = item.querySelector('.bream-quad-img');
+    if (img) {
+      img.src = prod.image;
+      img.alt = prod.title || brand;
+      img.onerror = () => { img.src = '/elec_phone.png'; };
+    }
+
+    const wrap = item.querySelector('.bream-quad-img-wrap');
+    if (wrap) {
+      let badge = wrap.querySelector('.bream-quad-deal-badge');
+      if (discountPct > 0) {
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'bream-quad-deal-badge';
+          wrap.prepend(badge);
+        }
+        badge.textContent = `-${discountPct}% OFF`;
+        badge.style.display = 'inline-block';
+      } else if (badge) {
+        badge.style.display = 'none';
+      }
+    }
+
+    let info = item.querySelector('.bream-quad-info');
+    let label = item.querySelector('.bream-quad-label');
+    if (!info && label) {
+      info = document.createElement('div');
+      info.className = 'bream-quad-info';
+      label.parentNode.insertBefore(info, label);
+      info.appendChild(label);
+    }
+
+    if (label) {
+      label.textContent = brand;
+      label.title = prod.title;
+    }
+
+    if (info) {
+      let tag = info.querySelector('.bream-quad-discount-tag');
+      if (discountPct > 0) {
+        if (!tag) {
+          tag = document.createElement('span');
+          tag.className = 'bream-quad-discount-tag';
+          info.appendChild(tag);
+        }
+        tag.textContent = `-${discountPct}%`;
+        tag.style.display = 'inline-block';
+      } else if (tag) {
+        tag.style.display = 'none';
+      }
+    }
+
+    const savings = (regPrice - salePrice).toFixed(2);
+    item.title = `${brand}: ${prod.title} — Was $${regPrice.toFixed(2)}, Now $${salePrice.toFixed(2)} (Save $${savings}, ${discountPct}% OFF)`;
+  }
+
   renderHeroQuadShowcase() {
-    const quadItems = document.querySelectorAll('.bream-quad-item[data-brand]');
-    quadItems.forEach(item => {
-      const brand = item.dataset.brand;
-      const cat = item.dataset.category;
-      if (!brand) return;
+    const categories = ['appliances', 'electronics', 'beauty', 'health_household'];
+    categories.forEach(cat => {
+      const card = document.querySelector(`.bream-quad-card[data-category="${cat}"]`);
+      if (!card) return;
+      const items = card.querySelectorAll('.bream-quad-item');
+      if (!items || items.length === 0) return;
 
-      // Find matching product in this.products
-      const prod = this.products.find(p => {
-        const matchesBrand = p.attributes?.Brand && p.attributes.Brand.toLowerCase() === brand.toLowerCase();
-        const matchesTitle = p.title && p.title.toLowerCase().includes(brand.toLowerCase());
-        if (cat) {
-          return p.category === cat && (matchesBrand || matchesTitle);
+      const catProds = this.products.filter(p => p.category === cat && p.image);
+      if (catProds.length === 0) return;
+
+      const startIdx = this.quadCardIndices ? (this.quadCardIndices[cat] || 0) : 0;
+      items.forEach((item, slotIdx) => {
+        const prod = catProds[(startIdx + slotIdx) % catProds.length];
+        if (prod) {
+          this.updateQuadItemDOM(item, prod);
         }
-        return matchesBrand || matchesTitle;
       });
+    });
 
-      if (prod) {
-        item.dataset.sku = prod.sku;
-        if (prod.image) {
-          const img = item.querySelector('.bream-quad-img');
-          if (img && img.getAttribute('src') !== prod.image) {
-            img.src = prod.image;
-            img.alt = prod.title || brand;
-            img.onerror = () => { img.src = '/elec_phone.png'; };
-          }
-        }
+    this.initHeroQuadRotation();
+  }
 
-        // 100% Accurate Real-Time Discount Calculation from Product Pricing
-        const regPrice = Number(prod.regular_price) || 0;
-        const salePrice = Number(prod.sale_price) || regPrice;
-        let discountPct = 0;
-        if (regPrice > salePrice && regPrice > 0) {
-          discountPct = Math.round(((regPrice - salePrice) / regPrice) * 100);
-        } else if (prod.sold_percent > 0) {
-          discountPct = Math.round(prod.sold_percent);
-        }
+  rotateHeroQuadCategory(categoryKey) {
+    if (this.quadIsHovered && this.quadIsHovered[categoryKey]) return;
 
-        // 1. Top-Left Deal Badge on Image Wrap
-        const wrap = item.querySelector('.bream-quad-img-wrap');
-        if (wrap) {
-          let badge = wrap.querySelector('.bream-quad-deal-badge');
-          if (discountPct > 0) {
-            if (!badge) {
-              badge = document.createElement('span');
-              badge.className = 'bream-quad-deal-badge';
-              wrap.prepend(badge);
-            }
-            badge.textContent = `-${discountPct}% OFF`;
-            badge.style.display = 'inline-block';
-          } else if (badge) {
-            badge.style.display = 'none';
-          }
-        }
+    const card = document.querySelector(`.bream-quad-card[data-category="${categoryKey}"]`);
+    if (!card) return;
 
-        // 2. Info Row with Brand Label and Live Discount Tag
-        let info = item.querySelector('.bream-quad-info');
-        let label = item.querySelector('.bream-quad-label');
-        if (!info && label) {
-          info = document.createElement('div');
-          info.className = 'bream-quad-info';
-          label.parentNode.insertBefore(info, label);
-          info.appendChild(label);
-        }
+    const items = card.querySelectorAll('.bream-quad-item');
+    if (!items || items.length === 0) return;
 
-        if (info) {
-          let tag = info.querySelector('.bream-quad-discount-tag');
-          if (discountPct > 0) {
-            if (!tag) {
-              tag = document.createElement('span');
-              tag.className = 'bream-quad-discount-tag';
-              info.appendChild(tag);
-            }
-            tag.textContent = `-${discountPct}%`;
-            tag.style.display = 'inline-block';
-          } else if (tag) {
-            tag.style.display = 'none';
-          }
-        }
+    const catProds = this.products.filter(p => p.category === categoryKey && p.image);
+    if (catProds.length < 4) return;
 
-        const savings = (regPrice - salePrice).toFixed(2);
-        item.title = `${brand}: ${prod.title} — Was $${regPrice.toFixed(2)}, Now $${salePrice.toFixed(2)} (Save $${savings}, ${discountPct}% OFF)`;
+    const currentIdx = (this.quadCardIndices && this.quadCardIndices[categoryKey]) || 0;
+    const nextIdx = (currentIdx + 4) % catProds.length;
+    if (this.quadCardIndices) {
+      this.quadCardIndices[categoryKey] = nextIdx;
+    }
+
+    items.forEach((item, slotIdx) => {
+      const prod = catProds[(nextIdx + slotIdx) % catProds.length];
+      if (!prod) return;
+
+      // Stagger each slot for an elegant ripple wave animation
+      setTimeout(() => {
+        item.classList.add('quad-changing');
+        item.classList.remove('quad-entering');
+
+        setTimeout(() => {
+          this.updateQuadItemDOM(item, prod);
+          item.classList.remove('quad-changing');
+          item.classList.add('quad-entering');
+
+          setTimeout(() => {
+            item.classList.remove('quad-entering');
+          }, 450);
+        }, 260);
+      }, slotIdx * 65);
+    });
+  }
+
+  initHeroQuadRotation() {
+    if (this.quadRotationTimer) {
+      clearInterval(this.quadRotationTimer);
+      this.quadRotationTimer = null;
+    }
+
+    if (this.quadRotationEnabled === false) {
+      return;
+    }
+
+    const categories = ['appliances', 'electronics', 'beauty', 'health_household'];
+    categories.forEach(cat => {
+      const card = document.querySelector(`.bream-quad-card[data-category="${cat}"]`);
+      if (card && !card._hasHoverListeners) {
+        card._hasHoverListeners = true;
+        card.addEventListener('mouseenter', () => {
+          if (this.quadIsHovered) this.quadIsHovered[cat] = true;
+        });
+        card.addEventListener('mouseleave', () => {
+          if (this.quadIsHovered) this.quadIsHovered[cat] = false;
+        });
       }
     });
+
+    const intervalMs = Math.max(1000, (this.quadRotationIntervalSeconds || 10) * 1000);
+    this.quadRotationTimer = setInterval(() => {
+      categories.forEach((cat, cardIdx) => {
+        setTimeout(() => {
+          this.rotateHeroQuadCategory(cat);
+        }, cardIdx * 100);
+      });
+    }, intervalMs);
+  }
+
+  async initSettings() {
+    // 1. Load from localStorage
+    const localSec = parseInt(localStorage.getItem('swift_quad_rotation_seconds') || '10', 10);
+    this.quadRotationIntervalSeconds = (!isNaN(localSec) && localSec >= 1) ? localSec : 10;
+    this.quadRotationEnabled = localStorage.getItem('swift_quad_rotation_enabled') !== 'false';
+
+    // 2. Fetch authoritative settings from backend PostgreSQL
+    try {
+      const res = await fetch('/api/settings');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.ok && data.settings) {
+          if (data.settings.hero_quad_rotation_seconds !== undefined) {
+            const sec = parseInt(data.settings.hero_quad_rotation_seconds, 10);
+            if (!isNaN(sec) && sec >= 1) {
+              this.quadRotationIntervalSeconds = Math.max(1, Math.min(300, sec));
+              localStorage.setItem('swift_quad_rotation_seconds', this.quadRotationIntervalSeconds.toString());
+            }
+          }
+          if (data.settings.hero_quad_rotation_enabled !== undefined) {
+            this.quadRotationEnabled = data.settings.hero_quad_rotation_enabled !== false;
+            localStorage.setItem('swift_quad_rotation_enabled', this.quadRotationEnabled ? 'true' : 'false');
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch server settings, using local settings:', e.message);
+    }
+
+    this.renderAdminSettingsUI();
+    this.initHeroQuadRotation();
+  }
+
+  renderAdminSettingsUI() {
+    const sec = this.quadRotationIntervalSeconds || 10;
+    const enabled = this.quadRotationEnabled !== false;
+
+    if (this.adminRotatorSecondsVal) this.adminRotatorSecondsVal.textContent = sec;
+    if (this.adminRotatorSlider) this.adminRotatorSlider.value = Math.min(60, Math.max(1, sec));
+    if (this.adminRotatorNumInput) this.adminRotatorNumInput.value = sec;
+    if (this.adminRotatorActiveSummary) {
+      this.adminRotatorActiveSummary.textContent = enabled ? `${sec} Seconds` : 'Paused (Disabled)';
+    }
+
+    if (this.adminRotatorLiveIndicator) {
+      this.adminRotatorLiveIndicator.innerHTML = enabled ?
+        `<span style="width:6px; height:6px; border-radius:50%; background:#fff; display:inline-block;"></span> ACTIVE` :
+        `<span style="width:6px; height:6px; border-radius:50%; background:#fff; display:inline-block;"></span> PAUSED`;
+      this.adminRotatorLiveIndicator.style.background = enabled ? '#10b981' : '#64748b';
+    }
+
+    if (this.adminRotatorToggleActive) {
+      this.adminRotatorToggleActive.checked = enabled;
+    }
+
+    if (this.statRotatorSpeed) {
+      this.statRotatorSpeed.textContent = `${sec}s`;
+    }
+    if (this.statRotatorStatus) {
+      this.statRotatorStatus.textContent = enabled ? `🟢 ${sec}s Cycle (Click to Edit)` : `⏸️ Paused (Click to Edit)`;
+    }
+
+    // Update preset buttons active highlight
+    document.querySelectorAll('.rotator-preset-btn').forEach(btn => {
+      const btnSec = parseInt(btn.dataset.seconds, 10);
+      if (btnSec === sec) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  setQuadRotationSpeed(seconds, persist = true, notify = false) {
+    const sec = Math.max(1, Math.min(300, parseInt(seconds, 10) || 10));
+    this.quadRotationIntervalSeconds = sec;
+    localStorage.setItem('swift_quad_rotation_seconds', sec.toString());
+
+    this.renderAdminSettingsUI();
+    this.initHeroQuadRotation();
+
+    if (persist) {
+      this.saveQuadRotationSettingsToServer({ hero_quad_rotation_seconds: sec });
+    }
+
+    if (notify) {
+      this.showToast(`Hero Showcase rotation interval updated to ${sec} seconds!`, 'success');
+    }
+  }
+
+  setQuadRotationEnabled(enabled, persist = true, notify = false) {
+    this.quadRotationEnabled = !!enabled;
+    localStorage.setItem('swift_quad_rotation_enabled', this.quadRotationEnabled ? 'true' : 'false');
+
+    this.renderAdminSettingsUI();
+    this.initHeroQuadRotation();
+
+    if (persist) {
+      this.saveQuadRotationSettingsToServer({ hero_quad_rotation_enabled: this.quadRotationEnabled });
+    }
+
+    if (notify) {
+      this.showToast(this.quadRotationEnabled ? `Hero Showcase auto-rotation enabled!` : `Hero Showcase auto-rotation paused.`, 'info');
+    }
+  }
+
+  async saveQuadRotationSettingsToServer(payload) {
+    try {
+      await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.warn('Could not sync settings to server:', err.message);
+    }
+  }
+
+  bindRotatorSettingsEvents() {
+    // 1. Stat card click navigates to Settings tab
+    const statCardRotator = document.getElementById('stat-card-rotator');
+    if (statCardRotator) {
+      statCardRotator.addEventListener('click', () => {
+        document.querySelectorAll('.seller-tab-btn').forEach(b => b.classList.remove('active'));
+        const settingsTabBtn = document.querySelector('.seller-tab-btn[data-admin-view="settings"]');
+        if (settingsTabBtn) settingsTabBtn.classList.add('active');
+        this.adminSubview = 'settings';
+        this.renderAdminSubviews();
+      });
+    }
+
+    // 2. Stepper buttons (Kam / Ziada)
+    const minus5Btn = document.getElementById('admin-rotator-minus-5');
+    if (minus5Btn) {
+      minus5Btn.addEventListener('click', () => {
+        this.setQuadRotationSpeed(Math.max(1, this.quadRotationIntervalSeconds - 5), true, true);
+      });
+    }
+
+    const minus1Btn = document.getElementById('admin-rotator-minus-1');
+    if (minus1Btn) {
+      minus1Btn.addEventListener('click', () => {
+        this.setQuadRotationSpeed(Math.max(1, this.quadRotationIntervalSeconds - 1), true, true);
+      });
+    }
+
+    const plus1Btn = document.getElementById('admin-rotator-plus-1');
+    if (plus1Btn) {
+      plus1Btn.addEventListener('click', () => {
+        this.setQuadRotationSpeed(Math.min(300, this.quadRotationIntervalSeconds + 1), true, true);
+      });
+    }
+
+    const plus5Btn = document.getElementById('admin-rotator-plus-5');
+    if (plus5Btn) {
+      plus5Btn.addEventListener('click', () => {
+        this.setQuadRotationSpeed(Math.min(300, this.quadRotationIntervalSeconds + 5), true, true);
+      });
+    }
+
+    // 3. Slider
+    const slider = document.getElementById('admin-rotator-slider');
+    if (slider) {
+      slider.addEventListener('input', (e) => {
+        const val = parseInt(e.target.value, 10);
+        this.quadRotationIntervalSeconds = val;
+        if (this.adminRotatorSecondsVal) this.adminRotatorSecondsVal.textContent = val;
+        if (this.adminRotatorNumInput) this.adminRotatorNumInput.value = val;
+        if (this.adminRotatorActiveSummary) this.adminRotatorActiveSummary.textContent = `${val} Seconds`;
+      });
+
+      slider.addEventListener('change', (e) => {
+        const val = parseInt(e.target.value, 10);
+        this.setQuadRotationSpeed(val, true, true);
+      });
+    }
+
+    // 4. Custom Number Input
+    const numInput = document.getElementById('admin-rotator-num-input');
+    if (numInput) {
+      numInput.addEventListener('change', (e) => {
+        const val = parseInt(e.target.value, 10);
+        this.setQuadRotationSpeed(val, true, true);
+      });
+    }
+
+    // 5. Preset chips
+    document.querySelectorAll('.rotator-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = parseInt(btn.dataset.seconds, 10);
+        this.setQuadRotationSpeed(sec, true, true);
+      });
+    });
+
+    // 6. Active toggle
+    const toggle = document.getElementById('admin-rotator-toggle-active');
+    if (toggle) {
+      toggle.addEventListener('change', (e) => {
+        this.setQuadRotationEnabled(e.target.checked, true, true);
+      });
+    }
+
+    // 7. Save button
+    const saveBtn = document.getElementById('admin-rotator-save-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', async () => {
+        saveBtn.disabled = true;
+        saveBtn.textContent = '💾 Saving...';
+        await this.saveQuadRotationSettingsToServer({
+          hero_quad_rotation_seconds: this.quadRotationIntervalSeconds,
+          hero_quad_rotation_enabled: this.quadRotationEnabled
+        });
+        localStorage.setItem('swift_quad_rotation_seconds', this.quadRotationIntervalSeconds.toString());
+        localStorage.setItem('swift_quad_rotation_enabled', this.quadRotationEnabled ? 'true' : 'false');
+        this.initHeroQuadRotation();
+        this.showToast(`Hero Showcase settings saved (${this.quadRotationIntervalSeconds}s)!`, 'success');
+        saveBtn.disabled = false;
+        saveBtn.textContent = '💾 Save & Apply Now';
+      });
+    }
+
+    // 8. Reset button
+    const resetBtn = document.getElementById('admin-rotator-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        this.quadRotationEnabled = true;
+        this.setQuadRotationSpeed(10, true, true);
+        this.showToast('Rotation speed reset to default 10 seconds.', 'info');
+      });
+    }
+
+    // 9. Preview store button
+    const previewBtn = document.getElementById('admin-rotator-preview-store-btn');
+    if (previewBtn) {
+      previewBtn.addEventListener('click', () => {
+        this.switchView('storefront');
+        window.scrollTo({ top: 380, behavior: 'smooth' });
+        this.showToast(`Displaying storefront with ${this.quadRotationIntervalSeconds}s rotation.`, 'info');
+      });
+    }
   }
 
   handleQuadBrandClick(category, brand) {
@@ -5349,6 +5740,15 @@ class SwiftOrbitsEngineApp {
     this.statBeauty.textContent = `${beautyStock} Units`;
     this.statOrders.textContent = `${activeOrders} Orders`;
     this.statRevenue.textContent = `Gross: $${grossRev.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+
+    if (this.statRotatorSpeed) {
+      this.statRotatorSpeed.textContent = `${this.quadRotationIntervalSeconds || 10}s`;
+    }
+    if (this.statRotatorStatus) {
+      this.statRotatorStatus.textContent = this.quadRotationEnabled !== false ?
+        `🟢 ${this.quadRotationIntervalSeconds || 10}s Cycle (Click to Edit)` :
+        `⏸️ Paused (Click to Edit)`;
+    }
 
     this.renderAdminProductsTable();
     this.renderAdminOrdersTable();

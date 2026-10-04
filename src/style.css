@@ -76,7 +76,7 @@ body {
    TOP ANNOUNCEMENT & PRIME US NAVIGATION BAR
    ========================================================================== */
 .top-announcement-bar {
-  background: #090d16;
+  background: #02031f;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.76rem;
   height: 36px;
@@ -138,12 +138,12 @@ body {
    MAIN SWIFTORBITS HEADER
    ========================================================================== */
 .main-swift-header {
-  background: var(--swift-navy);
+  background: #050638;
   color: #ffffff;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 4px 20px rgba(2, 3, 28, 0.45);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -301,7 +301,7 @@ body {
   top: -8px;
   right: -10px;
   background: var(--swift-amber);
-  color: var(--swift-navy);
+  color: #050638;
   font-size: 0.7rem;
   font-weight: 900;
   width: 20px;
@@ -315,9 +315,10 @@ body {
 
 /* NAVIGATION STRIP */
 .swift-nav-strip {
-  background: #ffffff;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
+  background: #0b0e4e;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(2, 3, 28, 0.25);
   font-size: 0.85rem;
 }
 
@@ -539,8 +540,8 @@ body {
 .swift-nav-btn {
   background: transparent;
   border: none;
-  color: #374151;
-  padding: 8px 12px;
+  color: #e2e8f0;
+  padding: 8px 14px;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -551,14 +552,14 @@ body {
 }
 
 .swift-nav-btn:hover {
-  color: #0f172a;
-  background: #f1f5f9;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .swift-nav-btn.active {
-  color: #0f172a;
+  color: #ffffff;
   font-weight: 700;
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .swift-nav-btn.active::after {
@@ -568,7 +569,7 @@ body {
   left: 10px;
   right: 10px;
   height: 2px;
-  background: #0f172a;
+  background: #38bdf8;
   border-radius: 2px;
 }
 
@@ -3300,8 +3301,9 @@ form {
   align-items: flex-start;
   cursor: pointer;
   border-radius: 8px;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
   outline: none;
+  position: relative;
 }
 
 /* SQUARED IMAGE CONTAINER WITH SUBTLE PASTEL GRADIENTS */
@@ -3317,7 +3319,7 @@ form {
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid #edf2f7;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 /* REAL-TIME DEAL BADGE ON TOP-LEFT OF IMAGE CONTAINER */
@@ -3337,6 +3339,7 @@ form {
   z-index: 3;
   pointer-events: none;
   text-transform: uppercase;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .bream-quad-img-wrap.tint-purple {
@@ -3366,7 +3369,7 @@ form {
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.28s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.28s ease;
   display: block;
 }
 
@@ -3387,6 +3390,7 @@ form {
   width: 100%;
   margin-top: 6px;
   gap: 4px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .bream-quad-label {
@@ -3412,10 +3416,87 @@ form {
   line-height: 1.2;
   white-space: nowrap;
   flex-shrink: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .bream-quad-item:hover .bream-quad-label {
   color: #2563eb;
+}
+
+/* 3-SECOND ROTATION TRANSITIONS: EXIT PHASE */
+.bream-quad-item.quad-changing .bream-quad-img {
+  opacity: 0;
+  transform: scale(0.72) translateY(8px);
+  filter: blur(3px);
+}
+
+.bream-quad-item.quad-changing .bream-quad-deal-badge {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.bream-quad-item.quad-changing .bream-quad-info {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* 3-SECOND ROTATION TRANSITIONS: ENTER PHASE */
+.bream-quad-item.quad-entering .bream-quad-img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  filter: blur(0);
+  animation: quadImgPopIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.bream-quad-item.quad-entering .bream-quad-deal-badge {
+  opacity: 1;
+  transform: scale(1);
+  animation: quadBadgeBounce 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.bream-quad-item.quad-entering .bream-quad-info {
+  opacity: 1;
+  transform: translateY(0);
+  animation: quadInfoFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes quadImgPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(6px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes quadBadgeBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes quadInfoFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* RESPONSIVE LAYOUT FOR QUAD CARDS */
@@ -4358,5 +4439,77 @@ form {
   border-radius: 999px;
   margin-left: 8px;
   vertical-align: middle;
+}
+
+/* ========================================================
+   ADMIN HERO ROTATOR SETTINGS STYLES
+   ======================================================== */
+.rotator-preset-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 13px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rotator-preset-btn:hover {
+  border-color: #08094a;
+  color: #08094a;
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+
+.rotator-preset-btn.active {
+  background: #08094a !important;
+  color: #ffffff !important;
+  border-color: #08094a !important;
+  box-shadow: 0 2px 6px rgba(8, 9, 74, 0.25);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider.round {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .3s;
+  border-radius: 26px;
+}
+
+.slider.round:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.switch input:checked + .slider.round {
+  background-color: #10b981;
+}
+
+.switch input:checked + .slider.round:before {
+  transform: translateX(24px);
 }
 

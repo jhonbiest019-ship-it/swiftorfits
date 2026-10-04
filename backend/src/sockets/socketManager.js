@@ -74,6 +74,13 @@ export function emitStockUpdated(stockData) {
   }
 }
 
+export function emitSettingsUpdated(settings) {
+  if (io) {
+    console.log('[Socket.IO] Broadcasting settings:updated:', settings);
+    io.emit('settings:updated', settings);
+  }
+}
+
 export default {
   initSocket,
   getIO,
@@ -82,5 +89,6 @@ export default {
   emitProductCreated,
   emitProductUpdated,
   emitProductDeleted,
-  emitStockUpdated
+  emitStockUpdated,
+  emitSettingsUpdated
 };
