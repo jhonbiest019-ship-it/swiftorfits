@@ -6590,10 +6590,13 @@ class SwiftOrbitsEngineApp {
     const thermalContainer = document.getElementById('thermal-receipt-content');
     const a4Container = document.getElementById('a4-receipt-content');
     const dateStr = new Date(order.created_at || Date.now()).toLocaleString();
-    const trackingNum = `420902109205550192`;
-    const unitPrice = Number(order.unit_price) || 0;
-    const qty = Number(order.quantity) || 1;
-    const subtotal = unitPrice * qty;
+    const trackingNum = order.tracking_number || `420902109205550192`;
+    const firstItem = (Array.isArray(order.items) && order.items.length > 0) ? order.items[0] : {};
+    const prodTitle = order.product_title || firstItem.title || firstItem.product_title || 'SwiftOrbits Catalog Item';
+    const prodSku = order.sku || firstItem.sku || 'SO-US-ITEM';
+    const qty = Number(order.quantity || firstItem.quantity || 1);
+    const unitPrice = Number(order.unit_price || firstItem.unit_price || (order.grand_total ? (order.grand_total / qty) : 29.99));
+    const subtotal = Number(order.subtotal) || (unitPrice * qty);
     const grandTotal = Number(order.grand_total) || subtotal;
 
     if (thermalContainer) {
@@ -6623,7 +6626,7 @@ class SwiftOrbitsEngineApp {
 
         <div class="receipt-row bold"><span>ORDER CONTENTS</span></div>
         <div class="receipt-row">
-          <span style="max-width:70%; word-break:break-word;">${order.product_title} [${order.sku}] x${qty}</span>
+          <span style="max-width:70%; word-break:break-word;">${prodTitle} [${prodSku}] x${qty}</span>
           <span>$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
         </div>
 
