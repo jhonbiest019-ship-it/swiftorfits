@@ -3509,9 +3509,6 @@ class SwiftOrbitsEngineApp {
     if (this.alertPopupTotal) {
       this.alertPopupTotal.textContent = '$' + Number(order.grand_total || 0).toFixed(2);
     }
-    if (this.liveOrderAlertPopup) {
-      this.liveOrderAlertPopup.classList.remove('hidden');
-    }
 
     // 2. Admin Header Top-Right Alert
     if (this.adminHeaderAlertText) {
@@ -3547,7 +3544,18 @@ class SwiftOrbitsEngineApp {
       this.adminStatOrdersCard.classList.add('has-new-orders');
     }
 
-    this.playOrderSound();
+    // STRICT: The floating notification popup and chime sound must ONLY trigger on the backend Admin Portal!
+    // Never show or play on the storefront frontend!
+    if (this.currentView === 'admin') {
+      if (this.liveOrderAlertPopup) {
+        this.liveOrderAlertPopup.classList.remove('hidden');
+      }
+      this.playOrderSound();
+    } else {
+      if (this.liveOrderAlertPopup) {
+        this.liveOrderAlertPopup.classList.add('hidden');
+      }
+    }
   }
 
   showOrderSuccessConfirmation(order) {
