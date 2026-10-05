@@ -3347,10 +3347,12 @@ class SwiftOrbitsEngineApp {
           this.adminOrders[idx] = order;
         }
 
-        this.handleNewOrderNotification(order);
         if (this.currentView === 'admin') {
+          this.handleNewOrderNotification(order);
           this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
           this.renderAdmin();
+        } else {
+          this.unreadOrders.push(order);
         }
       });
 
@@ -3417,10 +3419,12 @@ class SwiftOrbitsEngineApp {
             } else {
               this.adminOrders[idx] = order;
             }
-            this.handleNewOrderNotification(order);
             if (this.currentView === 'admin') {
+              this.handleNewOrderNotification(order);
               this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
               this.renderAdmin();
+            } else {
+              this.unreadOrders.push(order);
             }
           }
         };
