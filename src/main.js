@@ -3429,16 +3429,57 @@ class SwiftOrbitsEngineApp {
     } catch (e) {}
   }
 
+  clearNewOrderAlerts() {
+    this.unreadOrders = [];
+    if (this.liveOrderAlertPopup) {
+      this.liveOrderAlertPopup.classList.add('hidden');
+    }
+    if (this.adminHeaderNewOrderAlert) {
+      this.adminHeaderNewOrderAlert.classList.add('hidden');
+    }
+    if (this.adminStatOrderAlertBadge) {
+      this.adminStatOrderAlertBadge.classList.add('hidden');
+    }
+    if (this.adminStatOrderAlertBanner) {
+      this.adminStatOrderAlertBanner.classList.add('hidden');
+    }
+    if (this.adminStatOrdersCard) {
+      this.adminStatOrdersCard.classList.remove('has-new-orders');
+    }
+  }
+
+  updateAlertBadgesUI() {
+    const count = (this.unreadOrders || []).length;
+    if (count <= 0) {
+      this.clearNewOrderAlerts();
+      return;
+    }
+    const titleText = count > 1 ? 'You have New Orders' : 'You have a New Order';
+    const counterText = `(${count})`;
+
+    if (this.alertOrderCounter) this.alertOrderCounter.textContent = counterText;
+    if (this.alertPopupTitle) this.alertPopupTitle.textContent = titleText;
+    if (this.adminHeaderAlertText) this.adminHeaderAlertText.textContent = titleText;
+    if (this.adminHeaderOrderCounter) this.adminHeaderOrderCounter.textContent = counterText;
+    if (this.adminStatAlertText) this.adminStatAlertText.textContent = titleText;
+    if (this.adminStatOrderCounter) this.adminStatOrderCounter.textContent = counterText;
+    if (this.adminCardBannerText) this.adminCardBannerText.textContent = titleText;
+    if (this.adminCardBannerCount) this.adminCardBannerCount.textContent = counterText;
+  }
+
   handleNewOrderNotification(order) {
     if (!order) return;
     this.unreadOrders.push(order);
     const count = this.unreadOrders.length;
+    const titleText = count > 1 ? 'You have New Orders' : 'You have a New Order';
+    const counterText = `(${count})`;
 
+    // 1. Floating live order alert popup
     if (this.alertOrderCounter) {
-      this.alertOrderCounter.textContent = `(${count})`;
+      this.alertOrderCounter.textContent = counterText;
     }
     if (this.alertPopupTitle) {
-      this.alertPopupTitle.textContent = count > 1 ? `You have New Orders` : `You have a New Order`;
+      this.alertPopupTitle.textContent = titleText;
     }
     if (this.alertPopupProduct) {
       const title = order.product_title || (order.items && order.items[0]?.title) || 'SwiftOrbits Catalog Order';
@@ -3454,12 +3495,76 @@ class SwiftOrbitsEngineApp {
       this.liveOrderAlertPopup.classList.remove('hidden');
     }
 
+    // 2. Admin Header Top-Right Alert
+    if (this.adminHeaderAlertText) {
+      this.adminHeaderAlertText.textContent = titleText;
+    }
+    if (this.adminHeaderOrderCounter) {
+      this.adminHeaderOrderCounter.textContent = counterText;
+    }
+    if (this.adminHeaderNewOrderAlert) {
+      this.adminHeaderNewOrderAlert.classList.remove('hidden');
+    }
+
+    // 3. Admin Stat Card Alert (Where Orders & Gross Revenue Payment are displayed)
+    if (this.adminStatAlertText) {
+      this.adminStatAlertText.textContent = titleText;
+    }
+    if (this.adminStatOrderCounter) {
+      this.adminStatOrderCounter.textContent = counterText;
+    }
+    if (this.adminStatOrderAlertBadge) {
+      this.adminStatOrderAlertBadge.classList.remove('hidden');
+    }
+    if (this.adminCardBannerText) {
+      this.adminCardBannerText.textContent = titleText;
+    }
+    if (this.adminCardBannerCount) {
+      this.adminCardBannerCount.textContent = counterText;
+    }
+    if (this.adminStatOrderAlertBanner) {
+      this.adminStatOrderAlertBanner.classList.remove('hidden');
+    }
+    if (this.adminStatOrdersCard) {
+      this.adminStatOrdersCard.classList.add('has-new-orders');
+    }
+
     this.playOrderSound();
+  }
+
+  showOrderSuccessConfirmation(order) {
+    if (!order) return;
+    this.latestPlacedOrder = order;
+
+    const refEl = document.getElementById('order-success-ref');
+    if (refEl) refEl.textContent = `#${order.order_number}`;
+
+    const prodTitleEl = document.getElementById('order-success-product-title');
+    const firstItem = (Array.isArray(order.items) && order.items.length > 0) ? order.items[0] : {};
+    const title = order.product_title || firstItem.title || firstItem.product_title || 'SwiftOrbits Catalog Product';
+    if (prodTitleEl) prodTitleEl.textContent = title;
+
+    const qtySkuEl = document.getElementById('order-success-qty-sku');
+    const sku = order.sku || firstItem.sku || 'SO-US-01';
+    const qty = order.quantity || firstItem.quantity || 1;
+    if (qtySkuEl) qtySkuEl.textContent = `Qty: ${qty} • SKU: ${sku}`;
+
+    const totalEl = document.getElementById('order-success-total');
+    const grandTotal = Number(order.grand_total || order.subtotal || 0).toFixed(2);
+    if (totalEl) totalEl.textContent = `$${grandTotal}`;
+
+    if (this.orderSuccessModal) {
+      this.toggleModal(this.orderSuccessModal, true);
+    }
   }
 
   openOrderDetailModal(order) {
     if (!order) return;
     this.activeDetailOrder = order;
+
+    // Filter viewed order out from unread count
+    this.unreadOrders = (this.unreadOrders || []).filter(o => o.order_number !== order.order_number && o.id !== order.id);
+    this.updateAlertBadgesUI();
 
     const refEl = document.getElementById('order-detail-modal-ref');
     if (refEl) refEl.textContent = `📋 Order Details — #${order.order_number}`;
