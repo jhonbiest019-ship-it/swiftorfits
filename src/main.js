@@ -6014,9 +6014,9 @@ class SwiftOrbitsEngineApp {
           } catch (e) {}
         }
 
-        // Real-time admin UI re-render & sound chime
+        // Real-time admin UI re-render, floating popup & sound chime
         this.renderAdmin();
-        this.playOrderSound();
+        this.handleNewOrderNotification(newOrder);
 
         if (this.currentView === 'product') {
           this.closeProductDetailPage();
