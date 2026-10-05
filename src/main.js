@@ -6258,13 +6258,22 @@ class SwiftOrbitsEngineApp {
           newOrder.quantity = newOrder.items[0].quantity;
         }
 
-        const existingIdx = this.orders.findIndex(o => o.id === newOrder.id || o.order_number === newOrder.order_number);
-        if (existingIdx === -1) {
-          this.orders.unshift(newOrder);
-        } else {
-          this.orders[existingIdx] = newOrder;
-        }
+        // 1. Remove from visitor's cart if this product was in cart, and add to their personal placed orders
+        this.myOrders = this.myOrders.filter(item => item.sku !== newOrder.sku || !item.is_cart_item);
+        this.myOrders.unshift({
+          ...newOrder,
+          is_cart_item: false,
+          order_status: newOrder.order_status || 'processing'
+        });
         this.saveCustomerLocalOrders();
+
+        // 2. Add to Admin authoritative store orders
+        const existingIdx = this.adminOrders.findIndex(o => o.id === newOrder.id || o.order_number === newOrder.order_number);
+        if (existingIdx === -1) {
+          this.adminOrders.unshift(newOrder);
+        } else {
+          this.adminOrders[existingIdx] = newOrder;
+        }
 
         // Broadcast to other tabs & windows in real-time
         if (typeof BroadcastChannel !== 'undefined') {
@@ -6275,7 +6284,9 @@ class SwiftOrbitsEngineApp {
         }
 
         // Real-time admin UI re-render, floating popup & sound chime
-        this.renderAdmin();
+        if (this.currentView === 'admin') {
+          this.renderAdmin();
+        }
         this.handleNewOrderNotification(newOrder);
 
         if (this.currentView === 'product') {
