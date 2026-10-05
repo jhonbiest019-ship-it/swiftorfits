@@ -3614,6 +3614,21 @@ class SwiftOrbitsEngineApp {
     // Toast Container
     this.toastContainer = document.getElementById('toast-container');
 
+    // Live Order Alert Popup & Details Modal Elements
+    this.liveOrderAlertPopup = document.getElementById('live-order-alert-popup');
+    this.alertPopupTitle = document.getElementById('alert-popup-main-title');
+    this.alertOrderCounter = document.getElementById('alert-order-counter');
+    this.alertPopupProduct = document.getElementById('alert-popup-product-title');
+    this.alertPopupCustomer = document.getElementById('alert-popup-customer');
+    this.alertPopupTotal = document.getElementById('alert-popup-total');
+    this.closeLiveOrderAlertBtn = document.getElementById('close-live-order-alert');
+    this.orderDetailModal = document.getElementById('order-detail-modal');
+    this.closeOrderDetailModalBtn = document.getElementById('close-order-detail-modal');
+    this.closeOrderDetailBtn = document.getElementById('close-order-detail-btn');
+    this.orderDetailStatusSelect = document.getElementById('order-detail-status-select');
+    this.orderDetailPrintBtn = document.getElementById('order-detail-print-receipt-btn');
+    this.orderDetailWhatsappLink = document.getElementById('order-detail-whatsapp-link');
+
     // Category Page Elements
     this.catPageBreadcrumbTitle = document.getElementById('cat-page-breadcrumb-title');
     this.catPageItemCount = document.getElementById('cat-page-item-count');
