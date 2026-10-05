@@ -3719,14 +3719,14 @@ class SwiftOrbitsEngineApp {
         if (ordersRes.ok && contentType.includes('application/json')) {
           const ordersData = await ordersRes.json();
           if (ordersData.ok && Array.isArray(ordersData.orders)) {
-            this.orders = ordersData.orders;
+            this.adminOrders = ordersData.orders;
             ordersLoadedFromServer = true;
           }
         }
       } catch (e) {}
 
-      if (!ordersLoadedFromServer) {
-        this.orders = this.loadCustomerLocalOrders();
+      if (!ordersLoadedFromServer && !this.adminOrders) {
+        this.adminOrders = [];
       }
 
       // 2. Fetch Analytics from Database or compute locally
@@ -3745,13 +3745,13 @@ class SwiftOrbitsEngineApp {
       } catch (e) {}
 
       if (!analyticsLoaded) {
-        const gross = this.orders.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
-        const processing = this.orders.filter(o => o.order_status === 'processing' || o.order_status === 'pending' || o.status === 'pending').length;
-        const delivered = this.orders.filter(o => o.order_status === 'delivered' || o.status === 'delivered').length;
-        const aov = this.orders.length ? (gross / this.orders.length) : 0;
+        const gross = this.adminOrders.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
+        const processing = this.adminOrders.filter(o => o.order_status === 'processing' || o.order_status === 'pending' || o.status === 'pending').length;
+        const delivered = this.adminOrders.filter(o => o.order_status === 'delivered' || o.status === 'delivered').length;
+        const aov = this.adminOrders.length ? (gross / this.adminOrders.length) : 0;
         this.applyAnalytics({
           department_stock: { tech: 240, fashion: 180, beauty: 320 },
-          active_orders: this.orders.length,
+          active_orders: this.adminOrders.length,
           gross_revenue: gross,
           processing_orders: processing,
           delivered_orders: delivered,
