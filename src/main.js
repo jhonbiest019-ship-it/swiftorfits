@@ -8115,11 +8115,12 @@ class SwiftOrbitsEngineApp {
     if (!this.trackingModal) return;
 
     let targetOrder = null;
+    const allKnown = [...(this.myOrders || []), ...(this.adminOrders || [])];
     if (orderNumberOrRef) {
-      targetOrder = this.orders.find(o => o.order_number.toUpperCase() === orderNumberOrRef.toUpperCase());
+      targetOrder = allKnown.find(o => o.order_number && o.order_number.toUpperCase() === orderNumberOrRef.toUpperCase());
     }
-    if (!targetOrder && this.orders.length > 0) {
-      targetOrder = this.orders[0];
+    if (!targetOrder && allKnown.length > 0) {
+      targetOrder = allKnown[0];
     }
 
     if (this.trackInput && targetOrder) {
@@ -8148,9 +8149,10 @@ class SwiftOrbitsEngineApp {
       }
     } catch (e) {}
 
-    const order = this.orders.find(o =>
-      o.order_number.toUpperCase() === query ||
-      (query.includes('420') || query.includes('SO-US'))
+    const allKnown = [...(this.myOrders || []), ...(this.adminOrders || [])];
+    const order = allKnown.find(o =>
+      (o.order_number && o.order_number.toUpperCase() === query) ||
+      (o.tracking_number && o.tracking_number.toUpperCase() === query)
     );
 
     if (order) {
