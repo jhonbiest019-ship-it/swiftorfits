@@ -4258,6 +4258,83 @@ class SwiftOrbitsEngineApp {
       });
     });
 
+    // Live Order Alert Popup Click & Dismiss
+    if (this.liveOrderAlertPopup) {
+      this.liveOrderAlertPopup.addEventListener('click', () => {
+        const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
+          ? this.unreadOrders[this.unreadOrders.length - 1]
+          : (this.orders && this.orders[0]);
+        this.unreadOrders = [];
+        this.liveOrderAlertPopup.classList.add('hidden');
+        if (targetOrder) {
+          this.openOrderDetailModal(targetOrder);
+        }
+      });
+    }
+
+    if (this.closeLiveOrderAlertBtn) {
+      this.closeLiveOrderAlertBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.unreadOrders = [];
+        if (this.liveOrderAlertPopup) {
+          this.liveOrderAlertPopup.classList.add('hidden');
+        }
+      });
+    }
+
+    // Order Detail Modal Close & Action Handlers
+    if (this.closeOrderDetailModalBtn) {
+      this.closeOrderDetailModalBtn.addEventListener('click', () => this.toggleModal(this.orderDetailModal, false));
+    }
+    if (this.closeOrderDetailBtn) {
+      this.closeOrderDetailBtn.addEventListener('click', () => this.toggleModal(this.orderDetailModal, false));
+    }
+
+    if (this.orderDetailPrintBtn) {
+      this.orderDetailPrintBtn.addEventListener('click', () => {
+        if (this.activeDetailOrder) {
+          this.openThermalReceipt(this.activeDetailOrder);
+        }
+      });
+    }
+
+    if (this.orderDetailStatusSelect) {
+      this.orderDetailStatusSelect.addEventListener('change', async (e) => {
+        if (!this.activeDetailOrder) return;
+        const newStatus = e.target.value;
+        this.activeDetailOrder.order_status = newStatus;
+        this.activeDetailOrder.status = newStatus;
+
+        // Update pill in modal
+        const pillEl = document.getElementById('order-detail-status-pill');
+        if (pillEl) {
+          pillEl.className = `status-pill status-${newStatus}`;
+          pillEl.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
+        }
+
+        // Update in this.orders
+        const idx = this.orders.findIndex(o => o.id === this.activeDetailOrder.id || o.order_number === this.activeDetailOrder.order_number);
+        if (idx !== -1) {
+          this.orders[idx] = { ...this.orders[idx], order_status: newStatus, status: newStatus };
+        }
+        this.saveCustomerLocalOrders();
+        this.renderAdmin();
+
+        try {
+          await fetch(`${API_BASE}/orders/${this.activeDetailOrder.id}/status`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              ...(this.adminToken ? { Authorization: `Bearer ${this.adminToken}` } : {})
+            },
+            body: JSON.stringify({ status: newStatus })
+          });
+        } catch (err) {}
+
+        this.showToast(`Order #${this.activeDetailOrder.order_number} status updated to '${newStatus}'!`, 'success');
+      });
+    }
+
     this.bindRotatorSettingsEvents();
   }
 
