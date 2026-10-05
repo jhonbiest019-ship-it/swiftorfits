@@ -6209,9 +6209,9 @@ class SwiftOrbitsEngineApp {
         const orderForm = document.getElementById('order-form');
         if (orderForm) orderForm.reset();
 
-        this.showToast(`🔔 SwiftOrbits US Order Placed! Ref: ${newOrder.order_number}`, 'success');
         this.updateHeaderCart();
-        this.openThermalReceipt(newOrder);
+        this.showOrderSuccessConfirmation(newOrder);
+        this.showToast(`✅ Order Placed Successfully! Ref: ${newOrder.order_number}`, 'success');
       }
     } catch (err) {
       this.showToast('Order placement notice: ' + err.message, 'warning');
