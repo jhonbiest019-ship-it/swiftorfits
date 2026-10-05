@@ -6402,26 +6402,30 @@ class SwiftOrbitsEngineApp {
 
   renderAdminOrdersTable() {
     this.adminOrdersTbody.innerHTML = this.orders.map(o => {
-      const waMsg = encodeURIComponent(`Hello ${o.customer_name}, your SwiftOrbits US order ${o.order_number} for "${o.product_title}" has been updated. Grand Total: $${Number(o.grand_total).toLocaleString('en-US', { minimumFractionDigits: 2 })}`);
-      const waUrl = `https://wa.me/${o.customer_phone.replace(/[^0-9]/g, '')}?text=${waMsg}`;
+      const firstItem = (Array.isArray(o.items) && o.items.length > 0) ? o.items[0] : {};
+      const prodTitle = o.product_title || firstItem.title || firstItem.product_title || 'SwiftOrbits Catalog Item';
+      const prodSku = o.sku || firstItem.sku || 'SO-US-01';
+      const qty = o.quantity || firstItem.quantity || 1;
+      const waMsg = encodeURIComponent(`Hello ${o.customer_name}, your SwiftOrbits US order ${o.order_number} for "${prodTitle}" has been updated. Grand Total: $${Number(o.grand_total).toLocaleString('en-US', { minimumFractionDigits: 2 })}`);
+      const waUrl = `https://wa.me/${(o.customer_phone || '').replace(/[^0-9]/g, '')}?text=${waMsg}`;
 
       return `
         <tr>
           <td>
             <strong class="order-ref-click" data-order-id="${o.id}" style="font-family:var(--font-mono); color:var(--swift-blue); cursor:pointer; text-decoration:underline;" title="Click to view full order details">${o.order_number}</strong><br>
-            <small style="color:#64748b;">${new Date(o.created_at).toLocaleDateString()}</small>
+            <small style="color:#64748b;">${new Date(o.created_at || Date.now()).toLocaleDateString()}</small>
           </td>
           <td>
-            <strong>${o.customer_name}</strong><br>
-            <small style="color:#64748b;">${o.customer_phone}</small>
+            <strong>${o.customer_name || 'US Customer'}</strong><br>
+            <small style="color:#64748b;">${o.customer_phone || '-'}</small>
           </td>
           <td>
-            <div><strong>${o.city}, ${o.state || 'US'}</strong></div>
-            <small style="color:#64748b; font-size:0.74rem;">${o.shipping_address}</small>
+            <div><strong>${o.city || 'Orlando'}, ${o.state || 'US'}</strong></div>
+            <small style="color:#64748b; font-size:0.74rem;">${o.shipping_address || 'US Address'}</small>
           </td>
           <td>
-            <strong>${o.product_title}</strong> (x${o.quantity})<br>
-            <small style="font-family:var(--font-mono); color:#64748b;">${o.sku}</small>
+            <strong>${prodTitle}</strong> (x${qty})<br>
+            <small style="font-family:var(--font-mono); color:#64748b;">${prodSku}</small>
           </td>
           <td><strong style="color:#10b981;">$${Number(o.grand_total).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></td>
           <td>
