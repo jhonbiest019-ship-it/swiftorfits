@@ -5748,11 +5748,14 @@ class SwiftOrbitsEngineApp {
           city: city,
           state: state,
           tracking_number: trackingNum,
-          order_status: 'pending',
-          status: 'pending',
+          order_status: 'processing',
+          status: 'processing',
           subtotal: subtotal,
           shipping_fee: shippingFee,
           grand_total: grandTotal,
+          product_title: product ? product.title : 'SwiftOrbits Catalog Item',
+          sku: sku,
+          quantity: quantity,
           created_at: new Date().toISOString(),
           items: [
             {
@@ -5776,6 +5779,13 @@ class SwiftOrbitsEngineApp {
       }
 
       if (newOrder) {
+        // Ensure root level product_title, quantity, and sku exist
+        if (!newOrder.product_title && newOrder.items && newOrder.items[0]) {
+          newOrder.product_title = newOrder.items[0].title || newOrder.items[0].product_title;
+          newOrder.sku = newOrder.items[0].sku;
+          newOrder.quantity = newOrder.items[0].quantity;
+        }
+
         const existingIdx = this.orders.findIndex(o => o.id === newOrder.id || o.order_number === newOrder.order_number);
         if (existingIdx === -1) {
           this.orders.unshift(newOrder);
@@ -5783,6 +5793,18 @@ class SwiftOrbitsEngineApp {
           this.orders[existingIdx] = newOrder;
         }
         this.saveCustomerLocalOrders();
+
+        // Broadcast to other tabs & windows in real-time
+        if (typeof BroadcastChannel !== 'undefined') {
+          try {
+            const bc = new BroadcastChannel('swiftorbits_realtime');
+            bc.postMessage({ type: 'order:created', order: newOrder });
+          } catch (e) {}
+        }
+
+        // Real-time admin UI re-render & sound chime
+        this.renderAdmin();
+        this.playOrderSound();
 
         if (this.currentView === 'product') {
           this.closeProductDetailPage();
@@ -5792,7 +5814,7 @@ class SwiftOrbitsEngineApp {
         const orderForm = document.getElementById('order-form');
         if (orderForm) orderForm.reset();
 
-        this.showToast(`SwiftOrbits US Order Placed! Ref: ${newOrder.order_number}`, 'success');
+        this.showToast(`🔔 SwiftOrbits US Order Placed! Ref: ${newOrder.order_number}`, 'success');
         this.updateHeaderCart();
         this.openThermalReceipt(newOrder);
       }
