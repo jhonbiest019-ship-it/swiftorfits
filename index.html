@@ -718,6 +718,30 @@
 
       <!-- ================= STORE MANAGER ERP VIEW (SWIFTORBITS US MERCHANT PORTAL) ================= -->
       <div id="view-admin" class="workspace-view hidden">
+        <!-- REAL-TIME FLOATING NEW ORDER NOTIFICATION POPUP (ADMIN BACKEND ONLY) -->
+        <div id="live-order-alert-popup" class="live-order-alert-popup hidden">
+          <div class="alert-popup-content">
+            <div class="alert-popup-header">
+              <div class="alert-popup-title-wrap">
+                <span class="live-pulse-dot"></span>
+                <span class="alert-popup-main-title" id="alert-popup-main-title">You have a New Order</span>
+                <span class="alert-order-count-badge" id="alert-order-counter">(1)</span>
+              </div>
+              <button type="button" class="alert-popup-close-btn" id="close-live-order-alert" title="Dismiss">✕</button>
+            </div>
+            <div class="alert-popup-body" id="alert-popup-body">
+              <div class="alert-popup-product" id="alert-popup-product-title">Product Name</div>
+              <div class="alert-popup-meta">
+                <span id="alert-popup-customer">Customer</span> • <strong id="alert-popup-total">$0.00</strong>
+              </div>
+              <div class="alert-popup-cta">
+                <span>Click to view order details</span>
+                <span class="alert-cta-arrow">➔</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="swift-seller-header">
           <div>
             <div class="seller-badge-pill">SWIFTORBITS US MERCHANT HUB • ERP OPERATIONS</div>
