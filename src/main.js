@@ -3381,6 +3381,31 @@ class SwiftOrbitsEngineApp {
     } catch (err) {
       console.warn('Realtime Socket connection unavailable:', err.message);
     }
+
+    // Cross-tab & Multi-window Real-Time Broadcast Engine
+    if (typeof BroadcastChannel !== 'undefined') {
+      try {
+        const bc = new BroadcastChannel('swiftorbits_realtime');
+        bc.onmessage = (event) => {
+          if (event.data && event.data.type === 'order:created') {
+            const order = event.data.order;
+            const idx = this.orders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
+            if (idx === -1) {
+              this.orders.unshift(order);
+            } else {
+              this.orders[idx] = order;
+            }
+            this.saveCustomerLocalOrders();
+            this.playOrderSound();
+            this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
+            this.updateHeaderCart();
+            if (this.currentView === 'admin') {
+              this.renderAdmin();
+            }
+          }
+        };
+      } catch (e) {}
+    }
   }
 
   playOrderSound() {
