@@ -3165,6 +3165,8 @@ class SwiftOrbitsEngineApp {
     this.orders = this.loadCustomerLocalOrders();
     this.categories = [];
     this.backendHealthy = false;
+    this.unreadOrders = [];
+    this.activeDetailOrder = null;
 
     this.userProfile = this.loadState('swift_user_profile', {
       name: 'Johnathan Smith',
