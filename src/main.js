@@ -4506,8 +4506,7 @@ class SwiftOrbitsEngineApp {
         const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
           ? this.unreadOrders[this.unreadOrders.length - 1]
           : (this.orders && this.orders[0]);
-        this.unreadOrders = [];
-        this.liveOrderAlertPopup.classList.add('hidden');
+        this.clearNewOrderAlerts();
         if (targetOrder) {
           this.openOrderDetailModal(targetOrder);
         }
@@ -4517,9 +4516,69 @@ class SwiftOrbitsEngineApp {
     if (this.closeLiveOrderAlertBtn) {
       this.closeLiveOrderAlertBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        this.unreadOrders = [];
-        if (this.liveOrderAlertPopup) {
-          this.liveOrderAlertPopup.classList.add('hidden');
+        this.clearNewOrderAlerts();
+      });
+    }
+
+    // Admin Header Top-Right Alert Click Handler
+    if (this.adminHeaderNewOrderAlert) {
+      this.adminHeaderNewOrderAlert.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
+          ? this.unreadOrders[this.unreadOrders.length - 1]
+          : (this.orders && this.orders[0]);
+        this.clearNewOrderAlerts();
+        if (targetOrder) {
+          this.openOrderDetailModal(targetOrder);
+        }
+      });
+    }
+
+    // Admin Stat Card Alert Banner & Card Click Handler
+    if (this.adminStatOrderAlertBanner) {
+      this.adminStatOrderAlertBanner.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
+          ? this.unreadOrders[this.unreadOrders.length - 1]
+          : (this.orders && this.orders[0]);
+        this.clearNewOrderAlerts();
+        if (targetOrder) {
+          this.openOrderDetailModal(targetOrder);
+        }
+      });
+    }
+
+    if (this.adminStatOrdersCard) {
+      this.adminStatOrdersCard.addEventListener('click', () => {
+        if (this.unreadOrders && this.unreadOrders.length > 0) {
+          const targetOrder = this.unreadOrders[this.unreadOrders.length - 1];
+          this.clearNewOrderAlerts();
+          this.openOrderDetailModal(targetOrder);
+        } else {
+          this.switchAdminView('orders');
+        }
+      });
+    }
+
+    // Storefront Compact Order Success Modal Event Handlers
+    if (this.closeOrderSuccessModalBtn) {
+      this.closeOrderSuccessModalBtn.addEventListener('click', () => {
+        this.toggleModal(this.orderSuccessModal, false);
+      });
+    }
+
+    if (this.orderSuccessContinueBtn) {
+      this.orderSuccessContinueBtn.addEventListener('click', () => {
+        this.toggleModal(this.orderSuccessModal, false);
+      });
+    }
+
+    if (this.orderSuccessViewReceiptBtn) {
+      this.orderSuccessViewReceiptBtn.addEventListener('click', () => {
+        this.toggleModal(this.orderSuccessModal, false);
+        const orderToPrint = this.latestPlacedOrder || (this.orders && this.orders[0]);
+        if (orderToPrint) {
+          this.openThermalReceipt(orderToPrint);
         }
       });
     }
