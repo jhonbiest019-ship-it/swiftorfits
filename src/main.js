@@ -4974,6 +4974,15 @@ class SwiftOrbitsEngineApp {
       }
     });
 
+    // Update Hero 3-Category Tabs active state (Kitchen, Beauty, Electronics)
+    document.querySelectorAll('.hero-category-tab-card').forEach(tab => {
+      if (tab.dataset.category === effectiveCategory) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
+      }
+    });
+
     // Ensure Amazon Quad Category Cards stay uniform (no clicked tab outline)
     document.querySelectorAll('.bream-quad-card').forEach(card => {
       card.classList.remove('active-card');
