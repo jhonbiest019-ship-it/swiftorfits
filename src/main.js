@@ -4347,6 +4347,17 @@ class SwiftOrbitsEngineApp {
     const orderQtyInput = document.getElementById('order-qty');
     if (orderQtyInput) orderQtyInput.addEventListener('input', () => this.updateCheckoutCalculations());
 
+    // PDP Add to Cart Button
+    const pdpAddToCartBtn = document.getElementById('pdp-add-to-cart-btn');
+    if (pdpAddToCartBtn) {
+      pdpAddToCartBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!this.activeModalProduct) return;
+        const qty = parseInt(document.getElementById('order-qty')?.value) || 1;
+        this.addToCart(this.activeModalProduct, qty);
+      });
+    }
+
     // Form Submit: Order Checkout
     const orderForm = document.getElementById('order-form');
     if (orderForm) orderForm.addEventListener('submit', (e) => this.handleOrderSubmit(e));
