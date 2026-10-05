@@ -6402,9 +6402,9 @@ class SwiftOrbitsEngineApp {
     const techStock = this.products.filter(p => p.category === 'electronics' || p.category === 'appliances').reduce((sum, p) => sum + p.stock_qty, 0);
     const fashionStock = this.products.filter(p => p.category === 'fashion').reduce((sum, p) => sum + p.stock_qty, 0);
     const beautyStock = this.products.filter(p => p.category === 'beauty').reduce((sum, p) => sum + p.stock_qty, 0);
-    const activeOrders = this.orders.filter(o => o.order_status === 'processing' || o.order_status === 'pending').length;
+    const activeOrders = this.adminOrders.filter(o => o.order_status === 'processing' || o.order_status === 'pending').length;
 
-    const grossRev = this.orders.filter(o => o.order_status !== 'cancelled').reduce((sum, o) => sum + o.grand_total, 0);
+    const grossRev = this.adminOrders.filter(o => o.order_status !== 'cancelled').reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
 
     this.statElec.textContent = `${techStock} Units`;
     this.statFashion.textContent = `${fashionStock} Units`;
@@ -6490,7 +6490,7 @@ class SwiftOrbitsEngineApp {
   }
 
   renderAdminOrdersTable() {
-    this.adminOrdersTbody.innerHTML = this.orders.map(o => {
+    this.adminOrdersTbody.innerHTML = this.adminOrders.map(o => {
       const firstItem = (Array.isArray(o.items) && o.items.length > 0) ? o.items[0] : {};
       const prodTitle = o.product_title || firstItem.title || firstItem.product_title || 'SwiftOrbits Catalog Item';
       const prodSku = o.sku || firstItem.sku || 'SO-US-01';
@@ -6566,7 +6566,7 @@ class SwiftOrbitsEngineApp {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const orderId = btn.dataset.orderId;
-        const order = this.orders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
+        const order = this.adminOrders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
         if (order) this.openOrderDetailModal(order);
       });
     });
@@ -6574,7 +6574,7 @@ class SwiftOrbitsEngineApp {
     this.adminOrdersTbody.querySelectorAll('.order-ref-click').forEach(el => {
       el.addEventListener('click', () => {
         const orderId = el.dataset.orderId;
-        const order = this.orders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
+        const order = this.adminOrders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
         if (order) this.openOrderDetailModal(order);
       });
     });
@@ -6583,17 +6583,17 @@ class SwiftOrbitsEngineApp {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const orderId = parseInt(btn.dataset.orderId);
-        const order = this.orders.find(o => o.id === orderId);
+        const order = this.adminOrders.find(o => o.id === orderId);
         if (order) this.openThermalReceipt(order);
       });
     });
   }
 
   renderLedger() {
-    const validOrders = this.orders.filter(o => o.order_status !== 'cancelled');
-    const grossRev = validOrders.reduce((sum, o) => sum + o.grand_total, 0);
-    const processingCount = this.orders.filter(o => o.order_status === 'processing' || o.order_status === 'pending').length;
-    const deliveredCount = this.orders.filter(o => o.order_status === 'delivered').length;
+    const validOrders = this.adminOrders.filter(o => o.order_status !== 'cancelled');
+    const grossRev = validOrders.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
+    const processingCount = this.adminOrders.filter(o => o.order_status === 'processing' || o.order_status === 'pending').length;
+    const deliveredCount = this.adminOrders.filter(o => o.order_status === 'delivered').length;
     const aov = validOrders.length > 0 ? (grossRev / validOrders.length) : 0;
 
     this.ledgerGross.textContent = `$${grossRev.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
