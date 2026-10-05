@@ -3680,18 +3680,20 @@ class SwiftOrbitsEngineApp {
 
   bindEvents() {
     // Mode Switching with Authentication Guard
-    this.topSwitchBtn.addEventListener('click', () => {
-      if (this.currentView === 'admin') {
-        this.switchCategory('all');
-      } else {
-        if (this.adminToken) {
-          this.switchView('admin');
-          this.loadAdminData();
+    if (this.topSwitchBtn) {
+      this.topSwitchBtn.addEventListener('click', () => {
+        if (this.currentView === 'admin') {
+          this.switchCategory('all');
         } else {
-          this.toggleModal(this.adminLoginModal, true);
+          if (this.adminToken) {
+            this.switchView('admin');
+            this.loadAdminData();
+          } else {
+            this.toggleModal(this.adminLoginModal, true);
+          }
         }
-      }
-    });
+      });
+    }
 
     if (this.adminLogoutBtn) {
       this.adminLogoutBtn.addEventListener('click', () => {
