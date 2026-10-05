@@ -4524,7 +4524,7 @@ class SwiftOrbitsEngineApp {
       if (this.viewProductDetail) this.viewProductDetail.classList.add('hidden');
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
       this.viewAdmin.classList.add('hidden');
-      this.topSwitchBtn.textContent = '⚡ SwiftOrbits US Merchant Portal';
+      if (this.topSwitchBtn) this.topSwitchBtn.textContent = '⚡ SwiftOrbits US Merchant Portal';
       if (!window.location.hash.startsWith('#category=') && !window.location.hash.startsWith('#deals') && !window.location.hash.startsWith('#bestsellers')) {
         window.location.hash = this.selectedCategory !== 'all' ? `category=${this.selectedCategory}` : 'category=all';
       }
@@ -4534,7 +4534,7 @@ class SwiftOrbitsEngineApp {
       this.viewAdmin.classList.add('hidden');
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
       if (this.viewProductDetail) this.viewProductDetail.classList.remove('hidden');
-      this.topSwitchBtn.textContent = '⚡ SwiftOrbits US Merchant Portal';
+      if (this.topSwitchBtn) this.topSwitchBtn.textContent = '⚡ SwiftOrbits US Merchant Portal';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       window.location.hash = 'admin';
@@ -4542,7 +4542,7 @@ class SwiftOrbitsEngineApp {
       this.viewStorefront.classList.add('hidden');
       if (this.viewProductDetail) this.viewProductDetail.classList.add('hidden');
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
-      this.topSwitchBtn.textContent = '🛒 Back to SwiftOrbits Storefront';
+      if (this.topSwitchBtn) this.topSwitchBtn.textContent = '🛒 Back to SwiftOrbits Storefront';
       this.renderAdmin();
     }
   }
