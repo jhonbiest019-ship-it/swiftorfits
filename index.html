@@ -723,7 +723,13 @@
             <h1 class="seller-title">SwiftOrbits USA Verified Merchant Operations Portal</h1>
             <p class="seller-sub">Manage inventory stock, process US dispatches, view USD sales ledger, and print USPS thermal shipping labels.</p>
           </div>
-          <div style="display: flex; gap: 10px; align-items: center;">
+          <div style="display: flex; gap: 10px; align-items: center;" id="admin-top-right-actions">
+            <!-- TOP RIGHT NEW ORDER NOTIFICATION ALERT -->
+            <button type="button" id="admin-header-new-order-alert" class="admin-top-order-alert-btn hidden" title="Click to view new order details">
+              <span class="live-pulse-dot"></span>
+              <span id="admin-header-alert-text">You have a New Order</span>
+              <span class="order-counter-badge" id="admin-header-order-counter">(1)</span>
+            </button>
             <button class="btn btn-secondary" id="admin-logout-btn" style="border: 1px solid #cbd5e1; background: #fff; color: #475569;">
               🔒 Sign Out
             </button>
@@ -750,10 +756,23 @@
             <div class="d-stat-val" id="stat-beauty" style="color: #10b981;">0 Units</div>
             <div class="d-stat-sub">Skincare & Care</div>
           </div>
-          <div class="swift-stat-card">
-            <div class="d-stat-label">US Fulfillment Queue</div>
+          <div class="swift-stat-card" id="admin-stat-orders-card" style="position: relative; cursor: pointer;" title="US Orders Queue & Revenue Ledger (Click to view orders)">
+            <div class="d-stat-label" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>US Fulfillment Queue</span>
+              <span id="admin-stat-order-alert-badge" class="admin-card-alert-badge hidden">
+                🔔 <span id="admin-stat-alert-text">You have a New Order</span> <strong id="admin-stat-order-counter">(1)</strong>
+              </span>
+            </div>
             <div class="d-stat-val" id="stat-orders" style="color: var(--swift-purple);">0 Orders</div>
             <div class="d-stat-sub" id="stat-revenue">Gross Revenue: $0.00</div>
+            <div id="admin-stat-order-alert-banner" class="admin-stat-order-alert-banner hidden">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="live-pulse-dot"></span>
+                <strong id="admin-card-banner-text">You have a New Order</strong>
+                <span class="order-counter-badge" id="admin-card-banner-count">(1)</span>
+              </div>
+              <span class="stat-banner-cta">Click to view details ›</span>
+            </div>
           </div>
           <div class="swift-stat-card" style="border-left: 4px solid #f59e0b; cursor: pointer;" id="stat-card-rotator" title="Click to configure Hero Showcase rotation speed">
             <div class="d-stat-label">Hero Rotator Speed</div>
