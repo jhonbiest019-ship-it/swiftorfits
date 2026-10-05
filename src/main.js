@@ -3697,7 +3697,12 @@ class SwiftOrbitsEngineApp {
       } else if (hash === '#orders' || hash === '#cart') {
         this.openOrdersQueueModal();
       } else if (hash === '#admin') {
-        this.switchView('admin');
+        if (this.adminToken) {
+          this.switchView('admin');
+          this.loadAdminData();
+        } else {
+          this.toggleModal(this.adminLoginModal, true);
+        }
       } else if (['#support', '#contact', '#prime-shipping', '#carrier', '#faq', '#about', '#terms', '#privacy', '#warranty', '#returns'].includes(hash)) {
         this.openInfoModal(hash.replace('#', ''));
       } else {
