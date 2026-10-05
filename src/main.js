@@ -4203,6 +4203,13 @@ class SwiftOrbitsEngineApp {
         if (!infoKey) return;
         if (infoKey === 'track') {
           this.openTrackingModal();
+        } else if (infoKey === 'admin') {
+          if (this.adminToken) {
+            this.switchView('admin');
+            this.loadAdminData();
+          } else {
+            this.toggleModal(this.adminLoginModal, true);
+          }
         } else {
           this.openInfoModal(infoKey);
         }
