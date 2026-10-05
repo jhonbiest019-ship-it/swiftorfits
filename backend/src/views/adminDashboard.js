@@ -881,7 +881,7 @@ export function renderAdminDashboardHtml(options = {}) {
               <span>⚙️ Storefront Hero Category Rotator & Display Controls</span>
               <span class="badge-pill badge-appliances" style="font-size:0.75rem;">Realtime Control</span>
             </h2>
-            <p class="panel-sub">ہیرو سیکشن کے 4 کیٹیگری کارڈز میں رئیل پروڈکٹس اور تصاویر کے تبدیل ہونے کا وقت (سیکنڈز) کم یا زیادہ کریں۔</p>
+            <p class="panel-sub">Configure interval duration in seconds for the 4 hero category quadrant showcase cards with live real-time synchronization.</p>
           </div>
           <div style="display:flex; gap:10px;">
             <button class="btn btn-outline" onclick="resetRotatorSettings()">🔄 Reset to 10s</button>
@@ -895,7 +895,7 @@ export function renderAdminDashboardHtml(options = {}) {
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
               <div>
                 <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.05em;">Cycle Interval Duration</span>
-                <h3 style="font-size:1.15rem; font-weight:900; color:#fff; margin-top:4px;">تصاویر تبدیل ہونے کا وقت (سیکنڈز)</h3>
+                <h3 style="font-size:1.15rem; font-weight:900; color:#fff; margin-top:4px;">Showcase Rotation Duration (Seconds)</h3>
               </div>
               <div>
                 <div style="font-size:1.8rem; font-weight:900; color:var(--swift-cyan); font-family:var(--font-mono); background:#0b132b; padding:6px 18px; border-radius:8px; border:1px solid rgba(56,189,248,0.4);">
@@ -904,49 +904,49 @@ export function renderAdminDashboardHtml(options = {}) {
               </div>
             </div>
 
-            <!-- Stepper Buttons (Kam / Ziada) -->
+            <!-- Stepper Buttons -->
             <div style="margin-bottom:20px;">
               <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:8px;">
-                سیکنڈز کم یا زیادہ کریں (Fine-Tune Steppers):
+                Adjust Interval Seconds (Fine-Tune Steppers):
               </label>
               <div style="display:flex; gap:8px;">
-                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-5)" style="flex:1; border-color:#f43f5e; color:#f43f5e;">➖ 5s کم</button>
-                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-1)" style="flex:1; border-color:#f59e0b; color:#f59e0b;">➖ 1s کم</button>
-                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(1)" style="flex:1; border-color:#10b981; color:#10b981;">➕ 1s زیادہ</button>
-                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(5)" style="flex:1; border-color:#38bdf8; color:#38bdf8;">➕ 5s زیادہ</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-5)" style="flex:1; border-color:#f43f5e; color:#f43f5e;">➖ Decrease 5s</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(-1)" style="flex:1; border-color:#f59e0b; color:#f59e0b;">➖ Decrease 1s</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(1)" style="flex:1; border-color:#10b981; color:#10b981;">➕ Increase 1s</button>
+                <button type="button" class="btn btn-outline" onclick="adjustRotatorSpeed(5)" style="flex:1; border-color:#38bdf8; color:#38bdf8;">➕ Increase 5s</button>
               </div>
             </div>
 
             <!-- Slider -->
             <div style="margin-bottom:20px;">
               <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-                <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1;">اسپیڈ سلائیڈر (Drag Slider):</label>
-                <span style="font-size:0.8rem; color:#94a3b8;">1s سے 60s</span>
+                <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1;">Speed Drag Slider:</label>
+                <span style="font-size:0.8rem; color:#94a3b8;">Range: 1s to 60s</span>
               </div>
               <input type="range" id="srv-rotator-slider" min="1" max="60" step="1" value="10" oninput="onSrvSliderInput(this.value)" onchange="onSrvSliderChange(this.value)" style="width:100%; height:8px; accent-color:#38bdf8; cursor:pointer;" />
               <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#64748b; font-weight:700; margin-top:4px;">
-                <span>1s (تیز)</span>
+                <span>1s (Fast)</span>
                 <span>5s</span>
-                <span style="color:#38bdf8;">10s (ڈیفالٹ)</span>
+                <span style="color:#38bdf8;">10s (Default)</span>
                 <span>15s</span>
                 <span>20s</span>
                 <span>30s</span>
-                <span>60s (آہستہ)</span>
+                <span>60s (Slow)</span>
               </div>
             </div>
 
             <!-- Number Input -->
             <div style="display:flex; gap:14px; align-items:center; margin-bottom:20px; background:#0f172a; padding:12px 16px; border-radius:8px; border:1px solid rgba(255,255,255,0.08);">
-              <label style="font-size:0.85rem; font-weight:700; color:#e2e8f0; flex:1;">مطلوبہ سیکنڈز خود درج کریں (Custom Seconds):</label>
+              <label style="font-size:0.85rem; font-weight:700; color:#e2e8f0; flex:1;">Custom Seconds Input:</label>
               <div style="display:flex; align-items:center; gap:8px; width:130px;">
                 <input type="number" id="srv-rotator-num-input" min="1" max="300" step="1" value="10" class="form-control" onchange="onSrvNumChange(this.value)" style="text-align:center; font-weight:900; font-size:1.1rem; padding:6px;" />
-                <span style="color:#94a3b8; font-weight:700;">سیکنڈ</span>
+                <span style="color:#94a3b8; font-weight:700;">sec</span>
               </div>
             </div>
 
             <!-- Presets -->
             <div style="margin-bottom:20px;">
-              <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:8px;">تیز رفتار پری سیٹس (Instant Presets):</label>
+              <label style="font-size:0.85rem; font-weight:700; color:#cbd5e1; display:block; margin-bottom:8px;">Instant Presets:</label>
               <div style="display:flex; flex-wrap:wrap; gap:8px;" id="srv-rotator-presets">
                 <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(2)">⚡ 2s</button>
                 <button type="button" class="btn btn-outline btn-sm" onclick="setRotatorSpeedDirect(3)">🚀 3s</button>
@@ -961,8 +961,8 @@ export function renderAdminDashboardHtml(options = {}) {
             <!-- Toggle -->
             <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:12px 16px; display:flex; justify-content:space-between; align-items:center;">
               <div>
-                <div style="font-size:0.9rem; font-weight:800; color:#fff;">خودکار روٹیشن آن / آف (Auto-Rotation Active)</div>
-                <div style="font-size:0.75rem; color:#94a3b8;">اگر آپ خودکار تبدیلی کو روکنا چاہیں تو پاز کر سکتے ہیں۔</div>
+                <div style="font-size:0.9rem; font-weight:800; color:#fff;">Auto-Rotation Active (Toggle On / Off)</div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Pause or resume automatic category rotation across the storefront.</div>
               </div>
               <input type="checkbox" id="srv-rotator-toggle" checked onchange="toggleRotatorActive(this.checked)" style="width:20px; height:20px; cursor:pointer;" />
             </div>
@@ -977,7 +977,7 @@ export function renderAdminDashboardHtml(options = {}) {
               </div>
               <div style="font-size:1.1rem; font-weight:800; color:#fff; margin-bottom:6px;">Real-Time PostgreSQL & Socket Sync</div>
               <p style="font-size:0.8rem; color:#cbd5e1; line-height:1.4; margin-bottom:14px;">
-                یہ سیٹنگ تبدیل کرنے پر تمام کسٹمرز اور ٹیبز کے لیے بیک وقت 4 ہیرو کارڈز کا ٹائمر اپڈیٹ ہو جائے گا۔
+                Changes made here immediately synchronize and update the 4 hero quadrant cards for all active users across all browser tabs.
               </p>
               <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
                 <div>
@@ -992,7 +992,7 @@ export function renderAdminDashboardHtml(options = {}) {
 
             <!-- Categories -->
             <div style="background:rgba(15, 23, 42, 0.6); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:20px;">
-              <h4 style="font-size:0.92rem; font-weight:900; color:#fff; margin-bottom:12px;">📌 زیر گردش کیٹیگریز (Active Rotator Categories):</h4>
+              <h4 style="font-size:0.92rem; font-weight:900; color:#fff; margin-bottom:12px;">📌 Showcase Categories in Rotation:</h4>
               <div style="display:flex; flex-direction:column; gap:8px;">
                 <div style="padding:8px 12px; background:#0f172a; border-radius:6px; border-left:3px solid #f59e0b; display:flex; justify-content:space-between;">
                   <strong style="font-size:0.85rem; color:#fff;">1. Kitchen & Appliances (First Priority)</strong>
