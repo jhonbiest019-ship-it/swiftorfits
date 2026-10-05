@@ -5061,6 +5061,7 @@ class SwiftOrbitsEngineApp {
   switchView(viewName) {
     this.currentView = viewName;
     if (viewName === 'storefront') {
+      if (this.liveOrderAlertPopup) this.liveOrderAlertPopup.classList.add('hidden');
       this.viewStorefront.classList.remove('hidden');
       if (this.viewProductDetail) this.viewProductDetail.classList.add('hidden');
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
@@ -5071,6 +5072,7 @@ class SwiftOrbitsEngineApp {
       }
       this.renderStorefront();
     } else if (viewName === 'product') {
+      if (this.liveOrderAlertPopup) this.liveOrderAlertPopup.classList.add('hidden');
       this.viewStorefront.classList.add('hidden');
       this.viewAdmin.classList.add('hidden');
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
@@ -5085,6 +5087,10 @@ class SwiftOrbitsEngineApp {
       if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
       if (this.topSwitchBtn) this.topSwitchBtn.textContent = '🛒 Back to SwiftOrbits Storefront';
       this.renderAdmin();
+      if (this.unreadOrders && this.unreadOrders.length > 0) {
+        this.updateAlertBadgesUI();
+        if (this.liveOrderAlertPopup) this.liveOrderAlertPopup.classList.remove('hidden');
+      }
     }
   }
 
