@@ -5810,17 +5810,59 @@ class SwiftOrbitsEngineApp {
           e.stopPropagation();
           const sku = btn.dataset.sku;
           const product = this.products.find(p => p.sku === sku);
-          if (product) this.openCheckoutModal(product);
+          if (product) {
+            this.addToCart(product, 1);
+          }
         });
       });
     }
   }
 
-  updateHeaderCart() {
-    const activeCount = this.orders.length;
-    const totalSpent = this.orders.filter(o => o.order_status !== 'cancelled').reduce((sum, o) => sum + o.grand_total, 0);
+  addToCart(product, quantity = 1) {
+    if (!product) return;
+    const qty = Math.max(1, parseInt(quantity) || 1);
+    const unitPrice = parseFloat(product.sale_price || product.regular_price || 0);
 
-    this.cartCountBadge.textContent = activeCount;
+    // Check if this item is already in cart on this PC
+    const existing = this.myOrders.find(item => item.sku === product.sku && item.is_cart_item);
+    if (existing) {
+      existing.quantity = (parseInt(existing.quantity) || 1) + qty;
+      existing.grand_total = Math.round(existing.quantity * unitPrice * 100) / 100;
+      existing.subtotal = existing.grand_total;
+    } else {
+      const cartItem = {
+        id: Date.now() + Math.floor(Math.random() * 1000),
+        order_number: 'CART-' + (product.sku || Math.floor(Math.random() * 10000)),
+        product_id: product.id,
+        product_title: product.title,
+        sku: product.sku,
+        category: product.category,
+        unit_price: unitPrice,
+        quantity: qty,
+        subtotal: Math.round(qty * unitPrice * 100) / 100,
+        grand_total: Math.round(qty * unitPrice * 100) / 100,
+        image: product.image || '/elec_phone.png',
+        order_status: 'in_cart',
+        is_cart_item: true,
+        created_at: new Date().toISOString()
+      };
+      this.myOrders.unshift(cartItem);
+    }
+
+    this.saveCustomerLocalOrders();
+    this.updateHeaderCart();
+    this.showToast(`🛒 Added to Cart: ${product.title} (Qty: ${qty})`, 'success');
+  }
+
+  updateHeaderCart() {
+    if (!this.cartCountBadge || !this.headerCartTotal) return;
+
+    // ONLY show items added to cart or placed on THIS individual PC
+    const activeItems = (this.myOrders || []).filter(o => o.order_status !== 'cancelled');
+    const totalCount = activeItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+    const totalSpent = activeItems.reduce((sum, item) => sum + (parseFloat(item.grand_total) || 0), 0);
+
+    this.cartCountBadge.textContent = totalCount;
     this.headerCartTotal.textContent = `$${totalSpent.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
   }
 
