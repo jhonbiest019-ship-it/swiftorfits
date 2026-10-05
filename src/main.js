@@ -7777,54 +7777,72 @@ class SwiftOrbitsEngineApp {
     const totalSpentEl = document.getElementById('queue-total-spent');
     const listEl = document.getElementById('customer-orders-list');
 
-    const validOrders = this.orders.filter(o => o.order_status !== 'cancelled');
-    const grossSpent = validOrders.reduce((sum, o) => sum + (Number(o.grand_total) || 0), 0);
+    const validOrders = (this.myOrders || []).filter(o => o.order_status !== 'cancelled');
+    const totalCount = validOrders.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+    const grossSpent = validOrders.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
 
-    if (totalCountEl) totalCountEl.textContent = this.orders.length;
+    if (totalCountEl) totalCountEl.textContent = totalCount;
     if (totalSpentEl) totalSpentEl.textContent = `$${grossSpent.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
     if (listEl) {
-      if (this.orders.length === 0) {
+      if (!this.myOrders || this.myOrders.length === 0) {
         listEl.innerHTML = `
           <div style="text-align:center; padding: 40px 20px; color:#64748b;">
             <div style="font-size:2.5rem; margin-bottom:10px;">🛒</div>
-            <h4>Your Cart & Orders Queue is Empty</h4>
-            <p style="font-size:0.85rem; margin-top:4px;">Browse our catalog and order with instant Prime 2-Day delivery.</p>
+            <h4 style="font-size:1.1rem; color:var(--swift-navy); margin-bottom:6px;">Your Cart is Empty</h4>
+            <p style="font-size:0.85rem; margin-top:4px;">Browse items in the store and click <strong>"Add to Cart"</strong> to add items to your personal device cart.</p>
           </div>
         `;
       } else {
-        listEl.innerHTML = this.orders.map(o => {
+        listEl.innerHTML = this.myOrders.map(o => {
+          const isCartItem = o.is_cart_item || o.order_status === 'in_cart';
           const isCancelled = o.order_status === 'cancelled';
           const isDelivered = o.order_status === 'delivered';
-          const canModify = !isCancelled && !isDelivered;
+          const canModify = isCartItem || (!isCancelled && !isDelivered);
+
+          let badgeHtml = '';
+          if (isCartItem) {
+            badgeHtml = `<span class="order-status-badge" style="background:#fef3c7; color:#92400e; font-weight:700;">🛒 In Cart</span>`;
+          } else {
+            badgeHtml = `<span class="order-status-badge status-${o.order_status}">${o.order_status}</span>`;
+          }
 
           return `
             <div class="order-queue-card ${isCancelled ? 'is-cancelled' : ''}" data-order-id="${o.id}">
-              <div class="order-queue-left">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span class="order-queue-num">${o.order_number}</span>
-                  <span class="order-status-badge status-${o.order_status}">${o.order_status}</span>
-                </div>
-                <div class="order-queue-title">${o.product_title}</div>
-                <div class="order-queue-meta">
-                  ${canModify ? `
-                    <div class="queue-qty-control">
-                      <span class="queue-qty-label">Qty:</span>
-                      <button type="button" class="queue-qty-btn btn-qty-minus" data-order-id="${o.id}" title="Item kam karein" ${o.quantity <= 1 ? 'disabled' : ''}>−</button>
-                      <span class="queue-qty-val">${o.quantity}</span>
-                      <button type="button" class="queue-qty-btn btn-qty-plus" data-order-id="${o.id}" title="Item ziada karein">+</button>
-                    </div>
-                  ` : `
-                    <span>Qty: <strong>${o.quantity}</strong></span>
-                  `}
-                  <span>•</span>
-                  <span>Grand Total: <strong style="${isCancelled ? 'text-decoration:line-through; color:#94a3b8;' : 'color:#10b981;'}">$${Number(o.grand_total).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></span>
-                  <span>•</span>
-                  <span>${new Date(o.created_at || Date.now()).toLocaleDateString()}</span>
+              <div style="display:flex; gap:12px; align-items:center; width:100%;">
+                ${o.image ? `<img src="${o.image}" style="width:52px; height:52px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0; flex-shrink:0;" onerror="this.src='/elec_phone.png'" />` : ''}
+                <div class="order-queue-left" style="flex:1;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span class="order-queue-num" style="font-family:var(--font-mono); font-size:0.82rem;">${o.order_number}</span>
+                    ${badgeHtml}
+                  </div>
+                  <div class="order-queue-title" style="font-weight:600; margin:4px 0; font-size:0.92rem;">${o.product_title || 'SwiftOrbits Item'}</div>
+                  <div class="order-queue-meta" style="display:flex; align-items:center; gap:8px; font-size:0.82rem; color:#64748b;">
+                    ${canModify ? `
+                      <div class="queue-qty-control" style="display:inline-flex; align-items:center; gap:6px;">
+                        <span class="queue-qty-label">Qty:</span>
+                        <button type="button" class="queue-qty-btn btn-qty-minus" data-order-id="${o.id}" title="Decrease quantity" ${o.quantity <= 1 ? 'disabled' : ''}>−</button>
+                        <span class="queue-qty-val" style="font-weight:700;">${o.quantity}</span>
+                        <button type="button" class="queue-qty-btn btn-qty-plus" data-order-id="${o.id}" title="Increase quantity">+</button>
+                      </div>
+                    ` : `
+                      <span>Qty: <strong>${o.quantity}</strong></span>
+                    `}
+                    <span>•</span>
+                    <span>Total: <strong style="${isCancelled ? 'text-decoration:line-through; color:#94a3b8;' : 'color:#10b981; font-weight:700;'}">$${Number(o.grand_total).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></span>
+                    ${o.created_at ? `<span>•</span><span>${new Date(o.created_at).toLocaleDateString()}</span>` : ''}
+                  </div>
                 </div>
               </div>
-              <div class="order-queue-actions">
-                ${canModify ? `
+              <div class="order-queue-actions" style="margin-top:10px; display:flex; gap:8px; justify-content:flex-end;">
+                ${isCartItem ? `
+                  <button type="button" class="btn btn-sm btn-primary queue-checkout-item-btn" data-order-id="${o.id}" data-sku="${o.sku}" style="background:#ffd814; color:#0f1111; border:1px solid #fcd200; font-weight:700; border-radius:6px; padding:6px 14px; cursor:pointer;">
+                    ⚡ Buy Now
+                  </button>
+                  <button type="button" class="btn btn-sm btn-secondary queue-remove-btn" data-order-id="${o.id}" style="border-radius:6px; padding:6px 12px; cursor:pointer;">
+                    🗑️ Remove
+                  </button>
+                ` : (canModify ? `
                   <button type="button" class="queue-btn queue-btn-edit queue-edit-btn" data-order-id="${o.id}">
                     <svg class="queue-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
@@ -7841,14 +7859,14 @@ class SwiftOrbitsEngineApp {
                     <span>Cancel</span>
                   </button>
                 ` : (isCancelled ? `
-                  <button type="button" class="queue-btn queue-btn-remove queue-remove-btn" data-order-id="${o.id}" title="Remove from queue">
+                  <button type="button" class="queue-btn queue-btn-remove queue-remove-btn" data-order-id="${o.id}" title="Remove from list">
                     <svg class="queue-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="3 6 5 6 21 6"></polyline>
                       <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                     </svg>
                     <span>Remove</span>
                   </button>
-                ` : '')}
+                ` : ''))}
               </div>
             </div>
           `;
@@ -7858,7 +7876,7 @@ class SwiftOrbitsEngineApp {
         listEl.querySelectorAll('.btn-qty-minus').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const orderId = parseInt(btn.dataset.orderId);
+            const orderId = btn.dataset.orderId;
             this.changeOrderQuantity(orderId, -1);
           });
         });
@@ -7867,8 +7885,21 @@ class SwiftOrbitsEngineApp {
         listEl.querySelectorAll('.btn-qty-plus').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const orderId = parseInt(btn.dataset.orderId);
+            const orderId = btn.dataset.orderId;
             this.changeOrderQuantity(orderId, 1);
+          });
+        });
+
+        // Checkout Item from Cart
+        listEl.querySelectorAll('.queue-checkout-item-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const sku = btn.dataset.sku;
+            const product = this.products.find(p => p.sku === sku);
+            if (product) {
+              this.toggleModal(this.ordersQueueModal, false);
+              this.openProductDetailPage(product);
+            }
           });
         });
 
@@ -7876,7 +7907,7 @@ class SwiftOrbitsEngineApp {
         listEl.querySelectorAll('.queue-edit-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const orderId = parseInt(btn.dataset.orderId);
+            const orderId = btn.dataset.orderId;
             this.openEditOrderModal(orderId);
           });
         });
@@ -7885,16 +7916,16 @@ class SwiftOrbitsEngineApp {
         listEl.querySelectorAll('.queue-cancel-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const orderId = parseInt(btn.dataset.orderId);
+            const orderId = btn.dataset.orderId;
             this.cancelCustomerOrder(orderId);
           });
         });
 
-        // Remove Button (for cancelled orders)
+        // Remove Button
         listEl.querySelectorAll('.queue-remove-btn').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const orderId = parseInt(btn.dataset.orderId);
+            const orderId = btn.dataset.orderId;
             this.removeCustomerOrder(orderId);
           });
         });
@@ -7903,15 +7934,19 @@ class SwiftOrbitsEngineApp {
   }
 
   changeOrderQuantity(orderId, delta) {
-    const order = this.orders.find(o => o.id === orderId);
+    const order = this.myOrders.find(o => String(o.id) === String(orderId));
     if (!order || order.order_status === 'cancelled') return;
 
     const currentQty = Number(order.quantity) || 1;
     const newQty = currentQty + delta;
 
     if (newQty < 1) {
-      if (confirm(`Quantity is 1. Do you want to cancel order #${order.order_number}?`)) {
-        this.cancelCustomerOrder(orderId);
+      if (order.is_cart_item) {
+        this.removeCustomerOrder(orderId);
+      } else {
+        if (confirm(`Quantity is 1. Do you want to cancel order #${order.order_number}?`)) {
+          this.cancelCustomerOrder(orderId);
+        }
       }
       return;
     }
@@ -7927,18 +7962,20 @@ class SwiftOrbitsEngineApp {
     this.updateHeaderCart();
     this.renderCustomerOrdersQueue();
 
-    // Sync to backend API
-    fetch(`/api/orders/${order.id}/customer-update`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quantity: newQty })
-    }).catch(err => console.warn('Backend sync error:', err));
+    // Sync to backend API if it was an already placed order
+    if (!order.is_cart_item) {
+      fetch(`/api/orders/${order.id}/customer-update`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantity: newQty })
+      }).catch(err => console.warn('Backend sync error:', err));
+    }
 
-    this.showToast(`Updated #${order.order_number}: ${newQty} items ($${newTotal.toFixed(2)})`, 'info');
+    this.showToast(`Updated quantity: ${newQty} ($${newTotal.toFixed(2)})`, 'info');
   }
 
   openEditOrderModal(orderId) {
-    const order = this.orders.find(o => o.id === orderId);
+    const order = this.myOrders.find(o => String(o.id) === String(orderId));
     if (!order || !this.editOrderModal) return;
 
     this.editingOrderId = orderId;
@@ -7976,8 +8013,8 @@ class SwiftOrbitsEngineApp {
     const totalEl = document.getElementById('edit-order-recalculated-total');
     if (!idInput || !qtyInput || !totalEl) return;
 
-    const orderId = parseInt(idInput.value);
-    const order = this.orders.find(o => o.id === orderId);
+    const orderId = idInput.value;
+    const order = this.myOrders.find(o => String(o.id) === String(orderId));
     if (!order) return;
 
     const qty = Math.max(1, parseInt(qtyInput.value) || 1);
@@ -7996,8 +8033,8 @@ class SwiftOrbitsEngineApp {
     const cityInput = document.getElementById('edit-city');
     const stateInput = document.getElementById('edit-state');
 
-    const orderId = parseInt(idInput.value);
-    const order = this.orders.find(o => o.id === orderId);
+    const orderId = idInput.value;
+    const order = this.myOrders.find(o => String(o.id) === String(orderId));
     if (!order) return;
 
     const newQty = Math.max(1, parseInt(qtyInput.value) || 1);
@@ -8018,25 +8055,27 @@ class SwiftOrbitsEngineApp {
     this.toggleModal(this.editOrderModal, false);
     this.renderCustomerOrdersQueue();
 
-    // Sync to backend API
-    fetch(`/api/orders/${order.id}/customer-update`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        quantity: newQty,
-        customer_name: order.customer_name,
-        customer_phone: order.customer_phone,
-        shipping_address: order.shipping_address,
-        city: order.city,
-        state: order.state
-      })
-    }).catch(err => console.warn('Backend update error:', err));
+    if (!order.is_cart_item) {
+      // Sync to backend API
+      fetch(`/api/orders/${order.id}/customer-update`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          quantity: newQty,
+          customer_name: order.customer_name,
+          customer_phone: order.customer_phone,
+          shipping_address: order.shipping_address,
+          city: order.city,
+          state: order.state
+        })
+      }).catch(err => console.warn('Backend update error:', err));
+    }
 
     this.showToast(`Order #${order.order_number} details updated successfully!`, 'success');
   }
 
   cancelCustomerOrder(orderId) {
-    const order = this.orders.find(o => o.id === orderId);
+    const order = this.myOrders.find(o => String(o.id) === String(orderId));
     if (!order || order.order_status === 'cancelled') return;
 
     if (!confirm(`Are you sure you want to cancel order #${order.order_number}?\nThis will restock the inventory.`)) {
@@ -8048,25 +8087,27 @@ class SwiftOrbitsEngineApp {
     this.updateHeaderCart();
     this.renderCustomerOrdersQueue();
 
-    // Sync cancellation to backend
-    fetch(`/api/orders/${order.id}/cancel`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ reason: 'Cancelled by customer from Cart Queue' })
-    }).catch(err => console.warn('Backend cancel error:', err));
+    if (!order.is_cart_item) {
+      // Sync cancellation to backend
+      fetch(`/api/orders/${order.id}/cancel`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reason: 'Cancelled by customer from Cart Queue' })
+      }).catch(err => console.warn('Backend cancel error:', err));
+    }
 
     this.showToast(`Order #${order.order_number} has been cancelled.`, 'warning');
   }
 
   removeCustomerOrder(orderId) {
-    const idx = this.orders.findIndex(o => o.id === orderId);
+    const idx = this.myOrders.findIndex(o => String(o.id) === String(orderId));
     if (idx !== -1) {
-      const num = this.orders[idx].order_number;
-      this.orders.splice(idx, 1);
+      const itemTitle = this.myOrders[idx].product_title || 'Item';
+      this.myOrders.splice(idx, 1);
       this.saveCustomerLocalOrders();
       this.updateHeaderCart();
       this.renderCustomerOrdersQueue();
-      this.showToast(`Order #${num} removed from your list.`, 'info');
+      this.showToast(`${itemTitle} removed from your cart.`, 'info');
     }
   }
 
