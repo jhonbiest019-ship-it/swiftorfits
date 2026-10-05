@@ -86,221 +86,72 @@
     <div class="app-main-content">
       <!-- ================= CLEAN STOREFRONT DEALS VIEW ================= -->
       <div id="view-storefront" class="workspace-view">
-        <!-- ================= AMAZON-STYLE 4-QUADRANT CATEGORY SHOWCASE ================= -->
-        <section class="bream-quad-section" id="bream-hero-showcase">
-          <div class="bream-quad-container">
-            <!-- CARD 1: KITCHEN & APPLIANCES -->
-            <div class="bream-quad-card" data-category="appliances" id="quad-card-appliances">
-              <div class="bream-quad-header" data-category="appliances">
-                <h3 class="bream-quad-title">Score kitchen essentials</h3>
-                <span class="bream-quad-arrow">›</span>
-              </div>
-              <div class="bream-quad-grid">
-                <!-- Brand 1: Ninja -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Ninja" title="Ninja: AF101 4-Quart Air Fryer — Was $29.99, Now $27.99 (Save $2.00, 7% OFF)">
-                  <div class="bream-quad-img-wrap tint-cyan">
-                    <span class="bream-quad-deal-badge">-7% OFF</span>
-                    <img src="/air_fryer.png" alt="Ninja" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Ninja</span>
-                    <span class="bream-quad-discount-tag">-7%</span>
-                  </div>
+        <!-- ================= HERO 3-CATEGORY TABS SHOWCASE (TARGET/RETAIL STYLE) ================= -->
+        <section class="hero-category-tabs-section" id="hero-category-tabs-section" aria-label="Featured Categories">
+          <div class="hero-tabs-header-strip">
+            <div class="hero-tabs-strip-title">
+              <span class="hero-tabs-kicker">FEATURED DEPARTMENTS</span>
+              <h2 class="hero-tabs-heading">Shop Top Departments</h2>
+            </div>
+            <div class="hero-tabs-nav-hint">
+              <span class="hero-tabs-hint-text">Select a category to view all deals</span>
+            </div>
+          </div>
+          <div class="hero-category-tabs-container">
+            <!-- TAB 1: KITCHEN & APPLIANCES -->
+            <div class="hero-category-tab-card tab-kitchen active" data-category="appliances" id="hero-tab-appliances" role="button" tabindex="0" title="Shop Kitchen & Appliances">
+              <div class="hero-tab-card-inner">
+                <div class="hero-tab-image-wrap">
+                  <img src="/hero/card_kitchen.jpg" alt="Shop kitchen must-haves" class="hero-tab-img" loading="eager" />
                 </div>
-                <!-- Brand 2: Dash -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Dash" title="Dash: Mini Waffle Maker Machine — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
-                  <div class="bream-quad-img-wrap tint-amber">
-                    <span class="bream-quad-deal-badge">-20% OFF</span>
-                    <img src="/uploads/Dash_Mini_Waffle_Maker_Machine_for_Individual_Waffles-1790863777701-140224.jpg" alt="Dash" class="bream-quad-img" />
+                <div class="hero-tab-footer-badge">
+                  <div class="hero-tab-meta">
+                    <span class="hero-tab-name">Kitchen & Appliances</span>
+                    <span class="hero-tab-sub">Top blenders, air fryers & cookware</span>
                   </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Dash</span>
-                    <span class="bream-quad-discount-tag">-20%</span>
-                  </div>
-                </div>
-                <!-- Brand 3: Hamilton Beach -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Hamilton Beach" title="Hamilton Beach: 6-Speed Hand Mixer — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
-                  <div class="bream-quad-img-wrap tint-purple">
-                    <span class="bream-quad-deal-badge">-23% OFF</span>
-                    <img src="/uploads/Hamilton_Beach_Personal_Blender_14oz_Portable_Travel_Cup-1790864571466-272494.jpg" alt="Hamilton Beach" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Hamilton Beach</span>
-                    <span class="bream-quad-discount-tag">-23%</span>
-                  </div>
-                </div>
-                <!-- Brand 4: Black+Decker -->
-                <div class="bream-quad-item" data-category="appliances" data-brand="Black+Decker" title="Black+Decker: 1.5-Cup Food Chopper — Was $45.00, Now $32.00 (Save $13.00, 29% OFF)">
-                  <div class="bream-quad-img-wrap tint-rose">
-                    <span class="bream-quad-deal-badge">-29% OFF</span>
-                    <img src="/uploads/Black_Decker_1_5-Cup_One-Touch_Electric_Food_Chopper-1790865143124-115727.jpg" alt="Black+Decker" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Black+Decker</span>
-                    <span class="bream-quad-discount-tag">-29%</span>
-                  </div>
+                  <span class="hero-tab-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </span>
                 </div>
               </div>
             </div>
 
-            <!-- CARD 2: ELECTRONICS -->
-            <div class="bream-quad-card" data-category="electronics" id="quad-card-electronics">
-              <div class="bream-quad-header" data-category="electronics">
-                <h3 class="bream-quad-title">Plug in with our electronics</h3>
-                <span class="bream-quad-arrow">›</span>
-              </div>
-              <div class="bream-quad-grid">
-                <!-- Brand 1: Apple -->
-                <div class="bream-quad-item" data-category="electronics" data-brand="Apple" title="Apple: Apple Watch Ultra 2 — Was $29.99, Now $26.99 (Save $3.00, 10% OFF)">
-                  <div class="bream-quad-img-wrap tint-purple">
-                    <span class="bream-quad-deal-badge">-10% OFF</span>
-                    <img src="/apple_watch_ultra_2.jpg" alt="Apple" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Apple</span>
-                    <span class="bream-quad-discount-tag">-10%</span>
-                  </div>
+            <!-- TAB 2: BEAUTY -->
+            <div class="hero-category-tab-card tab-beauty" data-category="beauty" id="hero-tab-beauty" role="button" tabindex="0" title="Shop All Things Beauty">
+              <div class="hero-tab-card-inner">
+                <div class="hero-tab-image-wrap">
+                  <img src="/hero/card_beauty.jpg" alt="Shop all things beauty" class="hero-tab-img" loading="eager" />
                 </div>
-                <!-- Brand 2: Sony -->
-                <div class="bream-quad-item" data-category="electronics" data-brand="Sony" title="Sony: Sony Stereo Headphones — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
-                  <div class="bream-quad-img-wrap tint-blue">
-                    <span class="bream-quad-deal-badge">-20% OFF</span>
-                    <img src="/uploads/Sony_MDR-ZX110_Lightweight_On-Ear_Stereo_Headphones-1790862257700-600312.jpg" alt="Sony" class="bream-quad-img" />
+                <div class="hero-tab-footer-badge">
+                  <div class="hero-tab-meta">
+                    <span class="hero-tab-name">Beauty & Personal Care</span>
+                    <span class="hero-tab-sub">Premium skincare, cosmetics & fragrances</span>
                   </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Sony</span>
-                    <span class="bream-quad-discount-tag">-20%</span>
-                  </div>
-                </div>
-                <!-- Brand 3: Anker -->
-                <div class="bream-quad-item" data-category="electronics" data-brand="Anker" title="Anker: 313 Fast Charger 45W — Was $24.99, Now $19.99 (Save $5.00, 20% OFF)">
-                  <div class="bream-quad-img-wrap tint-amber">
-                    <span class="bream-quad-deal-badge">-20% OFF</span>
-                    <img src="/uploads/Anker_313_Fast_Charger_45W_USB-C_Wall_Adapter-1790858942535-499748.jpg" alt="Anker" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Anker</span>
-                    <span class="bream-quad-discount-tag">-20%</span>
-                  </div>
-                </div>
-                <!-- Brand 4: Logitech -->
-                <div class="bream-quad-item" data-category="electronics" data-brand="Logitech" title="Logitech: M185 Compact Mouse — Was $19.99, Now $14.99 (Save $5.00, 25% OFF)">
-                  <div class="bream-quad-img-wrap tint-cyan">
-                    <span class="bream-quad-deal-badge">-25% OFF</span>
-                    <img src="/uploads/Logitech_M185_Compact_Wireless_Mouse_2_4GHz_USB-1790861240210-46609.jpg" alt="Logitech" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Logitech</span>
-                    <span class="bream-quad-discount-tag">-25%</span>
-                  </div>
+                  <span class="hero-tab-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </span>
                 </div>
               </div>
             </div>
 
-            <!-- CARD 3: BEAUTY & PERSONAL CARE -->
-            <div class="bream-quad-card" data-category="beauty" id="quad-card-beauty">
-              <div class="bream-quad-header" data-category="beauty">
-                <h3 class="bream-quad-title">Shop all things beauty</h3>
-                <span class="bream-quad-arrow">›</span>
-              </div>
-              <div class="bream-quad-grid">
-                <!-- Brand 1: CeraVe -->
-                <div class="bream-quad-item" data-category="beauty" data-brand="CeraVe" title="CeraVe: Hydrating Facial Cleanser — Was $19.99, Now $15.99 (Save $4.00, 20% OFF)">
-                  <div class="bream-quad-img-wrap tint-rose">
-                    <span class="bream-quad-deal-badge">-20% OFF</span>
-                    <img src="/uploads/CeraVe_Hydrating_Facial_Cleanser_16oz_Hyaluronic_Acid-1790855957787-596021.jpg" alt="CeraVe" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">CeraVe</span>
-                    <span class="bream-quad-discount-tag">-20%</span>
+            <!-- TAB 3: ELECTRONICS -->
+            <div class="hero-category-tab-card tab-electronics" data-category="electronics" id="hero-tab-electronics" role="button" tabindex="0" title="Shop Electronics Must-Haves">
+              <div class="hero-tab-card-inner">
+                <div class="hero-tab-image-wrap electronics-wrap">
+                  <img src="/hero/card_electronics.jpg" alt="Shop electronics must-haves" class="hero-tab-img electronics-img" loading="eager" />
+                  <div class="hero-tab-text-overlay">
+                    <span class="hero-overlay-line1">SHOP ELECTRONICS</span>
+                    <span class="hero-overlay-line2">MUST-HAVES</span>
                   </div>
                 </div>
-                <!-- Brand 2: Neutrogena -->
-                <div class="bream-quad-item" data-category="beauty" data-brand="Neutrogena" title="Neutrogena: Hydro Boost Water Gel — Was $26.99, Now $19.97 (Save $7.02, 26% OFF)">
-                  <div class="bream-quad-img-wrap tint-cyan">
-                    <span class="bream-quad-deal-badge">-26% OFF</span>
-                    <img src="/uploads/Neutrogena_Hydro_Boost_Water_Gel_Face_Moisturizer_1_7oz-1790857218013-865646.jfif" alt="Neutrogena" class="bream-quad-img" />
+                <div class="hero-tab-footer-badge">
+                  <div class="hero-tab-meta">
+                    <span class="hero-tab-name">Electronics & Tech</span>
+                    <span class="hero-tab-sub">Headphones, smartwatches, gadgets & chargers</span>
                   </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Neutrogena</span>
-                    <span class="bream-quad-discount-tag">-26%</span>
-                  </div>
-                </div>
-                <!-- Brand 3: La Roche-Posay -->
-                <div class="bream-quad-item" data-category="beauty" data-brand="La Roche-Posay" title="La Roche-Posay: Toleriane Purifying Cleanser — Was $22.99, Now $17.99 (Save $5.00, 22% OFF)">
-                  <div class="bream-quad-img-wrap tint-blue">
-                    <span class="bream-quad-deal-badge">-22% OFF</span>
-                    <img src="/uploads/La_Roche-Posay_Toleriane_Purifying_Foaming_Cleanser_13_5oz-1790857919365-210234.jpg" alt="La Roche-Posay" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">La Roche-Posay</span>
-                    <span class="bream-quad-discount-tag">-22%</span>
-                  </div>
-                </div>
-                <!-- Brand 4: Royal Oud -->
-                <div class="bream-quad-item" data-category="beauty" data-brand="Royal Oud" title="Royal Oud: Eau De Parfum 100ml — Was $29.99, Now $24.99 (Save $5.00, 17% OFF)">
-                  <div class="bream-quad-img-wrap tint-amber">
-                    <span class="bream-quad-deal-badge">-17% OFF</span>
-                    <img src="/royal_oud.png" alt="Royal Oud" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Royal Oud</span>
-                    <span class="bream-quad-discount-tag">-17%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- CARD 4: HEALTH & DAILY ESSENTIALS -->
-            <div class="bream-quad-card" data-category="health_household" id="quad-card-health">
-              <div class="bream-quad-header" data-category="health_household">
-                <h3 class="bream-quad-title">Gear up to get fit &amp; healthy</h3>
-                <span class="bream-quad-arrow">›</span>
-              </div>
-              <div class="bream-quad-grid">
-                <!-- Brand 1: Stanley -->
-                <div class="bream-quad-item" data-category="health_household" data-brand="Stanley" title="Stanley: Quencher Replacement Straws — Was $12.99, Now $7.85 (Save $5.14, 40% OFF)">
-                  <div class="bream-quad-img-wrap tint-amber">
-                    <span class="bream-quad-deal-badge">-40% OFF</span>
-                    <img src="/stanley_tumbler.jpg" alt="Stanley" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Stanley</span>
-                    <span class="bream-quad-discount-tag">-40%</span>
-                  </div>
-                </div>
-                <!-- Brand 2: Levoit -->
-                <div class="bream-quad-item" data-category="health_household" data-brand="Levoit" title="Levoit: Core Mini Air Purifier — Was $59.99, Now $45.99 (Save $14.00, 23% OFF)">
-                  <div class="bream-quad-img-wrap tint-cyan">
-                    <span class="bream-quad-deal-badge">-23% OFF</span>
-                    <img src="/uploads/Levoit_Core_300_Replacement_Filter_True_HEPA_3-in-1-1790947626224-600306.jpg" alt="Levoit" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Levoit</span>
-                    <span class="bream-quad-discount-tag">-23%</span>
-                  </div>
-                </div>
-                <!-- Brand 3: Nutricost -->
-                <div class="bream-quad-item" data-category="health_household" data-brand="Nutricost" title="Nutricost: Creatine Monohydrate 500g — Was $28.99, Now $22.99 (Save $6.00, 21% OFF)">
-                  <div class="bream-quad-img-wrap tint-blue">
-                    <span class="bream-quad-deal-badge">-21% OFF</span>
-                    <img src="/uploads/Nutricost_Creatine_Monohydrate_Micronized_Powder_500g-1790944482871-191489.jpg" alt="Nutricost" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">Nutricost</span>
-                    <span class="bream-quad-discount-tag">-21%</span>
-                  </div>
-                </div>
-                <!-- Brand 4: OXO -->
-                <div class="bream-quad-item" data-category="health_household" data-brand="OXO" title="OXO: Smooth Edge Safety Can Opener — Was $29.99, Now $22.99 (Save $7.00, 23% OFF)">
-                  <div class="bream-quad-img-wrap tint-purple">
-                    <span class="bream-quad-deal-badge">-23% OFF</span>
-                    <img src="/uploads/OXO_Good_Grips_Smooth_Edge_Handheld_Safety_Can_Opener-1790945548242-399066.jpg" alt="OXO" class="bream-quad-img" />
-                  </div>
-                  <div class="bream-quad-info">
-                    <span class="bream-quad-label">OXO</span>
-                    <span class="bream-quad-discount-tag">-23%</span>
-                  </div>
+                  <span class="hero-tab-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </span>
                 </div>
               </div>
             </div>
