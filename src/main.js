@@ -6225,7 +6225,7 @@ class SwiftOrbitsEngineApp {
       return `
         <tr>
           <td>
-            <strong style="font-family:var(--font-mono); color:var(--swift-blue);">${o.order_number}</strong><br>
+            <strong class="order-ref-click" data-order-id="${o.id}" style="font-family:var(--font-mono); color:var(--swift-blue); cursor:pointer; text-decoration:underline;" title="Click to view full order details">${o.order_number}</strong><br>
             <small style="color:#64748b;">${new Date(o.created_at).toLocaleDateString()}</small>
           </td>
           <td>
