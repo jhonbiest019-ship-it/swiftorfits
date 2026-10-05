@@ -1705,6 +1705,115 @@
       </div>
     </div>
 
+    <!-- REAL-TIME FLOATING NEW ORDER NOTIFICATION POPUP -->
+    <div id="live-order-alert-popup" class="live-order-alert-popup hidden">
+      <div class="alert-popup-content">
+        <div class="alert-popup-header">
+          <div class="alert-popup-title-wrap">
+            <span class="live-pulse-dot"></span>
+            <span class="alert-popup-main-title" id="alert-popup-main-title">You have a New Order</span>
+            <span class="alert-order-count-badge" id="alert-order-counter">(1)</span>
+          </div>
+          <button type="button" class="alert-popup-close-btn" id="close-live-order-alert" title="Dismiss">✕</button>
+        </div>
+        <div class="alert-popup-body" id="alert-popup-body">
+          <div class="alert-popup-product" id="alert-popup-product-title">Product Name</div>
+          <div class="alert-popup-meta">
+            <span id="alert-popup-customer">Customer</span> • <strong id="alert-popup-total">$0.00</strong>
+          </div>
+          <div class="alert-popup-cta">
+            <span>Click to view order details</span>
+            <span class="alert-cta-arrow">➔</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: COMPREHENSIVE ORDER DETAILS & DISPATCH INSPECTOR -->
+    <div class="modal-overlay hidden" id="order-detail-modal">
+      <div class="modal-box" style="max-width: 680px;">
+        <div class="modal-header">
+          <div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h3 class="modal-title" id="order-detail-modal-ref">📋 Order Details — #SO-US-000000</h3>
+              <span class="status-pill status-processing" id="order-detail-status-pill">Processing</span>
+            </div>
+            <p class="modal-sub" id="order-detail-modal-time">Received on Oct 05, 2026 • Real-Time Order</p>
+          </div>
+          <button type="button" class="modal-close-btn" id="close-order-detail-modal">✕</button>
+        </div>
+
+        <div style="padding: 20px; max-height: 520px; overflow-y: auto;">
+          <!-- Customer & Shipping Box -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; margin-bottom: 8px;">👤 Customer & Delivery Information</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <span style="font-size: 0.75rem; color: #94a3b8;">Customer Name</span>
+                <div style="font-weight: 700; color: #0f172a;" id="order-detail-cust-name">-</div>
+              </div>
+              <div>
+                <span style="font-size: 0.75rem; color: #94a3b8;">Phone Number</span>
+                <div style="font-weight: 700; color: #0f172a;" id="order-detail-cust-phone">-</div>
+              </div>
+              <div>
+                <span style="font-size: 0.75rem; color: #94a3b8;">Email Address</span>
+                <div style="font-weight: 600; color: #2563eb;" id="order-detail-cust-email">-</div>
+              </div>
+              <div>
+                <span style="font-size: 0.75rem; color: #94a3b8;">USPS Tracking Number</span>
+                <div style="font-family: var(--font-mono); font-weight: 700; color: #059669;" id="order-detail-tracking">-</div>
+              </div>
+            </div>
+            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #cbd5e1;">
+              <span style="font-size: 0.75rem; color: #94a3b8;">Destination Address</span>
+              <div style="font-weight: 600; color: #1e293b;" id="order-detail-cust-address">-</div>
+            </div>
+          </div>
+
+          <!-- Product Items Box -->
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; margin-bottom: 16px;">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; margin-bottom: 12px;">📦 Ordered Items</div>
+            <div id="order-detail-items-list" style="display: flex; flex-direction: column; gap: 10px;">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Payment & Ledger Breakdown -->
+          <div style="background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-size: 0.8rem; color: #64748b;">Payment Method: <strong id="order-detail-pay-method" style="color: #0f172a;">Credit Card (256-Bit SSL)</strong></div>
+              <div style="font-size: 0.8rem; color: #64748b;">Shipping Fee: <strong id="order-detail-shipping-fee" style="color: #10b981;">Free Prime 2-Day</strong></div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Grand Total</span>
+              <div style="font-size: 1.4rem; font-weight: 900; color: #059669;" id="order-detail-grand-total">$0.00</div>
+            </div>
+          </div>
+
+          <!-- Status Selector in Modal -->
+          <div style="margin-top: 16px; display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px;">
+            <label style="font-weight: 700; font-size: 0.85rem; color: #334155;">Update Status:</label>
+            <select id="order-detail-status-select" class="form-input" style="width: 220px; padding: 6px 10px; font-weight: 600;">
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="dispatched">Dispatched (USPS)</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-actions" style="padding: 16px 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-secondary btn-sm" id="order-detail-print-receipt-btn">🖨️ USPS Label</button>
+            <a href="#" target="_blank" class="btn btn-whatsapp btn-sm" id="order-detail-whatsapp-link" style="text-decoration:none;">📱 WhatsApp</a>
+          </div>
+          <button type="button" class="btn btn-blue btn-sm" id="close-order-detail-btn">Close Details</button>
+        </div>
+      </div>
+    </div>
+
     <!-- TOAST CONTAINER -->
     <div id="toast-container" class="toast-container"></div>
 
