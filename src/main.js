@@ -6252,6 +6252,7 @@ class SwiftOrbitsEngineApp {
           </td>
           <td>
             <div style="display:flex; gap:6px;">
+              <button class="btn btn-primary btn-sm view-order-detail-btn" data-order-id="${o.id}">👁️ Detail</button>
               <button class="btn btn-secondary btn-sm print-order-btn" data-order-id="${o.id}">🖨️ USPS Label</button>
               <a href="${waUrl}" target="_blank" class="btn btn-whatsapp btn-sm" style="text-decoration:none;">📱 WA</a>
             </div>
@@ -6285,8 +6286,26 @@ class SwiftOrbitsEngineApp {
       });
     });
 
+    this.adminOrdersTbody.querySelectorAll('.view-order-detail-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const orderId = btn.dataset.orderId;
+        const order = this.orders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
+        if (order) this.openOrderDetailModal(order);
+      });
+    });
+
+    this.adminOrdersTbody.querySelectorAll('.order-ref-click').forEach(el => {
+      el.addEventListener('click', () => {
+        const orderId = el.dataset.orderId;
+        const order = this.orders.find(o => String(o.id) === String(orderId) || o.order_number === orderId);
+        if (order) this.openOrderDetailModal(order);
+      });
+    });
+
     this.adminOrdersTbody.querySelectorAll('.print-order-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const orderId = parseInt(btn.dataset.orderId);
         const order = this.orders.find(o => o.id === orderId);
         if (order) this.openThermalReceipt(order);
