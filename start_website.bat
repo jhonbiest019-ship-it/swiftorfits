@@ -10,6 +10,11 @@ echo Waiting 2 seconds for backend initialization...
 timeout /t 2 /nobreak >nul
 
 echo ======================================================================
+echo   Starting SwiftOrbits Real-Time Auto-Sync Engine (GitHub -> Vercel)
+echo ======================================================================
+start "SwiftOrbits Auto-Sync (GitHub -> Vercel)" cmd /k "cd /d %~dp0 && node live-sync.js"
+
+echo ======================================================================
 echo   Starting SwiftOrbits Frontend Storefront (Vite Dev Server)
 echo ======================================================================
 echo.
