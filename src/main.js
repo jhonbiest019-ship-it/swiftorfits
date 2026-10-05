@@ -3429,6 +3429,124 @@ class SwiftOrbitsEngineApp {
     } catch (e) {}
   }
 
+  handleNewOrderNotification(order) {
+    if (!order) return;
+    this.unreadOrders.push(order);
+    const count = this.unreadOrders.length;
+
+    if (this.alertOrderCounter) {
+      this.alertOrderCounter.textContent = `(${count})`;
+    }
+    if (this.alertPopupTitle) {
+      this.alertPopupTitle.textContent = count > 1 ? `You have New Orders` : `You have a New Order`;
+    }
+    if (this.alertPopupProduct) {
+      const title = order.product_title || (order.items && order.items[0]?.title) || 'SwiftOrbits Catalog Order';
+      this.alertPopupProduct.textContent = title;
+    }
+    if (this.alertPopupCustomer) {
+      this.alertPopupCustomer.textContent = order.customer_name || 'Customer';
+    }
+    if (this.alertPopupTotal) {
+      this.alertPopupTotal.textContent = '$' + Number(order.grand_total || 0).toFixed(2);
+    }
+    if (this.liveOrderAlertPopup) {
+      this.liveOrderAlertPopup.classList.remove('hidden');
+    }
+
+    this.playOrderSound();
+  }
+
+  openOrderDetailModal(order) {
+    if (!order) return;
+    this.activeDetailOrder = order;
+
+    const refEl = document.getElementById('order-detail-modal-ref');
+    if (refEl) refEl.textContent = `📋 Order Details — #${order.order_number}`;
+
+    const pillEl = document.getElementById('order-detail-status-pill');
+    if (pillEl) {
+      const status = order.order_status || order.status || 'processing';
+      pillEl.className = `status-pill status-${status}`;
+      pillEl.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    }
+
+    const timeEl = document.getElementById('order-detail-modal-time');
+    if (timeEl) {
+      const dateStr = order.created_at ? new Date(order.created_at).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : 'Just now';
+      timeEl.textContent = `Received on ${dateStr} • Real-Time Order`;
+    }
+
+    const nameEl = document.getElementById('order-detail-cust-name');
+    if (nameEl) nameEl.textContent = order.customer_name || '-';
+
+    const phoneEl = document.getElementById('order-detail-cust-phone');
+    if (phoneEl) phoneEl.textContent = order.customer_phone || '-';
+
+    const emailEl = document.getElementById('order-detail-cust-email');
+    if (emailEl) emailEl.textContent = order.customer_email || 'Not provided';
+
+    const trackingEl = document.getElementById('order-detail-tracking');
+    if (trackingEl) trackingEl.textContent = order.tracking_number || ('9400' + Math.floor(1000000000000000 + Math.random() * 9000000000000000));
+
+    const addrEl = document.getElementById('order-detail-cust-address');
+    if (addrEl) addrEl.textContent = `${order.shipping_address}, ${order.city || ''}, ${order.state || 'US'}`;
+
+    const itemsContainer = document.getElementById('order-detail-items-list');
+    if (itemsContainer) {
+      const items = (Array.isArray(order.items) && order.items.length > 0)
+        ? order.items
+        : [{
+            title: order.product_title || 'SwiftOrbits Catalog Product',
+            sku: order.sku || 'SO-ITEM-01',
+            quantity: order.quantity || 1,
+            unit_price: order.unit_price || (order.grand_total ? (order.grand_total / (order.quantity || 1)) : 29.99),
+            line_total: order.subtotal || order.grand_total || 29.99,
+            image: order.image || ''
+          }];
+
+      itemsContainer.innerHTML = items.map(item => {
+        const prodMatch = this.products.find(p => p.sku === item.sku);
+        const img = item.image || (prodMatch ? prodMatch.image : '/elec_phone.png');
+        const price = Number(item.unit_price || 0).toFixed(2);
+        const lineTotal = Number(item.line_total || (item.unit_price * (item.quantity || 1))).toFixed(2);
+
+        return `
+          <div class="order-detail-item-row">
+            <img src="${img}" alt="${item.title || 'Product'}" class="order-detail-item-img" onerror="this.src='/elec_phone.png';" />
+            <div class="order-detail-item-info">
+              <div class="order-detail-item-title">${item.title || item.product_title || 'Catalog Product'}</div>
+              <div class="order-detail-item-sub">Qty: <strong>${item.quantity || 1}</strong> • SKU: <span style="font-family:var(--font-mono);">${item.sku || 'N/A'}</span> • Unit Price: $${price}</div>
+            </div>
+            <div class="order-detail-item-price">$${lineTotal}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const shipFeeEl = document.getElementById('order-detail-shipping-fee');
+    if (shipFeeEl) {
+      const fee = parseFloat(order.shipping_fee || 0);
+      shipFeeEl.textContent = fee > 0 ? `$${fee.toFixed(2)} Standard Shipping` : 'Free Prime 2-Day';
+    }
+
+    const totalEl = document.getElementById('order-detail-grand-total');
+    if (totalEl) totalEl.textContent = '$' + Number(order.grand_total || 0).toFixed(2);
+
+    const statusSel = document.getElementById('order-detail-status-select');
+    if (statusSel) {
+      statusSel.value = order.order_status || order.status || 'processing';
+    }
+
+    const waLink = document.getElementById('order-detail-whatsapp-link');
+    if (waLink) {
+      const msg = encodeURIComponent(`Hello ${order.customer_name}, your SwiftOrbits US Order #${order.order_number} for "${order.product_title || (order.items && order.items[0]?.title) || 'items'}" is confirmed. Total: $${Number(order.grand_total).toFixed(2)}.`);
+      waLink.href = `https://wa.me/${(order.customer_phone || '').replace(/[^0-9]/g, '')}?text=${msg}`;
+    }
+
+    this.toggleModal(this.orderDetailModal, true);
+  }
+
   async fetchProducts() {
     try {
       const res = await fetch(`${API_BASE}/products`);
