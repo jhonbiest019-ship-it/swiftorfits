@@ -3340,33 +3340,38 @@ class SwiftOrbitsEngineApp {
 
       this.socket.on('order:created', (order) => {
         console.log('[Socket.IO] Received order:created event:', order);
-        const idx = this.orders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
+        const idx = this.adminOrders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
         if (idx === -1) {
-          this.orders.unshift(order);
+          this.adminOrders.unshift(order);
         } else {
-          this.orders[idx] = order;
+          this.adminOrders[idx] = order;
         }
-        this.saveCustomerLocalOrders();
 
         this.handleNewOrderNotification(order);
-        this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
-        this.updateHeaderCart();
-
         if (this.currentView === 'admin') {
+          this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
           this.renderAdmin();
         }
       });
 
       this.socket.on('order:updated', (order) => {
         console.log('[Socket.IO] Received order:updated event:', order);
-        const idx = this.orders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
+        const idx = this.adminOrders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
         if (idx !== -1) {
-          this.orders[idx] = { ...this.orders[idx], ...order };
+          this.adminOrders[idx] = { ...this.adminOrders[idx], ...order };
         } else {
-          this.orders.unshift(order);
+          this.adminOrders.unshift(order);
         }
-        this.saveCustomerLocalOrders();
-        this.updateHeaderCart();
+
+        // If this order is also in the visitor's personal orders on this PC, keep its status updated
+        const myIdx = this.myOrders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
+        if (myIdx !== -1) {
+          this.myOrders[myIdx] = { ...this.myOrders[myIdx], ...order };
+          this.saveCustomerLocalOrders();
+          this.updateHeaderCart();
+          this.renderCustomerOrdersQueue();
+        }
+
         if (this.currentView === 'admin') {
           this.renderAdmin();
         }
@@ -3406,17 +3411,15 @@ class SwiftOrbitsEngineApp {
         bc.onmessage = (event) => {
           if (event.data && event.data.type === 'order:created') {
             const order = event.data.order;
-            const idx = this.orders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
+            const idx = this.adminOrders.findIndex(o => o.id === order.id || o.order_number === order.order_number);
             if (idx === -1) {
-              this.orders.unshift(order);
+              this.adminOrders.unshift(order);
             } else {
-              this.orders[idx] = order;
+              this.adminOrders[idx] = order;
             }
-            this.saveCustomerLocalOrders();
             this.handleNewOrderNotification(order);
-            this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
-            this.updateHeaderCart();
             if (this.currentView === 'admin') {
+              this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
               this.renderAdmin();
             }
           }
