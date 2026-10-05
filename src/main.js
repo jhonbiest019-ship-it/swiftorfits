@@ -3155,6 +3155,8 @@ class SwiftOrbitsEngineApp {
     try {
       localStorage.removeItem('daraz_orders');
       localStorage.removeItem('daraz_products');
+      // Wipe legacy global customer orders key so previous database orders do not appear in visitor's cart
+      localStorage.removeItem('swift_customer_orders');
     } catch (e) {}
 
     this.adminToken = sessionStorage.getItem('swift_admin_token') || null;
@@ -3162,7 +3164,8 @@ class SwiftOrbitsEngineApp {
 
     // Authoritative Server-backed State
     this.products = SWIFT_SEED_PRODUCTS;
-    this.orders = this.loadCustomerLocalOrders();
+    this.adminOrders = []; // Global store orders for Admin ERP
+    this.myOrders = this.loadCustomerLocalOrders(); // Visitor's personal cart & placed orders on this PC only
     this.categories = [];
     this.backendHealthy = false;
     this.unreadOrders = [];
@@ -3231,15 +3234,27 @@ class SwiftOrbitsEngineApp {
     }
   }
 
+  // Dual compatibility getter/setter
+  get orders() {
+    return this.currentView === 'admin' ? this.adminOrders : this.myOrders;
+  }
+  set orders(val) {
+    if (this.currentView === 'admin') {
+      this.adminOrders = Array.isArray(val) ? val : [];
+    } else {
+      this.myOrders = Array.isArray(val) ? val : [];
+    }
+  }
+
   loadCustomerLocalOrders() {
     try {
-      const saved = localStorage.getItem('swift_customer_orders');
+      localStorage.removeItem('swift_customer_orders');
+      const saved = localStorage.getItem('swift_my_cart_items');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          // Exclude any old mock/seed order references
-          const realOrders = parsed.filter(o => o.order_number !== 'SO-US-89104A' && o.order_number !== 'SO-US-44719B');
-          return realOrders;
+          // Exclude old mock/seed order references
+          return parsed.filter(o => o.order_number !== 'SO-US-89104A' && o.order_number !== 'SO-US-44719B');
         }
       }
       return [];
@@ -3250,7 +3265,7 @@ class SwiftOrbitsEngineApp {
 
   saveCustomerLocalOrders() {
     try {
-      localStorage.setItem('swift_customer_orders', JSON.stringify(this.orders));
+      localStorage.setItem('swift_my_cart_items', JSON.stringify(this.myOrders));
     } catch (e) {}
   }
 
