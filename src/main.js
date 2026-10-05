@@ -4214,6 +4214,25 @@ class SwiftOrbitsEngineApp {
       });
     });
 
+    // Hero 3-Category Tabs (Target/Retail Style: Kitchen, Beauty, Electronics)
+    document.querySelectorAll('.hero-category-tab-card[data-category]').forEach(card => {
+      card.addEventListener('click', () => {
+        const cat = card.dataset.category;
+        this.categoryPageFilters.selectedBrands = [];
+        this.switchCategory(cat, false, true);
+        const target = document.querySelector('.clean-storefront-layout');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
     // Amazon Quad Category Cards & Headers (Clicking card header changes category smoothly without scroll)
     document.querySelectorAll('.bream-quad-card[data-category], .bream-quad-header[data-category]').forEach(el => {
       el.addEventListener('click', (e) => {
