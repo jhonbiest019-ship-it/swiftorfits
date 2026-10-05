@@ -4534,7 +4534,7 @@ class SwiftOrbitsEngineApp {
       this.liveOrderAlertPopup.addEventListener('click', () => {
         const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
           ? this.unreadOrders[this.unreadOrders.length - 1]
-          : (this.orders && this.orders[0]);
+          : (this.adminOrders && this.adminOrders[0]);
         this.clearNewOrderAlerts();
         if (targetOrder) {
           this.openOrderDetailModal(targetOrder);
@@ -4555,7 +4555,7 @@ class SwiftOrbitsEngineApp {
         e.preventDefault();
         const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
           ? this.unreadOrders[this.unreadOrders.length - 1]
-          : (this.orders && this.orders[0]);
+          : (this.adminOrders && this.adminOrders[0]);
         this.clearNewOrderAlerts();
         if (targetOrder) {
           this.openOrderDetailModal(targetOrder);
@@ -4569,7 +4569,7 @@ class SwiftOrbitsEngineApp {
         e.stopPropagation();
         const targetOrder = (this.unreadOrders && this.unreadOrders.length > 0)
           ? this.unreadOrders[this.unreadOrders.length - 1]
-          : (this.orders && this.orders[0]);
+          : (this.adminOrders && this.adminOrders[0]);
         this.clearNewOrderAlerts();
         if (targetOrder) {
           this.openOrderDetailModal(targetOrder);
@@ -4605,7 +4605,7 @@ class SwiftOrbitsEngineApp {
     if (this.orderSuccessViewReceiptBtn) {
       this.orderSuccessViewReceiptBtn.addEventListener('click', () => {
         this.toggleModal(this.orderSuccessModal, false);
-        const orderToPrint = this.latestPlacedOrder || (this.orders && this.orders[0]);
+        const orderToPrint = this.latestPlacedOrder || (this.myOrders && this.myOrders[0]) || (this.adminOrders && this.adminOrders[0]);
         if (orderToPrint) {
           this.openThermalReceipt(orderToPrint);
         }
@@ -4642,12 +4642,18 @@ class SwiftOrbitsEngineApp {
           pillEl.textContent = newStatus.charAt(0).toUpperCase() + newStatus.slice(1);
         }
 
-        // Update in this.orders
-        const idx = this.orders.findIndex(o => o.id === this.activeDetailOrder.id || o.order_number === this.activeDetailOrder.order_number);
+        // Update in this.adminOrders
+        const idx = this.adminOrders.findIndex(o => o.id === this.activeDetailOrder.id || o.order_number === this.activeDetailOrder.order_number);
         if (idx !== -1) {
-          this.orders[idx] = { ...this.orders[idx], order_status: newStatus, status: newStatus };
+          this.adminOrders[idx] = { ...this.adminOrders[idx], order_status: newStatus, status: newStatus };
         }
-        this.saveCustomerLocalOrders();
+        // Also update in myOrders if present
+        const myIdx = this.myOrders.findIndex(o => o.id === this.activeDetailOrder.id || o.order_number === this.activeDetailOrder.order_number);
+        if (myIdx !== -1) {
+          this.myOrders[myIdx] = { ...this.myOrders[myIdx], order_status: newStatus, status: newStatus };
+          this.saveCustomerLocalOrders();
+          this.updateHeaderCart();
+        }
         this.renderAdmin();
 
         try {
