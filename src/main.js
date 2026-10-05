@@ -3333,12 +3333,12 @@ class SwiftOrbitsEngineApp {
         }
         this.saveCustomerLocalOrders();
 
-        this.playOrderSound();
+        this.handleNewOrderNotification(order);
         this.showToast(`🔔 New Order Received: #${order.order_number} by ${order.customer_name} ($${Number(order.grand_total).toFixed(2)})`, 'success');
         this.updateHeaderCart();
 
         if (this.currentView === 'admin') {
-          this.loadAdminData();
+          this.renderAdmin();
         }
       });
 
