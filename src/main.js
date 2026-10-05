@@ -6301,11 +6301,11 @@ class SwiftOrbitsEngineApp {
           } catch (e) {}
         }
 
-        // Real-time admin UI re-render, floating popup & sound chime
+        // Real-time admin UI re-render, floating popup & sound chime (ADMIN BACKEND ONLY)
         if (this.currentView === 'admin') {
           this.renderAdmin();
+          this.handleNewOrderNotification(newOrder);
         }
-        this.handleNewOrderNotification(newOrder);
 
         if (this.currentView === 'product') {
           this.closeProductDetailPage();
