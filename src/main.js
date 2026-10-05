@@ -6336,6 +6336,7 @@ class SwiftOrbitsEngineApp {
     this.renderAdminProductsTable();
     this.renderAdminOrdersTable();
     this.renderAdminSubviews();
+    this.updateAlertBadgesUI();
   }
 
   renderAdminProductsTable() {
