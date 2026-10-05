@@ -6709,8 +6709,8 @@ class SwiftOrbitsEngineApp {
           <tbody>
             <tr>
               <td>1</td>
-              <td><strong>${order.product_title}</strong></td>
-              <td><code>${order.sku}</code></td>
+              <td><strong>${prodTitle}</strong></td>
+              <td><code>${prodSku}</code></td>
               <td style="text-align:center;">${qty}</td>
               <td style="text-align:right;">$${unitPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
               <td style="text-align:right;">$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
