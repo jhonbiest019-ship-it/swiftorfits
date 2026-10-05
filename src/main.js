@@ -3747,6 +3747,25 @@ class SwiftOrbitsEngineApp {
     this.orderDetailPrintBtn = document.getElementById('order-detail-print-receipt-btn');
     this.orderDetailWhatsappLink = document.getElementById('order-detail-whatsapp-link');
 
+    // Admin Top-Right & Stat Card Alert Elements
+    this.adminHeaderNewOrderAlert = document.getElementById('admin-header-new-order-alert');
+    this.adminHeaderAlertText = document.getElementById('admin-header-alert-text');
+    this.adminHeaderOrderCounter = document.getElementById('admin-header-order-counter');
+    this.adminStatOrdersCard = document.getElementById('admin-stat-orders-card');
+    this.adminStatOrderAlertBadge = document.getElementById('admin-stat-order-alert-badge');
+    this.adminStatAlertText = document.getElementById('admin-stat-alert-text');
+    this.adminStatOrderCounter = document.getElementById('admin-stat-order-counter');
+    this.adminStatOrderAlertBanner = document.getElementById('admin-stat-order-alert-banner');
+    this.adminCardBannerText = document.getElementById('admin-card-banner-text');
+    this.adminCardBannerCount = document.getElementById('admin-card-banner-count');
+    this.latestPlacedOrder = null;
+
+    // Storefront Compact Order Confirmation Modal Elements
+    this.orderSuccessModal = document.getElementById('order-success-modal');
+    this.closeOrderSuccessModalBtn = document.getElementById('close-order-success-modal');
+    this.orderSuccessViewReceiptBtn = document.getElementById('order-success-view-receipt-btn');
+    this.orderSuccessContinueBtn = document.getElementById('order-success-continue-btn');
+
     // Category Page Elements
     this.catPageBreadcrumbTitle = document.getElementById('cat-page-breadcrumb-title');
     this.catPageItemCount = document.getElementById('cat-page-item-count');
