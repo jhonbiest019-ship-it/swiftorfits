@@ -1388,6 +1388,51 @@
       </div>
     </div>
 
+    <!-- MODAL: ORDER PLACED COMPACT CONFIRMATION (STOREFRONT) -->
+    <div class="modal-overlay hidden" id="order-success-modal">
+      <div class="modal-box order-success-card">
+        <div class="order-success-header">
+          <div class="order-success-icon-wrap">
+            <span class="order-success-check-icon">✓</span>
+          </div>
+          <h3 class="order-success-title">Order Placed Successfully!</h3>
+          <p class="order-success-subtitle">آپ کا آرڈر کامیابی سے سسٹم میں موصول ہو چکا ہے</p>
+          <button type="button" class="modal-close-btn" id="close-order-success-modal" title="Close">✕</button>
+        </div>
+
+        <div class="order-success-body">
+          <div class="order-success-ref-strip">
+            <div class="os-ref-box">
+              <span class="os-ref-label">Order Reference:</span>
+              <span class="os-ref-val" id="order-success-ref">#SO-US-000000</span>
+            </div>
+            <span class="order-success-prime-tag">⚡ SwiftOrbits Prime 2-Day Air</span>
+          </div>
+
+          <div class="order-success-item-card">
+            <div class="os-item-title" id="order-success-product-title">Product Name</div>
+            <div class="os-item-meta">
+              <span id="order-success-qty-sku">Qty: 1 • SKU: SO-US</span>
+              <strong class="os-item-price" id="order-success-total">$0.00</strong>
+            </div>
+          </div>
+
+          <div class="order-success-note">
+            📦 Your order is queued for domestic USA dispatch. You can view or print your official shipping receipt anytime.
+          </div>
+        </div>
+
+        <div class="order-success-actions">
+          <button type="button" class="btn btn-blue" id="order-success-view-receipt-btn" style="padding: 10px 20px; font-weight: 800; font-size: 0.92rem;">
+            🧾 View Receipt
+          </button>
+          <button type="button" class="btn btn-secondary" id="order-success-continue-btn" style="padding: 10px 18px; font-weight: 700;">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- MODAL: OFFICIAL ORDER RECEIPT & INVOICE (THERMAL & A4) -->
     <div class="modal-overlay hidden" id="receipt-modal">
       <div class="modal-box receipt-modal-box">
