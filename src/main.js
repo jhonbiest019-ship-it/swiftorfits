@@ -8324,10 +8324,7 @@ class SwiftOrbitsEngineApp {
         title: 'Official Brand Warranty',
         sub: 'Direct manufacturer protection on all items',
         content: `
-          <p style="line-height:1.7; color:#334155; margin-bottom:12px;">All products sold by SwiftOrbits carry original manufacturer warranties. For warranty inquiries or claim support, our customer care team is ready to assist you.</p>
-          <div style="padding:12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:0.85rem;">
-            <strong>Phone Number:</strong> <span style="color:var(--swift-blue); font-weight:700;">+971 55 576 2122</span>
-          </div>
+          <p style="line-height:1.7; color:#334155; margin-bottom:12px;">All products sold by SwiftOrbits carry original manufacturer warranties. For warranty inquiries or claim support, our customer care team is ready to assist you via email at <strong style="color:var(--swift-blue);">info@swiftorbits.com</strong>.</p>
         `
       },
       'flexible-payments': {
@@ -8384,10 +8381,7 @@ class SwiftOrbitsEngineApp {
         title: 'Returns & Refunds',
         sub: 'Customer-friendly returns support',
         content: `
-          <p style="line-height:1.7; color:#334155; margin-bottom:12px;">We want you to love what you buy. If you need to return an item, please contact our support desk with your order number.</p>
-          <div style="padding:12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:0.85rem;">
-            <strong>Phone Number:</strong> <span style="color:var(--swift-blue); font-weight:700;">+971 55 576 2122</span>
-          </div>
+          <p style="line-height:1.7; color:#334155; margin-bottom:12px;">We want you to love what you buy. If you need to return an item, please contact our support desk at <strong style="color:var(--swift-blue);">info@swiftorbits.com</strong> with your order number.</p>
         `
       },
       'contact': {
@@ -8401,9 +8395,6 @@ class SwiftOrbitsEngineApp {
               <div style="margin-top:4px; color:#334155;">
                 2445 South Hiawassee Road, Orlando, FL 32835, USA
               </div>
-            </div>
-            <div style="padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
-              <strong>Phone Number:</strong> <span style="font-family:var(--font-mono); color:#007185; font-weight:700; margin-left:6px;">+971 55 576 2122</span>
             </div>
             <div style="padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
               <strong>Email:</strong> <span style="font-family:var(--font-mono); color:#007185; font-weight:700; margin-left:6px;">info@swiftorbits.com</span>
@@ -8422,9 +8413,6 @@ class SwiftOrbitsEngineApp {
               <div style="margin-top:4px; color:#334155;">
                 2445 South Hiawassee Road, Orlando, FL 32835, USA
               </div>
-            </div>
-            <div style="padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
-              <strong>Phone Number:</strong> <span style="font-family:var(--font-mono); color:#007185; font-weight:700; margin-left:6px;">+971 55 576 2122</span>
             </div>
             <div style="padding:12px; border:1px solid #e2e8f0; border-radius:8px;">
               <strong>Email:</strong> <span style="font-family:var(--font-mono); color:#007185; font-weight:700; margin-left:6px;">info@swiftorbits.com</span>
