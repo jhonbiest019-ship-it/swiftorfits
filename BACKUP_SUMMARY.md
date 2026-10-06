@@ -1,6 +1,9 @@
 # SwiftOrbits USA Marketplace & Merchant ERP — Complete A to Z Project Backup
 
-**Backup Timestamp:** 2026-10-04 13:25 (PKT)  
+**Backup Timestamp:** 2026-10-06 19:30 (PKT)  
+**Backup Location:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\`  
+**Backup Folder:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\swiftorbit_full_backup\`  
+**ZIP Archive:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\swiftorbit_full_backup.zip`  
 **Workspace Root:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\`  
 **Active Servers:**  
 - **Storefront:** [http://localhost:5173/](http://localhost:5173/)
@@ -8,7 +11,27 @@
 
 ---
 
-## 🌟 Latest Update: Kitchen & Appliances Priority, 10s Hero Real Product Rotation, Admin Portal Rotator Controls & Dark Midnight Navy Strips (2026-10-04 13:25 PKT)
+## 🌟 Latest Update: 4 Hero Category Tabs, Instant Amazon Category View, Clean Left-Side Header & Hostinger Production Package (2026-10-06 19:30 PKT)
+- **1. 4 Hero Category Tabs Expanded:**
+  - Expanded hero tabs to 4 equal responsive grid cards (`Kitchen & Appliances`, `Beauty & Personal Care`, `Electronics & Smart Tech`, `Health & Household`).
+  - Added rich category badges, clear typography, and product thumbnails.
+- **2. Instant Amazon Category Opening (No Animated Page Scroll):**
+  - Clicking any category tab or subcategory now directly switches to the specific department view immediately without animated scroll jumps (`window.scrollTo({ top: 0, behavior: 'instant' })`).
+- **3. Simplified Category Department Header (Left-Side Only):**
+  - Removed bulky header banner container, right image showcase box, and redundant feature chips.
+  - Retained clean, left-aligned category badge (e.g. `✦ WELLNESS & HOUSEHOLD ESSENTIALS`) and primary department title directly on the page layout.
+  - Kept breadcrumb trail and `← Back to All Departments` navigation.
+- **4. Production Hostinger Deployment Package:**
+  - Configured Apache/LiteSpeed SPA `.htaccess` rewrite rules in `public/` and `dist/`.
+  - Built production bundle (`npm run build`) in `dist/`.
+  - Created ready-to-upload ZIP `dist_ready_for_hostinger.zip` for Hostinger `public_html`.
+- **5. Complete A-to-Z Backup Synchronized:**
+  - Mirrored all latest files to `backup/` and `backup/swiftorbit_full_backup/`.
+  - Regenerated `swiftorbit_full_backup.zip` (55.4 MB) containing all latest frontend, backend, images, and configurations.
+
+---
+
+## 🌟 Previous Update: Kitchen & Appliances Priority, 10s Hero Real Product Rotation, Admin Portal Rotator Controls & Dark Midnight Navy Strips (2026-10-04 13:25 PKT)
 - **1. Kitchen & Appliances Priority Across Entire Storefront:**
   - Placed **"Kitchen & Appliances"** as category #1 in top subnav, sidebar filter lists, and hero category showcase cards.
   - On initial site load, while "All Deals" remains active in the top navbar, the storefront defaults directly to displaying "Kitchen & Appliances" category products.
