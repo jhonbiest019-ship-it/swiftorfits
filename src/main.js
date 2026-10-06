@@ -4214,22 +4214,37 @@ class SwiftOrbitsEngineApp {
       });
     });
 
-    // Hero 3-Category Tabs (Target/Retail Style: Kitchen, Beauty, Electronics)
+    // Hero 4-Category Tabs (Target/Retail Style: Kitchen, Beauty, Electronics, Health)
     document.querySelectorAll('.hero-category-tab-card[data-category]').forEach(card => {
       card.addEventListener('click', () => {
         const cat = card.dataset.category;
         this.categoryPageFilters.selectedBrands = [];
-        this.switchCategory(cat, false, true);
-        const target = document.querySelector('.clean-storefront-layout');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        this.switchCategory(cat, false, false);
       });
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           card.click();
         }
+      });
+    });
+
+    // Amazon-Style Category Department Header Back & Navigation buttons
+    const deptBackHomeBtn = document.getElementById('dept-back-home-btn');
+    const deptCrumbHome = document.getElementById('dept-crumb-home');
+    if (deptBackHomeBtn) {
+      deptBackHomeBtn.addEventListener('click', () => this.switchCategory('all'));
+    }
+    if (deptCrumbHome) {
+      deptCrumbHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.switchCategory('all');
+      });
+    }
+
+    document.querySelectorAll('.dept-pill-btn[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        this.switchCategory(btn.dataset.cat);
       });
     });
 
@@ -5068,22 +5083,48 @@ class SwiftOrbitsEngineApp {
     this.viewAdmin.classList.add('hidden');
     if (this.topSwitchBtn) this.topSwitchBtn.textContent = '⚡ SwiftOrbits US Merchant Portal';
 
+    // Toggle Homepage Showcases vs Dedicated Category Department View (Amazon Style)
+    const heroTabsSec = document.getElementById('hero-category-tabs-section');
+    const quadShowcaseSec = document.getElementById('bream-hero-showcase');
+    const deptHeaderSec = document.getElementById('category-dept-header-section');
+
+    const isAllCategoriesView = (categoryKey === 'all_categories' || categoryKey === 'all');
+
+    if (isAllCategoriesView) {
+      if (heroTabsSec) heroTabsSec.classList.remove('hidden');
+      if (quadShowcaseSec) quadShowcaseSec.classList.remove('hidden');
+      if (deptHeaderSec) deptHeaderSec.classList.add('hidden');
+    } else {
+      if (heroTabsSec) heroTabsSec.classList.add('hidden');
+      if (quadShowcaseSec) quadShowcaseSec.classList.add('hidden');
+      if (deptHeaderSec) {
+        deptHeaderSec.classList.remove('hidden');
+        const meta = CATEGORY_METADATA[effectiveCategory] || { title: effectiveCategory, desc: '', badge: 'DEPARTMENT' };
+        const crumbTitle = document.getElementById('dept-crumb-current-title');
+        const headTitle = document.getElementById('dept-header-title');
+        const headDesc = document.getElementById('dept-header-desc');
+        const headBadge = document.getElementById('dept-header-badge');
+
+        if (crumbTitle) crumbTitle.textContent = meta.title;
+        if (headTitle) headTitle.textContent = meta.title;
+        if (headDesc) headDesc.textContent = meta.desc || `Explore premium deals and authentic products in ${meta.title}.`;
+        if (headBadge) headBadge.textContent = meta.badge || 'FEATURED DEPARTMENT';
+
+        document.querySelectorAll('.dept-pill-btn').forEach(pill => {
+          if (pill.dataset.cat === effectiveCategory) pill.classList.add('active');
+          else pill.classList.remove('active');
+        });
+      }
+    }
+
     // Update brands in sidebar
     this.updateSidebarBrands();
 
     // Render clean products
     this.renderCatalogGrid();
-    if (scrollDirect) {
-      const dealsSection = document.getElementById('page-deals-title') || document.querySelector('.clean-storefront-layout');
-      if (dealsSection) {
-        const headerOffset = 95;
-        const elementPosition = dealsSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-      }
-    } else if (categoryKey === 'all' || categoryKey === 'all_categories') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+
+    // Instant top positioning without animated scrolling
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   renderCategoryPage(categoryKey) {
