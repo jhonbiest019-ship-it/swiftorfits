@@ -5129,49 +5129,27 @@ class SwiftOrbitsEngineApp {
       if (quadShowcaseSec) quadShowcaseSec.classList.add('hidden');
       if (deptHeaderSec) {
         deptHeaderSec.classList.remove('hidden');
-        const meta = CATEGORY_METADATA[effectiveCategory] || { title: effectiveCategory, desc: '', badge: 'DEPARTMENT' };
+        const meta = CATEGORY_METADATA[effectiveCategory] || { title: effectiveCategory, desc: '', badge: '✦ DEPARTMENT' };
         const crumbTitle = document.getElementById('dept-crumb-current-title');
         const headTitle = document.getElementById('dept-header-title');
-        const headDesc = document.getElementById('dept-header-desc');
         const headBadge = document.getElementById('dept-header-badge');
-        const bannerCard = document.getElementById('dept-header-banner-card');
-        const chipsContainer = document.getElementById('dept-feature-chips');
-        const countNumEl = document.getElementById('dept-stat-count-num');
-        const imgEl = document.getElementById('dept-header-img');
-        const imgBadgeEl = document.getElementById('dept-header-img-badge');
 
         if (crumbTitle) crumbTitle.textContent = meta.title;
         if (headTitle) headTitle.textContent = meta.title;
-        if (headDesc) headDesc.textContent = meta.desc;
         if (headBadge) {
-          headBadge.textContent = meta.badge;
-          if (meta.badgeColor) {
-            headBadge.style.color = meta.badgeColor;
-            headBadge.style.borderColor = meta.badgeColor + '55';
-          }
-        }
-        if (bannerCard && meta.gradient) {
-          bannerCard.style.background = meta.gradient;
-        }
-
-        // Render feature chips specific to this category
-        if (chipsContainer && meta.chips) {
-          chipsContainer.innerHTML = meta.chips.map(chip => `<span class="dept-feature-chip">${chip}</span>`).join('');
-        }
-
-        // Update product count for this category
-        const catProducts = this.products.filter(p => p.category === effectiveCategory);
-        if (countNumEl) {
-          countNumEl.textContent = `${catProducts.length} Products`;
-        }
-
-        // Update category spotlight image and guarantee badge
-        if (imgEl && meta.image) {
-          imgEl.src = meta.image;
-          imgEl.alt = meta.title;
-        }
-        if (imgBadgeEl && meta.imageBadge) {
-          imgBadgeEl.textContent = meta.imageBadge;
+          headBadge.textContent = meta.badge || '✦ DEPARTMENT';
+          const badgeThemes = {
+            beauty: { color: '#be185d', bg: '#fdf2f8', border: '#fbcfe8' },
+            electronics: { color: '#0369a1', bg: '#f0f9ff', border: '#bae6fd' },
+            appliances: { color: '#047857', bg: '#ecfdf5', border: '#a7f3d0' },
+            health_household: { color: '#15803d', bg: '#f0fdf4', border: '#bbf7d0' },
+            pet_supplies: { color: '#b45309', bg: '#fffbeb', border: '#fde68a' },
+            toys_games_baby: { color: '#7e22ce', bg: '#faf5ff', border: '#e9d5ff' }
+          };
+          const theme = badgeThemes[effectiveCategory] || { color: '#059669', bg: '#ecfdf5', border: '#a7f3d0' };
+          headBadge.style.color = theme.color;
+          headBadge.style.backgroundColor = theme.bg;
+          headBadge.style.borderColor = theme.border;
         }
       }
     }

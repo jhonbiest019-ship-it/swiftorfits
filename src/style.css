@@ -3871,29 +3871,12 @@ form {
   transform: translateX(-2px);
 }
 
-.dept-header-banner-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(135deg, #0b132b 0%, #1c2541 65%, #1e293b 100%);
-  border-radius: 20px;
-  padding: 24px 30px;
-  color: #ffffff;
-  box-shadow: 0 10px 30px rgba(11, 19, 43, 0.18);
-  gap: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s ease;
-}
-
-.dept-header-info {
-  flex: 1;
-  min-width: 320px;
+.dept-title-left-block {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
-  z-index: 2;
+  padding: 6px 0 10px 0;
 }
 
 .dept-header-badge {
@@ -3903,144 +3886,23 @@ form {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.14);
-  border: 1px solid rgba(56, 189, 248, 0.32);
-  padding: 4px 12px;
+  color: #059669;
+  background: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
+  padding: 4px 14px;
   border-radius: 999px;
   width: fit-content;
-  margin-bottom: 2px;
+  transition: all 0.2s ease;
 }
 
 .dept-header-title {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
   font-weight: 900;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin: 0;
-  color: #ffffff;
+  color: #0f172a;
   line-height: 1.15;
-}
-
-.dept-header-desc {
-  font-size: 0.92rem;
-  color: #cbd5e1;
-  margin: 4px 0 6px 0;
-  line-height: 1.55;
-  max-width: 720px;
-}
-
-.dept-feature-chips {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-}
-
-.dept-feature-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 5px 11px;
-  border-radius: 8px;
-  backdrop-filter: blur(4px);
-  white-space: nowrap;
-}
-
-.dept-stats-strip {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: #94a3b8;
-  margin-top: 6px;
-  flex-wrap: wrap;
-}
-
-.dept-stat-item strong {
-  color: #f8fafc;
-}
-
-.dept-stat-sep {
-  color: #64748b;
-  font-size: 0.7rem;
-}
-
-/* Right Column: Visual Showcase Box */
-.dept-header-visual-wrap {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-}
-
-.dept-header-image-box {
-  position: relative;
-  width: 220px;
-  height: 200px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.dept-header-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  display: block;
-  transition: transform 0.4s ease;
-}
-
-.dept-header-banner-card:hover .dept-header-img {
-  transform: scale(1.04);
-}
-
-.dept-header-img-badge {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
-  background: rgba(15, 23, 42, 0.88);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #f8fafc;
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 4px 6px;
-  border-radius: 6px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-@media (max-width: 860px) {
-  .dept-header-banner-card {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    padding: 20px;
-    gap: 18px;
-  }
-  .dept-header-visual-wrap {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .dept-header-image-box {
-    width: 100%;
-    height: 180px;
-  }
-  .dept-header-info {
-    min-width: 100%;
-  }
 }
 
 /* 2-COLUMN LAYOUT */
