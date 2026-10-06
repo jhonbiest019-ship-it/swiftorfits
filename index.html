@@ -425,19 +425,33 @@
                 Back to All Departments
               </button>
             </div>
-            <div class="dept-header-banner-card">
+            <div class="dept-header-banner-card" id="dept-header-banner-card">
+              <!-- Left: Specific Category Info, Feature Highlights & Stats -->
               <div class="dept-header-info">
-                <div class="dept-header-badge" id="dept-header-badge">HOME APPLIANCES</div>
-                <h1 class="dept-header-title" id="dept-header-title">Kitchen & Appliances</h1>
-                <p class="dept-header-desc" id="dept-header-desc">Commercial-grade blenders, espresso machines, air fryers, and smart appliances backed by official US warranty.</p>
+                <div class="dept-header-badge" id="dept-header-badge">✦ OFFICIAL STOREFRONT</div>
+                <h1 class="dept-header-title" id="dept-header-title">Beauty & Personal Care</h1>
+                <p class="dept-header-desc" id="dept-header-desc">
+                  Dermatologist-recommended skincare, luxury fragrances, clean cosmetics, and salon-grade styling tools. Every item is 100% authentic, tamper-sealed, and fresh.
+                </p>
+                <div class="dept-feature-chips" id="dept-feature-chips">
+                  <!-- Dynamically populated per category -->
+                </div>
+                <div class="dept-stats-strip" id="dept-stats-strip">
+                  <span class="dept-stat-item" id="dept-stat-count">📦 <strong id="dept-stat-count-num">24 Products</strong> Available</span>
+                  <span class="dept-stat-sep">•</span>
+                  <span class="dept-stat-item">⭐ <strong>4.8+</strong> Customer Rating</span>
+                  <span class="dept-stat-sep">•</span>
+                  <span class="dept-stat-item">🛡️ <strong>Official Brand Warranty</strong></span>
+                  <span class="dept-stat-sep">•</span>
+                  <span class="dept-stat-item">⚡ <strong>Fast US Dispatch</strong></span>
+                </div>
               </div>
-              <div class="dept-header-nav-pills">
-                <span class="dept-pills-label">Switch Department:</span>
-                <div class="dept-pills-group">
-                  <button type="button" class="dept-pill-btn" data-cat="appliances">Kitchen</button>
-                  <button type="button" class="dept-pill-btn" data-cat="beauty">Beauty</button>
-                  <button type="button" class="dept-pill-btn" data-cat="electronics">Electronics</button>
-                  <button type="button" class="dept-pill-btn" data-cat="health_household">Health & Household</button>
+
+              <!-- Right: Category Spotlight Visual Frame -->
+              <div class="dept-header-visual-wrap">
+                <div class="dept-header-image-box">
+                  <img src="/hero/card_beauty.jpg" alt="Category showcase" class="dept-header-img" id="dept-header-img" />
+                  <div class="dept-header-img-badge" id="dept-header-img-badge">100% Authentic Sealed</div>
                 </div>
               </div>
             </div>

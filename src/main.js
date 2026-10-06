@@ -13,43 +13,73 @@ const CATEGORY_METADATA = {
   beauty: {
     title: 'Beauty & Personal Care',
     dealTitle: 'Beauty & Personal Care Deals',
-    badge: 'VERIFIED BEAUTY',
-    desc: 'Premium fragrances, dermatologist-approved skincare serums, and high-tech hair styling tools.',
+    badge: '✦ PREMIER BEAUTY & PERSONAL CARE',
+    desc: 'Dermatologist-recommended skincare, luxury fragrances, clean cosmetics, and salon-grade styling tools. Every item is 100% authentic, tamper-sealed, and fresh.',
+    image: '/hero/card_beauty.jpg',
+    imageBadge: '100% Authentic & Sealed',
+    chips: ['✨ Dermatologist Tested', '🧴 100% Genuine Sealed', '🌿 Clean Formulations', '🛡️ Brand Warranty'],
+    gradient: 'linear-gradient(135deg, #24111d 0%, #201324 55%, #0f172a 100%)',
+    badgeColor: '#fb7185',
     brands: ['CeraVe', 'Tom Ford', 'Dyson', 'La Mer', 'Estée Lauder', 'Olaplex']
   },
   electronics: {
-    title: 'Electronics',
-    dealTitle: 'Electronics Deals',
-    badge: 'OFFICIAL STORE',
-    desc: 'Explore flagship smartphones, noise-canceling headphones, 4K TVs, and smart gear with Free 2-Day Prime US Shipping.',
+    title: 'Electronics & Tech',
+    dealTitle: 'Electronics & Tech Deals',
+    badge: '✦ AUTHENTIC ELECTRONICS & SMART TECH',
+    desc: 'High-fidelity noise-canceling headphones, smartwatches, rapid GaN chargers, and premium mobile gear with fast nationwide delivery and 30-day returns.',
+    image: '/hero/card_electronics.jpg',
+    imageBadge: 'Brand Sealed Stock',
+    chips: ['🎧 Factory Sealed Devices', '⚡ Rapid Express Transit', '🔒 30-Day Money Back', '🛡️ US Warranty'],
+    gradient: 'linear-gradient(135deg, #0b1a33 0%, #0c203b 55%, #0f172a 100%)',
+    badgeColor: '#38bdf8',
     brands: ['Apple', 'Bose', 'Sony', 'Anker', 'Corsair', 'JBL', 'UGREEN', 'Satechi', 'Samsung', 'Meta', 'Garmin', 'Rode', 'Elgato']
   },
   appliances: {
     title: 'Kitchen & Appliances',
     dealTitle: 'Kitchen & Appliances Deals',
-    badge: 'HOME APPLIANCES',
-    desc: 'Commercial-grade blenders, espresso machines, air fryers, and smart appliances backed by official US warranty.',
+    badge: '✦ OFFICIAL KITCHEN & HOME APPLIANCES',
+    desc: 'Commercial-grade espresso machines, rapid air fryers, high-torque blenders, and non-toxic cookware backed by official manufacturer US warranty.',
+    image: '/hero/card_kitchen.jpg',
+    imageBadge: 'Official US Warranty',
+    chips: ['🛡️ Full Brand Warranty', '⚡ Same-Day US Dispatch', '🍳 BPA-Free Cookware', '⭐ Commercial Grade'],
+    gradient: 'linear-gradient(135deg, #091f1d 0%, #0c2522 55%, #0f172a 100%)',
+    badgeColor: '#34d399',
     brands: ['Ninja', 'Samsung', 'Breville', 'Instant Pot', 'Vitamix', 'KitchenAid', 'Dyson', 'iRobot Roomba']
   },
   health_household: {
     title: 'Health & Household',
     dealTitle: 'Health & Household Deals',
-    badge: 'HEALTH & ESSENTIALS',
-    desc: 'Vitamins, supplements, home essentials, wellness products, and daily household supplies.',
+    badge: '✦ WELLNESS & HOUSEHOLD ESSENTIALS',
+    desc: 'Certified daily vitamins, natural wellness supplements, premium insulated tumblers, and compact HEPA air purification for trusted family daily care.',
+    image: '/hero/card_health.jpg',
+    imageBadge: 'Verified Potency & Safety',
+    chips: ['💊 Lab-Verified Potency', '💧 Insulated Hydration', '🌿 HEPA Clean Air', '🛡️ 100% Genuine'],
+    gradient: 'linear-gradient(135deg, #0d2116 0%, #0d2719 55%, #0f172a 100%)',
+    badgeColor: '#4ade80',
     brands: ['Nutricost', 'Levoit', 'Stanley', 'Nature Made', 'Clorox', 'Bounty', 'Lysol']
   },
   pet_supplies: {
     title: 'Pet Supplies',
     dealTitle: 'Pet Supplies Deals',
-    badge: 'PET ESSENTIALS',
-    desc: 'Premium nutrition, interactive toys, grooming kits, beds, and health essentials for pets.',
+    badge: '✦ PREMIUM PET CARE & NUTRITION',
+    desc: 'Veterinarian-recommended nutrition, healthy natural dog & cat treats, durable interactive chew toys, and wellness supplies to keep your pets thriving.',
+    image: '/hero/card_pet.jpg',
+    imageBadge: 'Vet-Approved Quality',
+    chips: ['🐾 100% Real Meat Recipes', '🦴 Ultra-Durable Chew Toys', '🐕 Gentle Digestion', '🛡️ Safe Transit'],
+    gradient: 'linear-gradient(135deg, #241a0d 0%, #291c0e 55%, #0f172a 100%)',
+    badgeColor: '#fbbf24',
     brands: ['Purina', 'Blue Buffalo', 'KONG', 'Furminator', 'Frontline', 'Hill\'s Science Diet']
   },
   toys_games_baby: {
-    title: 'Toys,games,Baby',
+    title: 'Toys, Games & Baby',
     dealTitle: 'Toys, Games & Baby Deals',
-    badge: 'FAMILY & PLAY',
-    desc: 'Building sets, educational games, family entertainment, nursery gear, and baby essentials.',
+    badge: '✦ PLAY, GAMES & BABY CARE',
+    desc: 'Certified child-safe educational toys, classic family board games, sensory development play sets, and gentle baby care essentials tested for safety.',
+    image: '/hero/card_toys.jpg',
+    imageBadge: 'Child-Safe Certified',
+    chips: ['🧸 100% Non-Toxic & Safe', '🎲 Family Fun Board Games', '👶 Gentle Care Goods', '🛡️ US Safety Standards'],
+    gradient: 'linear-gradient(135deg, #1c1529 0%, #1e172e 55%, #0f172a 100%)',
+    badgeColor: '#c084fc',
     brands: ['LEGO', 'Hasbro', 'Mattel', 'Fisher-Price', 'Pampers', 'Huggies']
   }
 };
@@ -5104,16 +5134,45 @@ class SwiftOrbitsEngineApp {
         const headTitle = document.getElementById('dept-header-title');
         const headDesc = document.getElementById('dept-header-desc');
         const headBadge = document.getElementById('dept-header-badge');
+        const bannerCard = document.getElementById('dept-header-banner-card');
+        const chipsContainer = document.getElementById('dept-feature-chips');
+        const countNumEl = document.getElementById('dept-stat-count-num');
+        const imgEl = document.getElementById('dept-header-img');
+        const imgBadgeEl = document.getElementById('dept-header-img-badge');
 
         if (crumbTitle) crumbTitle.textContent = meta.title;
         if (headTitle) headTitle.textContent = meta.title;
-        if (headDesc) headDesc.textContent = meta.desc || `Explore premium deals and authentic products in ${meta.title}.`;
-        if (headBadge) headBadge.textContent = meta.badge || 'FEATURED DEPARTMENT';
+        if (headDesc) headDesc.textContent = meta.desc;
+        if (headBadge) {
+          headBadge.textContent = meta.badge;
+          if (meta.badgeColor) {
+            headBadge.style.color = meta.badgeColor;
+            headBadge.style.borderColor = meta.badgeColor + '55';
+          }
+        }
+        if (bannerCard && meta.gradient) {
+          bannerCard.style.background = meta.gradient;
+        }
 
-        document.querySelectorAll('.dept-pill-btn').forEach(pill => {
-          if (pill.dataset.cat === effectiveCategory) pill.classList.add('active');
-          else pill.classList.remove('active');
-        });
+        // Render feature chips specific to this category
+        if (chipsContainer && meta.chips) {
+          chipsContainer.innerHTML = meta.chips.map(chip => `<span class="dept-feature-chip">${chip}</span>`).join('');
+        }
+
+        // Update product count for this category
+        const catProducts = this.products.filter(p => p.category === effectiveCategory);
+        if (countNumEl) {
+          countNumEl.textContent = `${catProducts.length} Products`;
+        }
+
+        // Update category spotlight image and guarantee badge
+        if (imgEl && meta.image) {
+          imgEl.src = meta.image;
+          imgEl.alt = meta.title;
+        }
+        if (imgBadgeEl && meta.imageBadge) {
+          imgBadgeEl.textContent = meta.imageBadge;
+        }
       }
     }
 
