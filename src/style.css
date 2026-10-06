@@ -3200,7 +3200,7 @@ form {
    ========================================================================== */
 
 /* ==========================================================================
-   HERO 3-CATEGORY TABS SHOWCASE (TARGET/RETAIL STYLE)
+   HERO 4-CATEGORY TABS SHOWCASE (TARGET/RETAIL STYLE)
    ========================================================================== */
 
 .hero-category-tabs-section {
@@ -3246,15 +3246,15 @@ form {
 
 .hero-category-tabs-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
   width: 100%;
 }
 
 .hero-category-tab-card {
   position: relative;
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 18px;
   border: 2.5px solid transparent;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
   cursor: pointer;
@@ -3268,14 +3268,14 @@ form {
 }
 
 .hero-category-tab-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
   border-color: #cbd5e1;
 }
 
 .hero-category-tab-card.active {
   border-color: #0284c7;
-  box-shadow: 0 8px 26px rgba(2, 132, 199, 0.2);
+  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.22);
 }
 
 .hero-tab-card-inner {
@@ -3287,8 +3287,8 @@ form {
 .hero-tab-image-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 230 / 317;
-  max-height: 420px;
+  aspect-ratio: 1 / 1.05;
+  max-height: 290px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -3296,15 +3296,19 @@ form {
 }
 
 .hero-category-tab-card.tab-kitchen .hero-tab-image-wrap {
-  background: #d4e4e0;
+  background: #dff0ea;
 }
 
 .hero-category-tab-card.tab-beauty .hero-tab-image-wrap {
-  background: #fcdfd7;
+  background: #fae4df;
 }
 
 .hero-category-tab-card.tab-electronics .hero-tab-image-wrap {
-  background: #d9e6f3;
+  background: #dae7f5;
+}
+
+.hero-category-tab-card.tab-health .hero-tab-image-wrap {
+  background: #e3eee3;
 }
 
 .hero-tab-img {
@@ -3320,16 +3324,12 @@ form {
   transform: scale(1.03);
 }
 
-/* Electronics text overlay matching card_kitchen & card_beauty baked typography */
-.hero-tab-image-wrap.electronics-wrap {
-  position: relative;
-}
-
+/* Crisp high-contrast typography overlay for tabs */
 .hero-tab-text-overlay {
   position: absolute;
-  top: 18px;
-  left: 0;
-  right: 0;
+  top: 16px;
+  left: 10px;
+  right: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3338,15 +3338,26 @@ form {
   z-index: 2;
 }
 
-.hero-overlay-line1,
-.hero-overlay-line2 {
+.hero-overlay-line1 {
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
-  line-height: 1.05;
+  font-weight: 800;
+  font-size: clamp(0.92rem, 1.1vw, 1.12rem);
+  line-height: 1.15;
   color: #0f172a;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.85), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.hero-overlay-line2 {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.05rem, 1.25vw, 1.32rem);
+  line-height: 1.1;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.85), 0 0 8px rgba(255, 255, 255, 0.6);
 }
 
 /* Footer info badge on each tab */
@@ -3354,10 +3365,12 @@ form {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
+  padding: 11px 14px;
   background: #ffffff;
   border-top: 1px solid #f1f5f9;
   transition: background-color 0.2s ease, border-color 0.2s ease;
+  min-height: 54px;
+  box-sizing: border-box;
 }
 
 .hero-category-tab-card.active .hero-tab-footer-badge {
@@ -3369,25 +3382,33 @@ form {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .hero-tab-name {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.96rem;
+  font-size: 0.88rem;
   font-weight: 800;
   color: #0f172a;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-tab-sub {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: #64748b;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-tab-arrow-btn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #f1f5f9;
   color: #0f172a;
@@ -3396,6 +3417,7 @@ form {
   justify-content: center;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  margin-left: 8px;
 }
 
 .hero-category-tab-card:hover .hero-tab-arrow-btn,
@@ -3406,12 +3428,13 @@ form {
 }
 
 /* Responsive adjustments */
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .hero-category-tabs-container {
-    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    grid-template-columns: repeat(4, minmax(210px, 1fr));
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
   }
   .hero-category-tab-card {
     scroll-snap-align: start;
@@ -3425,7 +3448,8 @@ form {
     gap: 4px;
   }
   .hero-category-tabs-container {
-    grid-template-columns: repeat(3, minmax(210px, 1fr));
+    grid-template-columns: repeat(4, minmax(190px, 1fr));
+    gap: 12px;
   }
 }
 

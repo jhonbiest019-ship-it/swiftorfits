@@ -32,8 +32,8 @@ const CATEGORY_METADATA = {
     brands: ['Ninja', 'Samsung', 'Breville', 'Instant Pot', 'Vitamix', 'KitchenAid', 'Dyson', 'iRobot Roomba']
   },
   health_household: {
-    title: 'Health & Househeld',
-    dealTitle: 'Health & Househeld Deals',
+    title: 'Health & Household',
+    dealTitle: 'Health & Household Deals',
     badge: 'HEALTH & ESSENTIALS',
     desc: 'Vitamins, supplements, home essentials, wellness products, and daily household supplies.',
     brands: ['Nutricost', 'Levoit', 'Stanley', 'Nature Made', 'Clorox', 'Bounty', 'Lysol']
