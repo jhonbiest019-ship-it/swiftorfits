@@ -24,5 +24,6 @@ dist-ssr
 *.sw?
 backup/
 *.zip
+ready_for_hostinger/
 .env
 *.env
