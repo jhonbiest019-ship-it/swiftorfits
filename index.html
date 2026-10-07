@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SwiftOrbits | USA E-Commerce Marketplace & Merchant ERP</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
-  <link rel="shortcut icon" href="/favicon.ico?v=2" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
+  <link rel="shortcut icon" href="/favicon.ico?v=3" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -440,9 +440,18 @@
         <!-- 2-COLUMN AMAZON/TARGET STYLE LAYOUT -->
         <div class="clean-storefront-layout">
           <!-- LEFT SIDEBAR FILTER PANEL -->
-          <aside class="clean-sidebar">
-            <!-- CATEGORY SELECTOR (FIXED OPEN) -->
-            <div class="sidebar-section">
+          <aside class="clean-sidebar" id="clean-sidebar">
+            <!-- MOBILE FILTER TOGGLE BAR -->
+            <button type="button" class="clean-sidebar-mobile-toggle" id="clean-sidebar-mobile-toggle" aria-expanded="false">
+              <span class="toggle-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                Filter Deals & Departments
+              </span>
+              <span class="toggle-state-text" id="sidebar-toggle-state-text">Show Filters ▼</span>
+            </button>
+            <div class="clean-sidebar-body" id="clean-sidebar-body">
+              <!-- CATEGORY SELECTOR (FIXED OPEN) -->
+              <div class="sidebar-section">
               <div class="dept-accordion-header" id="all-category-header" title="Click to view all categories">
                 <label class="clean-radio-label all-category-label" id="all-category-label">
                   <input type="checkbox" class="dept-cat-circle" id="all-category-radio" value="all" />
@@ -530,6 +539,7 @@
             </div>
 
             <button class="btn-clean-reset" id="cat-reset-filters-btn">Reset All Filters</button>
+            </div>
           </aside>
 
           <!-- RIGHT MAIN PRODUCTS CONTENT -->

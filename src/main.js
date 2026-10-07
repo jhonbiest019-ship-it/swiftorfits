@@ -4766,6 +4766,20 @@ class SwiftOrbitsEngineApp {
       emptyResetBtn.addEventListener('click', () => this.resetCategoryFilters());
     }
 
+    // Mobile Filter Sidebar Toggle
+    const mobileFilterToggleBtn = document.getElementById('clean-sidebar-mobile-toggle');
+    const sidebarBody = document.getElementById('clean-sidebar-body');
+    const toggleStateText = document.getElementById('sidebar-toggle-state-text');
+    if (mobileFilterToggleBtn && sidebarBody) {
+      mobileFilterToggleBtn.addEventListener('click', () => {
+        const isOpen = sidebarBody.classList.toggle('open');
+        mobileFilterToggleBtn.setAttribute('aria-expanded', isOpen);
+        if (toggleStateText) {
+          toggleStateText.textContent = isOpen ? 'Hide Filters ▲' : 'Show Filters ▼';
+        }
+      });
+    }
+
     const applyPriceBtn = document.getElementById('filter-apply-price-btn');
     if (applyPriceBtn) {
       applyPriceBtn.addEventListener('click', () => {
