@@ -1,68 +1,60 @@
 # SwiftOrbits USA Marketplace & Merchant ERP — Complete A to Z Project Backup
 
-**Backup Timestamp:** 2026-10-04 00:30 (PKT)  
+**Backup Timestamp:** 2026-10-06 19:30 (PKT)  
 **Backup Location:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\`  
+**Backup Folder:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\swiftorbit_full_backup\`  
 **ZIP Archive:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\backup\swiftorbit_full_backup.zip`  
 **Workspace Root:** `c:\Users\ZC\OneDrive\Desktop\Swiftorbits\`  
 **Active Servers:**  
-- **Storefront:** [http://localhost:5173/#category=all](http://localhost:5173/#category=all)
-- **Admin Hub / ERP:** [http://localhost:4000/admin](http://localhost:4000/admin)
+- **Storefront:** [http://localhost:5173/](http://localhost:5173/)
+- **Backend API & Merchant Portal:** [http://localhost:4000/admin](http://localhost:4000/admin)
 
 ---
 
-## 🌟 Latest Update: Native Amazon-Style Product Detail Page (PDP) — 100% No Popups, Full In-Website View (2026-10-04)
-- **User Request Addressed:**
-  - *"yar popup ma page open nai hona chaye.website main hi proper new page ki tarah open ho.bilkul smooth sara kam hona chaye.jese har amazon website k page open close hoty hain"*
-- **100% Native Product Detail Page (No Popup Overlays):**
-  - Completely eliminated the old popup/modal overlay (`#checkout-modal` and `.modal-overlay`) with its dark backdrop and scrolling lock.
-  - Built a dedicated, full-width Product Detail Page view (`#view-product-detail.workspace-view`) directly inside the main website content container.
-  - Implemented Amazon's standard 3-Column PDP layout:
-    1. **Column 1 — Gallery & Trust Strip (`.pdp-col-gallery`):**
-       - Main high-resolution product image with hover-zoom box and red deal badge (`-XX% OFF`).
-       - Brand Image Gallery (`#modal-brand-gallery-thumbs`): clickable thumbnails for all other models and products by that brand (or category).
-       - US Guarantee Trust Badges: Ships in 24h, 100% US Warranty, 30-Day Free Returns, 256-Bit SSL Secure Checkout.
-    2. **Column 2 — Product Information & Specs (`.pdp-col-details`):**
-       - Prime 2-Day Shipping pill and Department badge.
-       - "Visit the [Brand] Store" interactive link.
-       - Full product title, SKU, star ratings with verified review count and "100+ bought in past month" social proof.
-       - Pricing banner with limited-time deal tag, sale price, strikethrough regular price, and dollar savings pill.
-       - Technical specifications grid (`#modal-specs-container`) and "About this item" feature bullet points (`#modal-overview-list`).
-    3. **Column 3 — Sticky Buy Box & Express Checkout (`.pdp-col-buybox`):**
-       - Authentic Amazon-style Buy Box with unit price, Prime logo, in-stock badge, and seller details (Ships from / Sold by SwiftOrbits US Hub).
-       - Embedded Instant USA Express Checkout form with customer details, US state selector, quantity spinner, and dynamic grand total calculation.
-       - High-converting Amazon gold "Buy Now — Instant USA Express Checkout" button.
-- **Related Products Recommendation Strip:**
-  - "Customers who viewed this item also viewed" section at bottom of PDP with top 6 department recommendations (`#pdp-related-grid`), enabling seamless item-to-item browsing.
-- **Smooth Amazon-Like Transitions & Navigation:**
-  - Clean hash routing: URL dynamically updates to `#product=<SKU>`.
-  - Seamless return to storefront without reload: "‹ Back to results" button, breadcrumb trail ("SwiftOrbits Store › Department › Brand › Product"), header brand logo, category tabs, and browser back/forward buttons all transition smoothly.
-- **Build & Verification:**
-  - Verified with `npm run build` (0 errors).
-  - All source files synchronized to `backup/` and `swiftorbit_full_backup.zip`.
+## 🌟 Latest Update: 4 Hero Category Tabs, Instant Amazon Category View, Clean Left-Side Header & Hostinger Production Package (2026-10-06 19:30 PKT)
+- **1. 4 Hero Category Tabs Expanded:**
+  - Expanded hero tabs to 4 equal responsive grid cards (`Kitchen & Appliances`, `Beauty & Personal Care`, `Electronics & Smart Tech`, `Health & Household`).
+  - Added rich category badges, clear typography, and product thumbnails.
+- **2. Instant Amazon Category Opening (No Animated Page Scroll):**
+  - Clicking any category tab or subcategory now directly switches to the specific department view immediately without animated scroll jumps (`window.scrollTo({ top: 0, behavior: 'instant' })`).
+- **3. Simplified Category Department Header (Left-Side Only):**
+  - Removed bulky header banner container, right image showcase box, and redundant feature chips.
+  - Retained clean, left-aligned category badge (e.g. `✦ WELLNESS & HOUSEHOLD ESSENTIALS`) and primary department title directly on the page layout.
+  - Kept breadcrumb trail and `← Back to All Departments` navigation.
+- **4. Production Hostinger Deployment Package:**
+  - Configured Apache/LiteSpeed SPA `.htaccess` rewrite rules in `public/` and `dist/`.
+  - Built production bundle (`npm run build`) in `dist/`.
+  - Created ready-to-upload ZIP `dist_ready_for_hostinger.zip` for Hostinger `public_html`.
+- **5. Complete A-to-Z Backup Synchronized:**
+  - Mirrored all latest files to `backup/` and `backup/swiftorbit_full_backup/`.
+  - Regenerated `swiftorbit_full_backup.zip` (55.4 MB) containing all latest frontend, backend, images, and configurations.
 
 ---
 
-## 🌟 Previous Update: Direct Product Detail Page Opening Without Browser Scroll & Deep-Link Hash Routing (2026-10-04)
-- **Direct Full Product Detail Page Opening (No Browser Scroll):**
-  - Resolved user request: *"jab kisi b item pr click kia jai.to os item ko new page open hona chaye.na k web browser ki tarah nichy an...."*.
-  - Clicking any brand tile or product item inside the 4-Quadrant Showcase (`.bream-quad-item`) now **immediately opens the comprehensive Product Detail & Instant US Checkout view** (`this.openCheckoutModal(targetProduct)`).
-  - Completely eliminated `window.scrollTo` smooth scroll down to the bottom grid. The browser viewport remains steady with zero unexpected scrolling.
-- **Deep-Link Hash Routing (`#product=<SKU>`):**
-  - Opening any product dynamically updates the URL hash to `#product=<SKU>` (e.g. `http://localhost:5173/#product=ELEC-APL-001`).
-  - Visiting or refreshing a URL with `#product=<SKU>` directly launches that exact product's detail page immediately upon data load.
-- **Enhanced Modal Behavior & Background Scroll Lock:**
-  - Added background lock (`document.body.style.overflow = 'hidden'`) while modal is active so background does not scroll or shift.
-  - Modal content layout automatically resets scroll to top (`scrollTop = 0`) on every product open.
-  - Added modal backdrop click-to-close and `Escape` key dismiss listeners.
-  - Closing the modal cleans up the URL hash via `history.replaceState` without triggering page jumps.
-- **Brand & Department Image Gallery:**
-  - The modal's Brand Gallery `#modal-brand-gallery` showcases high-res thumbnails of all models for that brand (or top related products from that department), with instant one-click switching between items.
-- **Production Compilation:**
-  - Built production bundle with `vite build` (`dist/`) with 0 errors.
+## 🌟 Previous Update: Kitchen & Appliances Priority, 10s Hero Real Product Rotation, Admin Portal Rotator Controls & Dark Midnight Navy Strips (2026-10-04 13:25 PKT)
+- **1. Kitchen & Appliances Priority Across Entire Storefront:**
+  - Placed **"Kitchen & Appliances"** as category #1 in top subnav, sidebar filter lists, and hero category showcase cards.
+  - On initial site load, while "All Deals" remains active in the top navbar, the storefront defaults directly to displaying "Kitchen & Appliances" category products.
+- **2. Clean Header & Midnight Navy (#08094A) Theming:**
+  - Removed "Today's Deals" title wrap and subnav button as requested.
+  - Darkened top utility bar (`#02031f`), main search header (`#050638`), and subnav strip (`#0b0e4e`) using high-contrast deep midnight navy styling.
+- **3. Real Product Auto-Rotation on 4 Hero Showcase Cards (10s Default):**
+  - All 4 quadrant cards (`Kitchen & Appliances`, `Electronics`, `Beauty Picks`, `Health & Household`) cycle 100% authentic database products.
+  - Smooth visual transition effects (blur exit, pop-in, badge bounce, fade-in).
+  - Hover pause (`mouseenter` / `mouseleave`) allows customers to inspect or click any rotating item to open product details without rush.
+  - Rotation cycle set to 10 seconds default.
+- **4. Admin Portal Rotator Speed & Display Controls (Kam / Ziada System):**
+  - **New Admin Tab & Stat Card:** Added `⚙️ Hero Showcase & Display Settings` in both the storefront SPA Merchant Portal (`#view-admin`) and backend ERP dashboard (`http://localhost:4000/admin`).
+  - **Stepper Buttons (Kam / Ziada):** Dedicated `-5s`, `-1s`, `+1s`, and `+5s` buttons to fine-tune rotation speed.
+  - **Interactive Slider:** Smooth drag slider from 1s to 60s with instant visual indicator.
+  - **Custom Number Input:** Type any duration (1 to 300 seconds).
+  - **1-Click Presets:** 2s, 3s, 5s, 10s (Default), 15s, 20s, 30s.
+  - **Auto-Rotation Toggle:** Enable or Pause auto-rotation on demand.
+  - **PostgreSQL Settings Persistence & Realtime Socket Sync:** Created `site_settings` table, `/api/settings` REST endpoints (GET / POST), and `settings:updated` Socket.IO broadcast for instant, cross-tab synchronization.
+- **5. Production Build:**
+  - Compiled clean with `vite build` to `dist/` with zero errors.
 
 ---
-
-## 🌟 Previous Update: 100% Real-Time Storefront Image Sync, Clean Showcase Cards & Brand Gallery (2026-10-03 23:45 PKT)
 - **100% Real-Time Product & Image Synchronization:**
   - Synchronized all 162 catalog products across the PostgreSQL database, `backend/uploads`, `public/uploads`, and `SWIFT_SEED_PRODUCTS` in `src/main.js`.
   - Replaced all legacy duplicate placeholder images (`/air_fryer.png`, `/niacinamide_serum.png`, etc.) with authentic, distinct product photographs for every brand:

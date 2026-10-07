@@ -883,8 +883,8 @@ body {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
 }
 
 .swift-product-card {
@@ -3908,8 +3908,8 @@ form {
 /* 2-COLUMN LAYOUT */
 .clean-storefront-layout {
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 28px;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
   align-items: start;
 }
 
@@ -4288,10 +4288,11 @@ form {
 }
 
 /* PRODUCT GRID */
+#products-grid.clean-product-grid,
 .clean-product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 18px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 14px !important;
 }
 
 /* CLEAN PRODUCT CARD */
@@ -4375,7 +4376,8 @@ form {
 .clean-deal-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-bottom: 6px;
 }
 
@@ -4511,6 +4513,267 @@ form {
 @media (max-width: 900px) {
   .clean-storefront-layout {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .clean-sidebar {
+    padding: 14px 12px;
+  }
+
+  /* 4 products per row on tablets & medium devices */
+  #products-grid.clean-product-grid,
+  .clean-product-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px;
+  }
+
+  .clean-product-card {
+    padding: 8px 6px;
+  }
+
+  .clean-card-img-wrap {
+    height: 140px;
+    margin-bottom: 8px;
+  }
+
+  .card-quick-add-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    right: 5px;
+    bottom: 5px;
+  }
+
+  .clean-deal-row {
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  .clean-deal-pill {
+    font-size: 9.5px;
+    padding: 2px 4px;
+  }
+
+  .clean-deal-label {
+    font-size: 10px;
+  }
+
+  .clean-price-row {
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .clean-currency {
+    font-size: 10.5px;
+    top: -2px;
+  }
+
+  .clean-price-whole {
+    font-size: 16px;
+  }
+
+  .clean-price-fraction {
+    font-size: 10.5px;
+    top: -2px;
+  }
+
+  .clean-typical-wrap {
+    font-size: 9.5px;
+    margin-left: 3px;
+  }
+
+  .clean-product-title {
+    font-size: 11px;
+    height: 2.6em;
+    margin-bottom: 6px;
+  }
+
+  .clean-rating-row {
+    font-size: 10px;
+    gap: 3px;
+  }
+
+  .clean-stars {
+    font-size: 10.5px;
+  }
+}
+
+/* Smartphone / Mobile View (Screens <= 560px) - Exactly 3 Products per Row */
+@media (max-width: 560px) {
+  .app-main-content {
+    padding: 8px 6px 32px;
+  }
+
+  .clean-main-content {
+    gap: 10px;
+  }
+
+  .clean-toolbar {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .clean-results-count {
+    font-size: 0.76rem;
+  }
+
+  .clean-sort-wrap {
+    font-size: 0.76rem;
+    gap: 4px;
+  }
+
+  .clean-sort-dropdown {
+    padding: 4px 6px;
+    font-size: 0.75rem;
+  }
+
+  /* Exactly 3 products per row on mobile with identical desktop card structure */
+  #products-grid.clean-product-grid,
+  .clean-product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px;
+  }
+
+  .clean-product-card {
+    padding: 5px 4px;
+    border-radius: 6px;
+  }
+
+  .clean-card-img-wrap {
+    height: 96px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+  }
+
+  .clean-card-img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .card-quick-add-btn {
+    width: 22px;
+    height: 22px;
+    font-size: 15px;
+    right: 3px;
+    bottom: 3px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .clean-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .clean-deal-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px 4px;
+    margin-bottom: 3px;
+    line-height: 1.1;
+  }
+
+  .clean-deal-pill {
+    font-size: 7.5px;
+    padding: 1px 3px;
+    border-radius: 2px;
+    letter-spacing: 0;
+  }
+
+  .clean-deal-label {
+    font-size: 8px;
+    line-height: 1.1;
+  }
+
+  .clean-price-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1px 3px;
+    margin-bottom: 3px;
+    line-height: 1;
+  }
+
+  .clean-currency {
+    font-size: 8.5px;
+    top: -2px;
+  }
+
+  .clean-price-whole {
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .clean-price-fraction {
+    font-size: 8.5px;
+    top: -2px;
+  }
+
+  .clean-typical-wrap {
+    font-size: 7.5px;
+    margin-left: 2px;
+  }
+
+  .clean-typical-price {
+    font-size: 7.5px;
+  }
+
+  .clean-product-title {
+    font-size: 9.5px;
+    line-height: 1.25;
+    height: 2.5em;
+    margin-bottom: 3px;
+  }
+
+  .clean-rating-row {
+    font-size: 8px;
+    gap: 2px;
+    margin-top: auto;
+  }
+
+  .clean-stars {
+    font-size: 8.5px;
+    letter-spacing: 0;
+  }
+
+  .clean-rating-score {
+    font-size: 8px;
+  }
+
+  .clean-reviews-count {
+    font-size: 7.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .clean-product-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 4px;
+  }
+
+  .clean-product-card {
+    padding: 4px 3px;
+  }
+
+  .clean-card-img-wrap {
+    height: 85px;
+  }
+
+  .card-quick-add-btn {
+    width: 19px;
+    height: 19px;
+    font-size: 13px;
+    right: 2px;
+    bottom: 2px;
+  }
+
+  .clean-price-whole {
+    font-size: 11.5px;
+  }
+
+  .clean-product-title {
+    font-size: 8.5px;
   }
 }
 
