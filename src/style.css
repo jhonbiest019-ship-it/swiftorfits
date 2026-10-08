@@ -305,6 +305,16 @@ body {
 
 .cart-icon-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+}
+
+.header-cart-svg {
+  color: #ffffff;
+  display: block;
 }
 
 .cart-count-badge {
@@ -322,6 +332,10 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cart-count-badge.hidden {
+  display: none !important;
 }
 
 /* NAVIGATION STRIP */

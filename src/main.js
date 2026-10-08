@@ -3851,6 +3851,7 @@ class SwiftOrbitsEngineApp {
 
     this.cartCountBadge = document.getElementById('cart-count');
     this.headerCartTotal = document.getElementById('header-cart-total');
+    this.updateHeaderCart();
 
     // Modals
     this.checkoutModal = document.getElementById('checkout-modal');
@@ -6064,12 +6065,21 @@ class SwiftOrbitsEngineApp {
   updateHeaderCart() {
     if (!this.cartCountBadge || !this.headerCartTotal) return;
 
-    // ONLY show items added to cart or placed on THIS individual PC
-    const activeItems = (this.myOrders || []).filter(o => o.order_status !== 'cancelled');
-    const totalCount = activeItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
-    const totalSpent = activeItems.reduce((sum, item) => sum + (parseFloat(item.grand_total) || 0), 0);
+    // ONLY show items currently in cart (order_status === 'in_cart' or is_cart_item)
+    const cartItems = (this.myOrders || []).filter(o => (o.is_cart_item || o.order_status === 'in_cart') && o.order_status !== 'cancelled');
+    const totalCount = cartItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+    const totalSpent = cartItems.reduce((sum, item) => sum + (parseFloat(item.grand_total) || 0), 0);
 
-    this.cartCountBadge.textContent = totalCount;
+    if (totalCount > 0) {
+      this.cartCountBadge.textContent = totalCount;
+      this.cartCountBadge.style.display = 'flex';
+      this.cartCountBadge.classList.remove('hidden');
+    } else {
+      this.cartCountBadge.textContent = '0';
+      this.cartCountBadge.style.display = 'none';
+      this.cartCountBadge.classList.add('hidden');
+    }
+
     this.headerCartTotal.textContent = `$${totalSpent.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
   }
 
@@ -6466,7 +6476,14 @@ class SwiftOrbitsEngineApp {
         }
 
         // 1. Remove from visitor's cart if this product was in cart, and add to their personal placed orders
-        this.myOrders = this.myOrders.filter(item => item.sku !== newOrder.sku || !item.is_cart_item);
+        const targetSku = (newOrder.sku || '').toLowerCase();
+        const targetProdId = newOrder.product_id;
+        this.myOrders = this.myOrders.filter(item => {
+          if (!item.is_cart_item && item.order_status !== 'in_cart') return true;
+          const matchSku = Boolean(targetSku && item.sku && item.sku.toLowerCase() === targetSku);
+          const matchId = Boolean(targetProdId && item.product_id && item.product_id === targetProdId);
+          return !(matchSku || matchId);
+        });
         this.myOrders.unshift({
           ...newOrder,
           is_cart_item: false,
@@ -7984,9 +8001,9 @@ class SwiftOrbitsEngineApp {
     const totalSpentEl = document.getElementById('queue-total-spent');
     const listEl = document.getElementById('customer-orders-list');
 
-    const validOrders = (this.myOrders || []).filter(o => o.order_status !== 'cancelled');
-    const totalCount = validOrders.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
-    const grossSpent = validOrders.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
+    const cartItems = (this.myOrders || []).filter(o => (o.is_cart_item || o.order_status === 'in_cart') && o.order_status !== 'cancelled');
+    const totalCount = cartItems.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+    const grossSpent = cartItems.reduce((sum, o) => sum + (parseFloat(o.grand_total) || 0), 0);
 
     if (totalCountEl) totalCountEl.textContent = totalCount;
     if (totalSpentEl) totalSpentEl.textContent = `$${grossSpent.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
