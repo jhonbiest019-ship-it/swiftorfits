@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "sync": "node live-sync.js",
+    "deploy": "node sync_to_hostinger.cjs",
     "backend": "cd backend && npm start",
     "backend:dev": "cd backend && npm run dev",
     "backend:seed": "cd backend && npm run seed",
