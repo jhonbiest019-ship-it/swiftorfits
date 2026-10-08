@@ -3213,7 +3213,7 @@ class SwiftOrbitsEngineApp {
 
     this.currentView = 'storefront';
     this.adminSubview = 'inventory';
-    this.selectedCategory = 'appliances';
+    this.selectedCategory = 'all';
     this.searchQuery = '';
 
     this.categoryPageFilters = {
@@ -3247,11 +3247,15 @@ class SwiftOrbitsEngineApp {
     };
 
     this.initDOM();
+    this.wasReloaded = this.detectAndHandleRefresh();
     this.updateUserProfileUI();
     this.startFlashTimer();
     this.bindEvents();
     this.initCategoryPageEvents();
     this.initHashRouting();
+    if (this.wasReloaded) {
+      this.switchCategory('all');
+    }
     this.renderAll();
     this.initSettings();
 
@@ -3720,7 +3724,7 @@ class SwiftOrbitsEngineApp {
         this.products = data.products;
         this.backendHealthy = true;
         this.renderAll();
-        if (window.location.hash.toLowerCase().startsWith('#product=')) {
+        if (!this.wasReloaded && window.location.hash.toLowerCase().startsWith('#product=')) {
           const sku = decodeURIComponent(window.location.hash.replace(/^#product=/i, ''));
           const targetProd = this.products.find(p => p.sku && p.sku.toLowerCase() === sku.toLowerCase());
           if (targetProd) {
@@ -4006,6 +4010,71 @@ class SwiftOrbitsEngineApp {
     }, 1000);
   }
 
+  detectAndHandleRefresh() {
+    // 1. Force manual scroll restoration so window always starts at the top (0, 0)
+    if ('scrollRestoration' in history) {
+      try { history.scrollRestoration = 'manual'; } catch (e) {}
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+    // 2. Detect page refresh / reload across all desktop & mobile browsers
+    let isReload = false;
+    try {
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries.length > 0 && navEntries[0].type === 'reload') {
+        isReload = true;
+      } else if (window.performance && window.performance.navigation && window.performance.navigation.type === 1) {
+        isReload = true;
+      } else if (sessionStorage.getItem('swift_site_reloaded') === 'true') {
+        isReload = true;
+      }
+    } catch (e) {}
+
+    // Register beforeunload & pagehide listeners for persistent reload tracking on mobile/desktop
+    window.addEventListener('beforeunload', () => {
+      try { sessionStorage.setItem('swift_site_reloaded', 'true'); } catch (e) {}
+    });
+    window.addEventListener('pagehide', () => {
+      try { sessionStorage.setItem('swift_site_reloaded', 'true'); } catch (e) {}
+    });
+
+    if (isReload) {
+      try { sessionStorage.removeItem('swift_site_reloaded'); } catch (e) {}
+
+      // Clean up any remaining URL hash so the address bar is pristine
+      if (window.location.hash) {
+        try {
+          history.replaceState(null, '', window.location.pathname);
+        } catch (e) {}
+      }
+
+      this.currentView = 'storefront';
+      this.selectedCategory = 'all';
+      this.searchQuery = '';
+      if (this.darazSearchInput) this.darazSearchInput.value = '';
+      if (typeof this.resetCategoryFilters === 'function') {
+        this.resetCategoryFilters();
+      }
+
+      // Close all modals
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden'));
+
+      // Ensure storefront view is active and others are hidden
+      if (this.viewStorefront) this.viewStorefront.classList.remove('hidden');
+      if (this.viewProductDetail) this.viewProductDetail.classList.add('hidden');
+      if (this.viewCategoryPage) this.viewCategoryPage.classList.add('hidden');
+      if (this.viewAdmin) this.viewAdmin.classList.add('hidden');
+
+      // Immediate scroll to top
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      });
+    }
+
+    return isReload;
+  }
+
   initHashRouting() {
     const handleHash = () => {
       const rawHash = window.location.hash;
@@ -4057,7 +4126,7 @@ class SwiftOrbitsEngineApp {
     };
 
     window.addEventListener('hashchange', handleHash);
-    if (window.location.hash) {
+    if (!this.wasReloaded && window.location.hash) {
       handleHash();
     }
   }
